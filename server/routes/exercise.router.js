@@ -2,7 +2,6 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-const { query } = require('express');
 
 // Select all exercises from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
