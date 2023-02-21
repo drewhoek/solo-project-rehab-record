@@ -33,27 +33,37 @@ router.post('/', (req, res) => {
 });
 
 // EDIT request to edit a treatment plan
-// router.put('/:id', rejectUnauthenticated, (req, res) => {
-//     // endpoint functionality
-//     const { description, image_url } = req.body;
-//     console.log('in put route');
-//     const qText = `UPDATE "item" SET "description" = $1, "image_url" = $2 WHERE "id" = $3 AND "user_id" = $4;`;
-//     if (req.isAuthenticated()) {
-//       pool
-//         .query(qText, [description, image_url, req.params.id, req.user.id])
-//         .then(response => {
-//           res.sendStatus(204);
-//         })
-//         .catch(err => {
-//           res.sendStatus(500);
-//         });
-//     } else {
-//       res.sendStatus(403);
-//     }
-//   });
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    // endpoint functionality
+    const { visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units, coconut_allergy } = req.body;
+    console.log('in put route');
+    const queryText = `UPDATE "treatment_plans" SET "visit_count" = $1, "primary_complaint_area" = $2, "primary_exercise_focus" = $3, "secondary_exercise_focus" = $4, "units" = $5, "coconut_allergy" = $6 WHERE "id" = $7;`;
+    pool
+        .query(queryText, [visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units, coconut_allergy, req.params.id])
+        .then(response => {
+            res.sendStatus(204);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
 // Maybe a DELETE request to delete a treatment plan
-
-
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    // endpoint functionality
+    console.log('in delete route');
+    const queryText = `DELETE FROM "treatment_plans" WHERE "id" = $1;`;
+    pool
+        .query(queryText, [req.params.id])
+        .then(response => {
+            res.sendStatus(204);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
 
 
 
