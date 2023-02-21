@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // Select all exercises from DB
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   console.log('GET request on /exercises in exercise router');
   pool
     .query(`SELECT * FROM "exercise_bank";`)
