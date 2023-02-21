@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+	Button,
+	FormControl,
+	FormLabel,
+	TextField,
+	RadioGroup,
+	Radio,
+	FormControlLabel,
+} from "@mui/material";
 
 function RegisterForm() {
 	const [username, setUsername] = useState("");
@@ -34,67 +43,75 @@ function RegisterForm() {
 				</h3>
 			)}
 			<div>
-				<label htmlFor="first_name">
+				<FormLabel htmlFor="first_name">
 					First Name:
-					<input
+					<TextField
 						type="text"
 						name="first_name"
 						value={firstName}
 						required
 						onChange={(event) => setFirstName(event.target.value)}
 					/>
-				</label>
+				</FormLabel>
 			</div>
 			<div>
-				<label htmlFor="last_name">
+				<FormLabel htmlFor="last_name">
 					Last Name:
-					<input
+					<TextField
 						type="text"
 						name="last_name"
 						value={lastName}
 						required
 						onChange={(event) => setLastName(event.target.value)}
 					/>
-				</label>
+				</FormLabel>
 			</div>
 			<div>
-				<label htmlFor="username">
+				<FormLabel htmlFor="username">
 					Username:
-					<input
+					<TextField
 						type="text"
 						name="username"
 						value={username}
 						required
 						onChange={(event) => setUsername(event.target.value)}
 					/>
-				</label>
+				</FormLabel>
 			</div>
 			<div>
-				<label htmlFor="password">
+				<FormLabel htmlFor="password">
 					Password:
-					<input
+					<TextField
 						type="password"
 						name="password"
 						value={password}
 						required
 						onChange={(event) => setPassword(event.target.value)}
 					/>
-				</label>
+				</FormLabel>
 			</div>
 			<div>
-				<label htmlFor="username">
-					Are you a Doctor?:
-					<input
-						type="text"
-						name="is_doctor"
-						value={isDoctor}
-						required
-						onChange={(event) => setIsDoctor(event.target.value)}
-					/>
-				</label>
+				<FormLabel htmlFor="is_doctor">Are you a Doctor?:</FormLabel>
+				<RadioGroup
+					defaultValue="No"
+					name="radio-buttons-group"
+					onChange={() => {
+						setIsDoctor(event.target.value);
+					}}
+				>
+					<FormControlLabel value={true} control={<Radio />} label="Yes" />
+					<FormControlLabel value={false} control={<Radio />} label="No" />
+				</RadioGroup>
 			</div>
 			<div>
-				<input className="btn" type="submit" name="submit" value="Register" />
+				<Button
+					variant="contained"
+					className="btn"
+					type="submit"
+					value="Register"
+				>
+					Submit
+				</Button>
 			</div>
 		</form>
 	);
