@@ -32,16 +32,16 @@ router.get('/patient', rejectUnauthenticated, (req, res) => {
 });
 
 // POST request to add a new visit
-router.post('/', (req, res) => {
-    console.log('POST request on /treatment-plan in treatment plan router');
-    const { patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units } = req.body;
-    const queryText = `INSERT INTO "treatment_plans" ("patient_id", "visit_count", "primary_complaint_area", "primary_exercise_focus", "secondary_exercise_focus", "units")
-    VALUES ($1, $2, $3, $4, $5, $6);`;
+router.post('/', rejectUnauthenticated, (req, res) => {
+    console.log('POST request on in visit information router');
+    const { date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id } = req.body;
+    const queryText = `INSERT INTO "visit_information" ("date", "time_in", "time_out", "total_time", "exercise_notes", "muscle_work_notes", "therapist", "units_completed", "treatment_plan_id")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
     pool
-        .query(queryText, [patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units])
+        .query(queryText, [date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id])
         .then((results) => res.sendStatus(201))
         .catch((error) => {
-            console.log('Error making POST to treatment_plans:', error);
+            console.log('Error making POST to visit_information:', error);
             res.sendStatus(500);
         });
 });
@@ -49,11 +49,11 @@ router.post('/', (req, res) => {
 // EDIT request to edit visit information
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     // endpoint functionality
-    const { visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units, coconut_allergy } = req.body;
+    const { date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id } = req.body;
     console.log('in put route');
-    const queryText = `UPDATE "treatment_plans" SET "visit_count" = $1, "primary_complaint_area" = $2, "primary_exercise_focus" = $3, "secondary_exercise_focus" = $4, "units" = $5, "coconut_allergy" = $6 WHERE "id" = $7;`;
+    const queryText = `UPDATE "visit_information" SET "date" = $1, "time_in" = $2, "time_out" = $3, "total_time" = $4, "exercise_notes" = $5, "muscle_work_notes" = $6, "therapist" = $7, "units_completed" = $8, "treatment_plan_id" = $9 WHERE "id" = $10;`;
     pool
-        .query(queryText, [visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units, coconut_allergy, req.params.id])
+        .query(queryText, [date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id, req.params.id])
         .then(response => {
             res.sendStatus(204);
         })
@@ -62,5 +62,23 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
+// DELETE request to delete visit information
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    // endpoint functionality
+    console.log('in delete route');
+    const queryText = `DELETE FROM "visit_information" WHERE "id" = $1`;
+    pool
+        .query(queryText, [req.params.id])
+        .then(response => {
+            res.sendStatus(204);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+
 
 module.exports = router;
