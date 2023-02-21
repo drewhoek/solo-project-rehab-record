@@ -3,10 +3,22 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// Select all exercises from DB
+// Select all patients from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /patients in patients router');
     const queryText = `SELECT "first_name", "last_name" FROM "patients";`;
+    pool
+        .query(queryText)
+        .then((results) => res.send(results.rows))
+        .catch((error) => {
+            console.log('Error making SELECT for patients:', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/with-treatment-plan', rejectUnauthenticated, (req, res) => {
+    console.log('GET request on /patients/with-treatment-plan in patients router');
+    const queryText = `SELECT "first_name", "last_name" FROM "patients" WHERE "has_treatment_plan" = TRUE;`;
     pool
         .query(queryText)
         .then((results) => res.send(results.rows))

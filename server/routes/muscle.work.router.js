@@ -16,6 +16,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// POST request to add new muscle work
 router.post('/', (req, res) => {
     console.log('POST request on /muscle-work in muscle work router');
     const { muscle_work_name, muscle_work_type } = req.body;
@@ -29,7 +30,7 @@ router.post('/', (req, res) => {
         });
 });
 
-// EDIT request to edit patient information
+// EDIT request to edit muscle work information
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in put route');
     const { muscle_work_name, muscle_work_type } = req.body;
