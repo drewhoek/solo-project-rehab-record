@@ -13,6 +13,7 @@ const exerciseRouter = require('./routes/exercise.router');
 const treatmentPlanRouter = require('./routes/treatment.plan.router');
 const visitInfoRouter = require('./routes/visit.information.router');
 const patientRouter = require('./routes/patient.router');
+const muscleWorkRouter = require('./routes/muscle.work.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/exercise', exerciseRouter);
 app.use('/api/treatment-plan', treatmentPlanRouter);
 app.use('/api/visit-information', visitInfoRouter);
 app.use('/api/patients', patientRouter);
+app.use('/api/muscle-work', muscleWorkRouter);
 
 // Serve static files
 app.use(express.static('build'));
