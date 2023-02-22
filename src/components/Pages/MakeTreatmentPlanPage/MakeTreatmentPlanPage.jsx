@@ -12,8 +12,8 @@ export default function MakeTreatmentPlanPage() {
 	const [primaryComplaintArea, setPrimaryComplaintArea] = useState("");
 	const [primaryExerciseFocus, setPrimaryExerciseFocus] = useState("");
 	const [secondaryExerciseFocus, setSecondaryExerciseFocus] = useState("");
-	const [visitCount, setVisitCount] = useState(0);
-	const [coconutAllergy, setCoconutAllergy] = useState(false);
+	const [visitCount, setVisitCount] = useState(null);
+	const [coconutAllergy, setCoconutAllergy] = useState(null);
 	const [notes, setNotes] = useState("");
 
 	// This will be sent to the muscle work saga/reducer
@@ -49,19 +49,56 @@ export default function MakeTreatmentPlanPage() {
 					padding: 3,
 				}}
 			>
-				<form>
+				<form onSubmit={handleSubmitTreatmentPlan}>
 					<TextField label="Patient Name" />
 					{/*this will eventually be an autofill*/}
-					<TextField label="Units of Therapy" />
-					<TextField label="Primary Area of Complaint" />
-					<TextField label="Primary Exercise Focus" />
-					<TextField label="Secondary Exercise Focus" />
+					<TextField
+						required
+						type="number"
+						label="Units of Therapy"
+						value={unitsOfTherapy}
+						onChange={(event) => setUnitsOfTherapy(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Primary Area of Complaint"
+						value={primaryComplaintArea}
+						onChange={(event) => setPrimaryComplaintArea(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Primary Exercise Focus"
+						value={primaryExerciseFocus}
+						onChange={(event) => setPrimaryExerciseFocus(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Secondary Exercise Focus"
+						value={secondaryExerciseFocus}
+						onChange={(event) => secondaryExerciseFocus(event.target.value)}
+					/>
 					<TextField label="Muscle Work" />
 					{/*this will eventually be an autofill*/}
-					<TextField label="Visit Count" />
-					<TextField label="Coconut Allergy" />
-					<TextField label="Noted for Rehab" />
-					<Button variant="contained" onClick={handleSubmitTreatmentPlan}>
+					<TextField
+						required
+						type="number"
+						label="Visit Count"
+						value={visitCount}
+						onChange={(event) => setVisitCount(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Coconut Allergy"
+						value={coconutAllergy}
+						onChange={(event) => setCoconutAllergy(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Notes for Rehab"
+						value={notes}
+						onChange={(event) => setNotes(event.target.value)}
+					/>
+					<Button variant="contained" type="submit">
 						Add
 					</Button>
 				</form>
