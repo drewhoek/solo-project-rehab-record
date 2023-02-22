@@ -9,43 +9,40 @@ export default function MakeTreatmentPlanPage() {
 	const muscleWorkBank = useSelector((store) => store.muscleWorkReducer);
 
 	// All of the following will be dispatched to the treatment plan saga/reducer
-	const [patientId, setPatientId] = useState(undefined);
-	const [unitsOfTherapy, setUnitsOfTherapy] = useState(undefined);
+	const [patientId, setPatientId] = useState(0);
+	const [unitsOfTherapy, setUnitsOfTherapy] = useState(0);
 	const [primaryComplaintArea, setPrimaryComplaintArea] = useState("");
 	const [primaryExerciseFocus, setPrimaryExerciseFocus] = useState("");
 	const [secondaryExerciseFocus, setSecondaryExerciseFocus] = useState("");
-	const [visitCount, setVisitCount] = useState(undefined);
-	const [coconutAllergy, setCoconutAllergy] = useState(undefined);
+	const [visitCount, setVisitCount] = useState(0);
+	const [coconutAllergy, setCoconutAllergy] = useState(false);
 	const [notes, setNotes] = useState("");
-
-	// This will be sent to the muscle work saga/reducer
-	const [muscleWorkName, setMuscleWorkName] = useState("");
-	const [muscleWork, setMuscleWork] = useState([
-		{
-			muscle_work_name: muscleWorkBank[0].muscle_work_name,
-			muscle_work_type: muscleWorkBank[0].muscle_work_type,
-		},
-	]);
-
-	const [value, setValue] = React.useState < any > [userList[0].name];
-
-	const handleSubmitTreatmentPlan = () => {
-		const newTreatmentPlanObject = {
-			patient_id: patientId,
-			visit_count: visitCount,
-			primary_complaint_area: primaryComplaintArea,
-			primary_exercise_focus: primaryExerciseFocus,
-			secondary_exercise_focus: secondaryExerciseFocus,
-			units: unitsOfTherapy,
-			coconut_allergy: coconutAllergy,
-		};
-		dispatch({ type: "ADD_TREATMENT_PLAN", payload: newTreatmentPlanObject });
-	};
 
 	useEffect(() => {
 		dispatch({ type: "FETCH_MUSCLE_WORK" });
 		console.log(muscleWorkBank);
 	}, []);
+
+	// This will be sent to the muscle work saga/reducer
+	const [muscleWorkName, setMuscleWorkName] = useState("");
+	const [muscleWork, setMuscleWork] = useState([undefined]);
+	const [muscleWorkId, setMuscleWorkId] = useState(0);
+
+	const handleSubmitTreatmentPlan = (event) => {
+		event.preventDefault();
+		const newTreatmentPlanObject = {
+			patient_id: Number(patientId),
+			visit_count: Number(visitCount),
+			primary_complaint_area: primaryComplaintArea,
+			primary_exercise_focus: primaryExerciseFocus,
+			secondary_exercise_focus: secondaryExerciseFocus,
+			notes_for_rehab: notes,
+			units: Number(unitsOfTherapy),
+			coconut_allergy: coconutAllergy,
+		};
+		console.log(newTreatmentPlanObject);
+		dispatch({ type: "ADD_TREATMENT_PLAN", payload: newTreatmentPlanObject });
+	};
 
 	return (
 		<Box
@@ -116,14 +113,17 @@ export default function MakeTreatmentPlanPage() {
 						value={notes}
 						onChange={(event) => setNotes(event.target.value)}
 					/>
-					<Box>
+					{/* <Box>
 						<Autocomplete
 							freeSolo
+							value={muscleWork}
+							onChange={(event, newValue) =>
+								setMuscleWork([...muscleWork, newValue])
+							}
 							sx={{
 								width: 600,
 								marginBottom: 2,
 							}}
-							value={muscleWork}
 							id="muscle-work-lookup"
 							getOptionLabel={(muscleWorkBank) =>
 								`${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
@@ -146,30 +146,21 @@ export default function MakeTreatmentPlanPage() {
 									placeholder="Search"
 								/>
 							)}
-						/>
-						<Button
-							variant="contained"
-							onClick={() => {
-								setMuscleWorkName({
-									id: muscleWorkBank.id,
-									name: muscleWorkBank.muscle_work_name,
-									type: muscleWorkBank.muscle_work_type,
-								});
-								setMuscleWork([...muscleWork, muscleWorkName]);
-								console.log(muscleWork);
-								setMuscleWorkName("");
-							}}
-						>
-							Add Muscle Work
-						</Button>
+						/> */}
+					{/* <Button variant="contained">Add Muscle Work</Button>
 						<ul>
 							{muscleWork.map((individualMuscleWork) => (
-								<li key={individualMuscleWork.id}>
-									{individualMuscleWork.name}
-								</li>
+								<li key={individualMuscleWork.id}>{individualMuscleWork}</li>
 							))}
 						</ul>
-					</Box>
+					</Box> */}
+					<TextField
+						required
+						type="number"
+						label="Add Muscle Work"
+						value={muscleWorkId}
+						onChange={(event) => setMuscleWorkId(event.target.value)}
+					/>
 					<Button variant="contained" type="submit">
 						Add
 					</Button>

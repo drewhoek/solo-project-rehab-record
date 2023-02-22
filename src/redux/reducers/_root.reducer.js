@@ -4,7 +4,7 @@ import user from './user.reducer';
 import patientReducer from './patient.reducer';
 import currentTreatmentPlanReducer from './current.treatment.plans.reducer';
 import allTreatmentPlansReducer from './all.treatment.plans.reducer';
-import muscleWorkReducer from './muscle.work.redicer';
+import muscleWorkReducer from './muscle.work.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
