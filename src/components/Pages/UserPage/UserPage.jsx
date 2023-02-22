@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import LogOutButton from "../../Shared/LogOutButton/LogOutButton";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, display, grid } from "@mui/system";
+import { Box } from "@mui/system";
 import { Autocomplete, Button, Paper, TextField } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 function UserPage() {
 	// this component doesn't do much to start, just renders some user reducer info to the DOM
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const user = useSelector((store) => store.user);
 	const patientsWithTreatmentPlans = useSelector(
 		(store) => store.patientReducer
@@ -24,19 +26,30 @@ function UserPage() {
 				flexDirection: "column",
 				justifyContent: "space-between",
 				alignItems: "center",
-				marginBottom: "10",
 			}}
 		>
 			<Box>
 				<h2>Welcome, {user.first_name}!</h2>
-				<p>Your are a {user.is_doctor ? "Doctor" : "Rehab Therapist"}</p>
+				<p>
+					Your are a logged in as a{" "}
+					{user.is_doctor ? "Doctor" : "Rehab Therapist"}
+				</p>
 			</Box>
-			<br />
 			<h2>Begin Rehab Session</h2>
-			<Paper sx={{ width: 500 }}>
+			<Paper
+				elevation={3}
+				sx={{
+					width: 500,
+					marginBottom: 5,
+					padding: 3,
+				}}
+			>
 				<h3>Lookup patient</h3>
 				<Autocomplete
-					sx={{ width: 300 }}
+					sx={{
+						width: 300,
+						marginBottom: 2,
+					}}
 					id="patient-lookup"
 					getOptionLabel={(patientsWithTreatmentPlans) =>
 						`${patientsWithTreatmentPlans.first_name} ${patientsWithTreatmentPlans.last_name}`
@@ -56,10 +69,22 @@ function UserPage() {
 						<TextField {...params} label="Search for Patient" />
 					)}
 				/>
+				<Button variant="contained" onClick={() => history.push("/rehab")}>
+					Next
+				</Button>
 			</Paper>
-			<Paper>
+			<Paper
+				elevation={3}
+				sx={{
+					padding: 3,
+				}}
+			>
 				<h3>Add New Treatment Plan</h3>
-				<Button variant="contained" color="secondary">
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={() => history.push("/make-treatment-plan")}
+				>
 					Go
 				</Button>
 			</Paper>
