@@ -39,7 +39,7 @@ function UserPage() {
 			<Paper
 				elevation={3}
 				sx={{
-					width: 500,
+					width: 400,
 					marginBottom: 5,
 					padding: 3,
 				}}

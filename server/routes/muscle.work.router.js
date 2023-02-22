@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // Select all exercises from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /muscle-work in muscle work router');
-    const queryText = `SELECT "muscle_work_name", "muscle_work_type" FROM "muscle_work_bank";`;
+    const queryText = `SELECT "id", "muscle_work_name", "muscle_work_type" FROM "muscle_work_bank";`;
     pool
         .query(queryText)
         .then((results) => res.send(results.rows))

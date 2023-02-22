@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // Select all patients from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /patients in patients router');
-    const queryText = `SELECT "first_name", "last_name" FROM "patients";`;
+    const queryText = `SELECT * FROM "patients";`;
     pool
         .query(queryText)
         .then((results) => res.send(results.rows))
@@ -18,7 +18,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.get('/with-treatment-plan', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /patients/with-treatment-plan in patients router');
-    const queryText = `SELECT "first_name", "last_name" FROM "patients" WHERE "has_treatment_plan" = TRUE;`;
+    const queryText = `SELECT * FROM "patients" WHERE "has_treatment_plan" = TRUE;`;
     pool
         .query(queryText)
         .then((results) => res.send(results.rows))

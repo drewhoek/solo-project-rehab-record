@@ -1,23 +1,33 @@
-import { Button, Paper, TextField } from "@mui/material";
+import { SetMealSharp } from "@mui/icons-material";
+import { Button, Paper, TextField, Autocomplete } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function MakeTreatmentPlanPage() {
 	const dispatch = useDispatch();
+	const muscleWorkBank = useSelector((store) => store.muscleWorkReducer);
 
 	// All of the following will be dispatched to the treatment plan saga/reducer
-	const [patientId, setPatientId] = useState(null);
-	const [unitsOfTherapy, setUnitsOfTherapy] = useState(null);
+	const [patientId, setPatientId] = useState(undefined);
+	const [unitsOfTherapy, setUnitsOfTherapy] = useState(undefined);
 	const [primaryComplaintArea, setPrimaryComplaintArea] = useState("");
 	const [primaryExerciseFocus, setPrimaryExerciseFocus] = useState("");
 	const [secondaryExerciseFocus, setSecondaryExerciseFocus] = useState("");
-	const [visitCount, setVisitCount] = useState(null);
-	const [coconutAllergy, setCoconutAllergy] = useState(null);
+	const [visitCount, setVisitCount] = useState(undefined);
+	const [coconutAllergy, setCoconutAllergy] = useState(undefined);
 	const [notes, setNotes] = useState("");
 
 	// This will be sent to the muscle work saga/reducer
-	const [muscleWork, setMuscleWork] = useState([]);
+	const [muscleWorkName, setMuscleWorkName] = useState("");
+	const [muscleWork, setMuscleWork] = useState([
+		{
+			muscle_work_name: muscleWorkBank[0].muscle_work_name,
+			muscle_work_type: muscleWorkBank[0].muscle_work_type,
+		},
+	]);
+
+	const [value, setValue] = React.useState < any > [userList[0].name];
 
 	const handleSubmitTreatmentPlan = () => {
 		const newTreatmentPlanObject = {
@@ -32,6 +42,11 @@ export default function MakeTreatmentPlanPage() {
 		dispatch({ type: "ADD_TREATMENT_PLAN", payload: newTreatmentPlanObject });
 	};
 
+	useEffect(() => {
+		dispatch({ type: "FETCH_MUSCLE_WORK" });
+		console.log(muscleWorkBank);
+	}, []);
+
 	return (
 		<Box
 			sx={{
@@ -45,13 +60,18 @@ export default function MakeTreatmentPlanPage() {
 			<Paper
 				elevation={3}
 				sx={{
-					width: 800,
+					width: 600,
 					padding: 3,
 				}}
 			>
 				<form onSubmit={handleSubmitTreatmentPlan}>
-					<TextField label="Patient Name" />
-					{/*this will eventually be an autofill*/}
+					<TextField
+						label="Patient ID"
+						required
+						type="number"
+						value={patientId}
+						onChange={(event) => setPatientId(event.target.value)}
+					/>
 					<TextField
 						required
 						type="number"
@@ -75,10 +95,8 @@ export default function MakeTreatmentPlanPage() {
 						required
 						label="Secondary Exercise Focus"
 						value={secondaryExerciseFocus}
-						onChange={(event) => secondaryExerciseFocus(event.target.value)}
+						onChange={(event) => setSecondaryExerciseFocus(event.target.value)}
 					/>
-					<TextField label="Muscle Work" />
-					{/*this will eventually be an autofill*/}
 					<TextField
 						required
 						type="number"
@@ -98,6 +116,60 @@ export default function MakeTreatmentPlanPage() {
 						value={notes}
 						onChange={(event) => setNotes(event.target.value)}
 					/>
+					<Box>
+						<Autocomplete
+							freeSolo
+							sx={{
+								width: 600,
+								marginBottom: 2,
+							}}
+							value={muscleWork}
+							id="muscle-work-lookup"
+							getOptionLabel={(muscleWorkBank) =>
+								`${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
+							}
+							options={muscleWorkBank}
+							isOptionEqualToValue={(option, value) =>
+								option.muscle_work_name === value.muscle_work_name
+							}
+							noOptionsText={"Not valid muscle work"}
+							renderOption={(props, muscleWorkBank) => (
+								<Box component="li" {...props} key={muscleWorkBank.id}>
+									{muscleWorkBank.muscle_work_name}{" "}
+									{muscleWorkBank.muscle_work_type}
+								</Box>
+							)}
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									label="Search for Muscle Work"
+									placeholder="Search"
+								/>
+							)}
+						/>
+						<Button
+							variant="contained"
+							onClick={() => {
+								setMuscleWorkName({
+									id: muscleWorkBank.id,
+									name: muscleWorkBank.muscle_work_name,
+									type: muscleWorkBank.muscle_work_type,
+								});
+								setMuscleWork([...muscleWork, muscleWorkName]);
+								console.log(muscleWork);
+								setMuscleWorkName("");
+							}}
+						>
+							Add Muscle Work
+						</Button>
+						<ul>
+							{muscleWork.map((individualMuscleWork) => (
+								<li key={individualMuscleWork.id}>
+									{individualMuscleWork.name}
+								</li>
+							))}
+						</ul>
+					</Box>
 					<Button variant="contained" type="submit">
 						Add
 					</Button>
