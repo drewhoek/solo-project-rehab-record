@@ -31,6 +31,21 @@ router.get('/patient', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// GET request to retrieve all previous visits for specific patient
+router.get('/patient-recent-visit', rejectUnauthenticated, (req, res) => {
+    console.log('GET request on /visit-information for specific patient in visit information router');
+    const { treatment_plan_id } = req.body;
+    const queryText = `SELECT * FROM "visit_information" WHERE "treatment_plan_id" = $1 ORDER BY "date" ASC LIMIT 1;
+    `;
+    pool
+        .query(queryText, [treatment_plan_id])
+        .then((results) => res.send(results.rows))
+        .catch((error) => {
+            console.log('Error making SELECT for specific patients visit information:', error);
+            res.sendStatus(500);
+        });
+});
+
 // POST request to add a new visit
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('POST request on in visit information router');
