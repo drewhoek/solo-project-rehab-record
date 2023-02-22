@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LogOutButton from "../../Shared/LogOutButton/LogOutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
@@ -13,6 +13,9 @@ function UserPage() {
 	const patientsWithTreatmentPlans = useSelector(
 		(store) => store.patientReducer
 	);
+
+	const [treatmentPlanId, setTreatmentPlanId] = useState(null);
+	const [inputTreatmentPlanId, setInputTreatmentPlanId] = useState(null);
 
 	useEffect(() => {
 		dispatch({ type: "FETCH_PATIENTS_WITH_PLAN" });
@@ -50,6 +53,14 @@ function UserPage() {
 						width: 300,
 						marginBottom: 2,
 					}}
+					value={treatmentPlanId}
+					onChange={(event, newValue) =>
+						setTreatmentPlanId(newValue.treatment_plan_id)
+					}
+					inputValue={inputTreatmentPlanId}
+					onInputChange={(event, newInputValue) =>
+						setInputTreatmentPlanId(newInputValue.treatment_plan_id)
+					}
 					id="patient-lookup"
 					getOptionLabel={(patientsWithTreatmentPlans) =>
 						`${patientsWithTreatmentPlans.first_name} ${patientsWithTreatmentPlans.last_name}`
@@ -69,7 +80,16 @@ function UserPage() {
 						<TextField {...params} label="Search for Patient" />
 					)}
 				/>
-				<Button variant="contained" onClick={() => history.push("/rehab")}>
+				<Button
+					variant="contained"
+					onClick={() => {
+						dispatch({
+							type: "FETCH_PREVIOUS_VISIT_INFORMATION",
+							payload: { treatment_plan_id: treatmentPlanId },
+						});
+						history.push(`/rehab/${treatmentPlanId}`);
+					}}
+				>
 					Next
 				</Button>
 			</Paper>

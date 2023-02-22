@@ -62,7 +62,7 @@ function App() {
 						<UserPage />
 					</ProtectedRoute>
 
-					<ProtectedRoute exact path="/rehab">
+					<ProtectedRoute exact path="/rehab/:id">
 						<MainRehabPage />
 					</ProtectedRoute>
 

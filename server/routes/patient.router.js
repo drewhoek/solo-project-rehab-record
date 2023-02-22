@@ -18,7 +18,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.get('/with-treatment-plan', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /patients/with-treatment-plan in patients router');
-    const queryText = `SELECT * FROM "patients" WHERE "has_treatment_plan" = TRUE;`;
+    const queryText = `SELECT "first_name", "last_name", "treatment_plans"."id" AS "treatment_plan_id" FROM "patients"
+    JOIN "treatment_plans" ON "patients"."id" = "treatment_plans"."patient_id" WHERE "has_treatment_plan" = TRUE;`;
     pool
         .query(queryText)
         .then((results) => res.send(results.rows))
