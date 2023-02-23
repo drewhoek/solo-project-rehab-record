@@ -12,7 +12,7 @@ export default function RehabSummaryComponent() {
 
 	// Access last visit information
 	const lastVisitInformation = useSelector(
-		(store) => store.visitInformationReducer[0]
+		(store) => store.visitInformationReducer
 	);
 
 	let newDate = moment.utc(lastVisitInformation.date).format("MMM Do, YYYY");
@@ -22,7 +22,7 @@ export default function RehabSummaryComponent() {
 			type: "FETCH_PREVIOUS_VISIT_INFORMATION",
 			payload: treatmentPlanId,
 		});
-	}, []);
+	}, [treatmentPlanId]);
 
 	return (
 		<Box>
@@ -32,7 +32,6 @@ export default function RehabSummaryComponent() {
 			<h2>{lastVisitInformation.units_completed} units completed</h2>
 			<h3>Notes from muscle work: {lastVisitInformation.muscle_work_notes}</h3>
 			<h3>Notes from exercises: {lastVisitInformation.exercise_notes}</h3>{" "}
-			<RehabTimer />
 			<img
 				src="http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg"
 				width={200}

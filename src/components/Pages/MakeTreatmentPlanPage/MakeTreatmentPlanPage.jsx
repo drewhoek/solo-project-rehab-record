@@ -25,8 +25,7 @@ export default function MakeTreatmentPlanPage() {
 	// This will be sent to the muscle work saga/reducer
 	const [muscleWork, setMuscleWork] = useState([]);
 
-	const handleSubmitTreatmentPlan = (event) => {
-		event.preventDefault();
+	const handleSubmitTreatmentPlan = () => {
 		const newTreatmentPlanObject = {
 			patient_id: Number(patientId),
 			visit_count: Number(visitCount),
@@ -58,105 +57,107 @@ export default function MakeTreatmentPlanPage() {
 					padding: 3,
 				}}
 			>
-				<form onSubmit={handleSubmitTreatmentPlan}>
-					<TextField
-						label="Patient ID"
-						required
-						type="number"
-						value={patientId}
-						onChange={(event) => setPatientId(event.target.value)}
-					/>
-					<TextField
-						required
-						type="number"
-						label="Units of Therapy"
-						value={unitsOfTherapy}
-						onChange={(event) => setUnitsOfTherapy(event.target.value)}
-					/>
-					<TextField
-						required
-						label="Primary Area of Complaint"
-						value={primaryComplaintArea}
-						onChange={(event) => setPrimaryComplaintArea(event.target.value)}
-					/>
-					<TextField
-						required
-						label="Primary Exercise Focus"
-						value={primaryExerciseFocus}
-						onChange={(event) => setPrimaryExerciseFocus(event.target.value)}
-					/>
-					<TextField
-						required
-						label="Secondary Exercise Focus"
-						value={secondaryExerciseFocus}
-						onChange={(event) => setSecondaryExerciseFocus(event.target.value)}
-					/>
-					<TextField
-						required
-						type="number"
-						label="Visit Count"
-						value={visitCount}
-						onChange={(event) => setVisitCount(event.target.value)}
-					/>
-					<TextField
-						required
-						label="Coconut Allergy"
-						value={coconutAllergy}
-						onChange={(event) => setCoconutAllergy(event.target.value)}
-					/>
-					<TextField
-						required
-						label="Notes for Rehab"
-						value={notes}
-						onChange={(event) => setNotes(event.target.value)}
-					/>
-					<Box>
-						<Autocomplete
-							value={muscleWork}
-							onChange={(event, newValue) => {
-								setMuscleWork([...muscleWork, newValue]);
-								console.log(muscleWork);
-							}}
-							sx={{
-								width: 600,
-								marginBottom: 2,
-							}}
-							id="muscle-work-lookup"
-							getOptionLabel={(muscleWorkBank) =>
-								`${muscleWorkBank.id} ${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
-							}
-							options={muscleWorkBank}
-							isOptionEqualToValue={(option, value) =>
-								option.muscle_work_name === value.muscle_work_name
-							}
-							noOptionsText={"Not valid muscle work"}
-							renderOption={(props, muscleWorkBank) => (
-								<Box component="li" {...props} key={muscleWorkBank.id}>
-									{muscleWorkBank.muscle_work_name}{" "}
-									{muscleWorkBank.muscle_work_type}
-								</Box>
-							)}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									label="Search for Muscle Work"
-									placeholder="Search"
-								/>
-							)}
-						/>{" "}
-						<ul>
-							{muscleWork.map((individualMuscleWork) => (
-								<li key={individualMuscleWork.id}>
-									{individualMuscleWork.muscle_work_name}{" "}
-									{individualMuscleWork.muscle_work_type}
-								</li>
-							))}
-						</ul>
-					</Box>
-					<Button variant="contained" type="submit">
-						Add
-					</Button>
-				</form>
+				<TextField
+					label="Patient ID"
+					required
+					type="number"
+					value={patientId}
+					onChange={(event) => setPatientId(event.target.value)}
+				/>
+				<TextField
+					required
+					type="number"
+					label="Units of Therapy"
+					value={unitsOfTherapy}
+					onChange={(event) => setUnitsOfTherapy(event.target.value)}
+				/>
+				<TextField
+					required
+					label="Primary Area of Complaint"
+					value={primaryComplaintArea}
+					onChange={(event) => setPrimaryComplaintArea(event.target.value)}
+				/>
+				<TextField
+					required
+					label="Primary Exercise Focus"
+					value={primaryExerciseFocus}
+					onChange={(event) => setPrimaryExerciseFocus(event.target.value)}
+				/>
+				<TextField
+					required
+					label="Secondary Exercise Focus"
+					value={secondaryExerciseFocus}
+					onChange={(event) => setSecondaryExerciseFocus(event.target.value)}
+				/>
+				<TextField
+					required
+					type="number"
+					label="Visit Count"
+					value={visitCount}
+					onChange={(event) => setVisitCount(event.target.value)}
+				/>
+				<TextField
+					required
+					label="Coconut Allergy"
+					value={coconutAllergy}
+					onChange={(event) => setCoconutAllergy(event.target.value)}
+				/>
+				<TextField
+					required
+					label="Notes for Rehab"
+					value={notes}
+					onChange={(event) => setNotes(event.target.value)}
+				/>
+				<Button
+					variant="contained"
+					type="button"
+					onClick={handleSubmitTreatmentPlan}
+				>
+					Add
+				</Button>
+				<Box>
+					<Autocomplete
+						value={muscleWork}
+						onChange={(event, newValue) => {
+							setMuscleWork([...muscleWork, newValue]);
+							console.log(muscleWork);
+						}}
+						sx={{
+							width: 600,
+							marginBottom: 2,
+						}}
+						id="muscle-work-lookup"
+						getOptionLabel={(muscleWorkBank) =>
+							`${muscleWorkBank.id} ${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
+						}
+						options={muscleWorkBank}
+						isOptionEqualToValue={(option, value) =>
+							option.muscle_work_name === value.muscle_work_name
+						}
+						noOptionsText={"Not valid muscle work"}
+						renderOption={(props, muscleWorkBank) => (
+							<Box component="li" {...props} key={muscleWorkBank.id}>
+								{muscleWorkBank.muscle_work_name}{" "}
+								{muscleWorkBank.muscle_work_type}
+							</Box>
+						)}
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								label="Search for Muscle Work"
+								placeholder="Search"
+							/>
+						)}
+					/>{" "}
+					<ul>
+						{muscleWork.map((individualMuscleWork) => (
+							<li key={individualMuscleWork.id}>
+								{individualMuscleWork.muscle_work_name}{" "}
+								{individualMuscleWork.muscle_work_type}
+							</li>
+						))}
+					</ul>
+				</Box>
 			</Paper>
 		</Box>
 	);

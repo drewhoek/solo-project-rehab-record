@@ -39,7 +39,7 @@ router.get('/patient-recent-visit/:treatmentId', rejectUnauthenticated, (req, re
     `;
     pool
         .query(queryText, [treatmentId])
-        .then((results) => res.send(results.rows))
+        .then((results) => res.send(results.rows[0]))
         .catch((error) => {
             console.log('Error making SELECT for specific patients last visit information:', error);
             res.sendStatus(500);

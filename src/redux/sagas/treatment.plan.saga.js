@@ -14,7 +14,7 @@ function* fetchActiveTreatmentPlansSaga() {
 
 function* fetchAllTreatmentPlansSaga() {
     try {
-        const response = yield axios.get('/api/patients/treatment-plan');
+        const response = yield axios.get('/api/treatment-plan');
         yield put({ type: 'SET_ALL_TREATMENT_PLANS', payload: response.data });
         console.log(response);
     } catch (error) {
@@ -22,13 +22,13 @@ function* fetchAllTreatmentPlansSaga() {
     }
 }
 
-function* addTreatmentPlanSaga() {
+function* addTreatmentPlanSaga(action) {
     try {
-        yield axios.post('/api/patients/treatment-plan', action.payload);
+        yield axios.post('/api/treatment-plan', action.payload);
         yield put({ type: 'FETCH_ALL_TREATMENT_PLANS' });
-        console.log(response);
+        console.log(action.payload);
     } catch (error) {
-        console.log('get request failed', error);
+        console.log('get post failed', error);
     }
 }
 
