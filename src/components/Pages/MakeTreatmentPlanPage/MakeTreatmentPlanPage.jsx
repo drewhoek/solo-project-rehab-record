@@ -20,13 +20,10 @@ export default function MakeTreatmentPlanPage() {
 
 	useEffect(() => {
 		dispatch({ type: "FETCH_MUSCLE_WORK" });
-		console.log(muscleWorkBank);
 	}, []);
 
 	// This will be sent to the muscle work saga/reducer
-	const [muscleWorkName, setMuscleWorkName] = useState("");
-	const [muscleWork, setMuscleWork] = useState([undefined]);
-	const [muscleWorkId, setMuscleWorkId] = useState(0);
+	const [muscleWork, setMuscleWork] = useState([]);
 
 	const handleSubmitTreatmentPlan = (event) => {
 		event.preventDefault();
@@ -113,20 +110,20 @@ export default function MakeTreatmentPlanPage() {
 						value={notes}
 						onChange={(event) => setNotes(event.target.value)}
 					/>
-					{/* <Box>
+					<Box>
 						<Autocomplete
-							freeSolo
 							value={muscleWork}
-							onChange={(event, newValue) =>
-								setMuscleWork([...muscleWork, newValue])
-							}
+							onChange={(event, newValue) => {
+								setMuscleWork([...muscleWork, newValue]);
+								console.log(muscleWork);
+							}}
 							sx={{
 								width: 600,
 								marginBottom: 2,
 							}}
 							id="muscle-work-lookup"
 							getOptionLabel={(muscleWorkBank) =>
-								`${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
+								`${muscleWorkBank.id} ${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
 							}
 							options={muscleWorkBank}
 							isOptionEqualToValue={(option, value) =>
@@ -146,21 +143,16 @@ export default function MakeTreatmentPlanPage() {
 									placeholder="Search"
 								/>
 							)}
-						/> */}
-					{/* <Button variant="contained">Add Muscle Work</Button>
+						/>{" "}
 						<ul>
 							{muscleWork.map((individualMuscleWork) => (
-								<li key={individualMuscleWork.id}>{individualMuscleWork}</li>
+								<li key={individualMuscleWork.id}>
+									{individualMuscleWork.muscle_work_name}{" "}
+									{individualMuscleWork.muscle_work_type}
+								</li>
 							))}
 						</ul>
-					</Box> */}
-					<TextField
-						required
-						type="number"
-						label="Add Muscle Work"
-						value={muscleWorkId}
-						onChange={(event) => setMuscleWorkId(event.target.value)}
-					/>
+					</Box>
 					<Button variant="contained" type="submit">
 						Add
 					</Button>

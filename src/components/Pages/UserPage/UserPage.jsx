@@ -57,10 +57,6 @@ function UserPage() {
 					onChange={(event, newValue) =>
 						setTreatmentPlanId(newValue.treatment_plan_id)
 					}
-					inputValue={inputTreatmentPlanId}
-					onInputChange={(event, newInputValue) =>
-						setInputTreatmentPlanId(newInputValue.treatment_plan_id)
-					}
 					id="patient-lookup"
 					getOptionLabel={(patientsWithTreatmentPlans) =>
 						`${patientsWithTreatmentPlans.first_name} ${patientsWithTreatmentPlans.last_name}`

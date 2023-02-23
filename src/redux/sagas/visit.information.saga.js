@@ -4,7 +4,8 @@ import { takeLatest } from 'redux-saga/effects';
 
 function* fetchLastVisitInformationSaga() {
     try {
-        const response = yield axios.get('/api/visit-information/patient-recent-visit');
+        const response = yield axios.get('/api/visit-information/patient-recent-visit', { treatment_plan_id: action.payload });
+        console.log(action.payload);
         yield put({ type: 'SET_PREVIOUS_VISIT_INFORMATION', payload: response.data });
         console.log(response);
     } catch (error) {
@@ -13,8 +14,8 @@ function* fetchLastVisitInformationSaga() {
 }
 
 
-function* treatmentPlanSaga() {
-    yield takeLatest('FETCH_PREVIOUS_VISIT_INFORMATION', fetchAllTreatmentPlansSaga);
+function* visitInformationSaga() {
+    yield takeLatest('FETCH_PREVIOUS_VISIT_INFORMATION', fetchLastVisitInformationSaga);
 }
 
-export default treatmentPlanSaga;
+export default visitInformationSaga;

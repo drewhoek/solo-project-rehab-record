@@ -31,7 +31,7 @@ router.get('/patient', rejectUnauthenticated, (req, res) => {
         });
 });
 
-// GET request to retrieve all previous visits for specific patient
+// GET request to retrieve previous visit for specific patient
 router.get('/patient-recent-visit', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /visit-information for specific patients last visit in visit information router');
     const { treatment_plan_id } = req.body;
