@@ -57,4 +57,17 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+
+// ------------------- Muscle work to be done routes ------------------ //
+router.get('/to-be-done', rejectUnauthenticated, (req, res) => {
+    console.log('GET request on /muscle-work/to-be-done in muscle work router');
+    const queryText = `SELECT "id", "muscle_work_name", "muscle_work_type" FROM "muscle_work_bank";`;
+    pool
+        .query(queryText)
+        .then((results) => res.send(results.rows))
+        .catch((error) => {
+            console.log('Error making SELECT for muscle work:', error);
+            res.sendStatus(500);
+        });
+});
 module.exports = router;

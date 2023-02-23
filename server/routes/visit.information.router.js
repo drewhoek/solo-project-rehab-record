@@ -32,13 +32,13 @@ router.get('/patient', rejectUnauthenticated, (req, res) => {
 });
 
 // GET request to retrieve previous visit for specific patient
-router.get('/patient-recent-visit', rejectUnauthenticated, (req, res) => {
+router.get('/patient-recent-visit/:treatmentId', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /visit-information for specific patients last visit in visit information router');
-    const { treatment_plan_id } = req.body;
+    const treatmentId = req.params.treatmentId;
     const queryText = `SELECT * FROM "visit_information" WHERE "treatment_plan_id" = $1 ORDER BY "date" ASC LIMIT 1;
     `;
     pool
-        .query(queryText, [treatment_plan_id])
+        .query(queryText, [treatmentId])
         .then((results) => res.send(results.rows))
         .catch((error) => {
             console.log('Error making SELECT for specific patients last visit information:', error);

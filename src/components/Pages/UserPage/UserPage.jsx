@@ -15,7 +15,6 @@ function UserPage() {
 	);
 
 	const [treatmentPlanId, setTreatmentPlanId] = useState(null);
-	const [inputTreatmentPlanId, setInputTreatmentPlanId] = useState(null);
 
 	useEffect(() => {
 		dispatch({ type: "FETCH_PATIENTS_WITH_PLAN" });
@@ -63,7 +62,7 @@ function UserPage() {
 					}
 					options={patientsWithTreatmentPlans}
 					isOptionEqualToValue={(option, value) =>
-						option.first_name === value.first_name
+						option.treatment_plan_id === value.treatment_plan_id
 					}
 					noOptionsText={"No patients with this name"}
 					renderOption={(props, patientsWithTreatmentPlans) => (
@@ -79,10 +78,6 @@ function UserPage() {
 				<Button
 					variant="contained"
 					onClick={() => {
-						dispatch({
-							type: "FETCH_PREVIOUS_VISIT_INFORMATION",
-							payload: { treatment_plan_id: treatmentPlanId },
-						});
 						history.push(`/rehab/${treatmentPlanId}`);
 					}}
 				>

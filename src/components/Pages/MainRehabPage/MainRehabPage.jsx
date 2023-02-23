@@ -1,6 +1,8 @@
 import RehabSummaryComponent from "./RehabComponents/RehabSummaryComponent";
 import ExerciseDocumentationComponent from "./RehabComponents/ExerciseDocumentationComponent";
 import RehabTimer from "./RehabComponents/RehabTimer";
+import MuscleWorkDocumentation from "./RehabComponents/MuscleWorkDocumentationComponent";
+import ReviewRehabComponent from "./RehabComponents/ReviewRehabComponent";
 import { Stack } from "@mui/system";
 
 export default function MainRehabPage() {
@@ -10,6 +12,8 @@ export default function MainRehabPage() {
 			<RehabSummaryComponent />
 			<RehabTimer />
 			<ExerciseDocumentationComponent />
+			<MuscleWorkDocumentation />
+			<ReviewRehabComponent />
 		</Stack>
 	);
 }

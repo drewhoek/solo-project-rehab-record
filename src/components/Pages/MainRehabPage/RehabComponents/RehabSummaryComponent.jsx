@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 export default function RehabSummaryComponent() {
 	const params = useParams();
@@ -11,27 +12,27 @@ export default function RehabSummaryComponent() {
 
 	// Access last visit information
 	const lastVisitInformation = useSelector(
-		(store) => store.visitInformationReducer
+		(store) => store.visitInformationReducer[0]
 	);
+
+	let newDate = moment.utc(lastVisitInformation.date).format("MMM Do, YYYY");
 
 	useEffect(() => {
 		dispatch({
 			type: "FETCH_PREVIOUS_VISIT_INFORMATION",
 			payload: treatmentPlanId,
 		});
-		console.log(treatmentPlanId);
 	}, []);
 
 	return (
 		<Box>
 			<pre>{JSON.stringify(lastVisitInformation)}</pre>
 			<h1>Complaint Area</h1>
-			<h2>Last Visit Date</h2>
-			<h2>Units of Therapy</h2>
-			<h3>Previous Muscle Work</h3>
-			<h3>Previous Exercises</h3>
-			<h3>Notes from last rehab session</h3>
-			<Button>Begin Therapy</Button>
+			<h2>{newDate}</h2>
+			<h2>{lastVisitInformation.units_completed} units completed</h2>
+			<h3>Notes from muscle work: {lastVisitInformation.muscle_work_notes}</h3>
+			<h3>Notes from exercises: {lastVisitInformation.exercise_notes}</h3>{" "}
+			<RehabTimer />
 			<img
 				src="http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg"
 				width={200}
