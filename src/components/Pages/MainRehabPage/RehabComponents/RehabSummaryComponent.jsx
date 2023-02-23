@@ -6,23 +6,12 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 
 export default function RehabSummaryComponent() {
-	const params = useParams();
-	const dispatch = useDispatch();
-	const treatmentPlanId = Number(params.id);
-
 	// Access last visit information
 	const lastVisitInformation = useSelector(
 		(store) => store.visitInformationReducer
 	);
 
 	let newDate = moment.utc(lastVisitInformation.date).format("MMM Do, YYYY");
-
-	useEffect(() => {
-		dispatch({
-			type: "FETCH_PREVIOUS_VISIT_INFORMATION",
-			payload: treatmentPlanId,
-		});
-	}, [treatmentPlanId]);
 
 	return (
 		<Box>

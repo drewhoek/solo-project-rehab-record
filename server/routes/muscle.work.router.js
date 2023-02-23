@@ -59,11 +59,15 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
 
 // ------------------- Muscle work to be done routes ------------------ //
-router.get('/to-be-done', rejectUnauthenticated, (req, res) => {
+router.get('/to-be-done-per-session/:planId', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /muscle-work/to-be-done in muscle work router');
-    const queryText = `SELECT "id", "muscle_work_name", "muscle_work_type" FROM "muscle_work_bank";`;
+    const queryText = `SELECT "muscle_work_to_be_done_per_visit"."id" AS "muscle_work_to_be_done_per_visit_id", "muscle_work_name", "muscle_work_type", "is_done", "visit_information"."id" AS "visit_id" FROM "muscle_work_to_be_done_per_visit"
+    JOIN "visit_information" ON "muscle_work_to_be_done_per_visit"."visit_information_id" = "visit_information"."id"
+    JOIN "treatment_plans" ON "visit_information"."treatment_plan_id" = "treatment_plans"."id" 
+    JOIN "muscle_work_to_be_done" ON "muscle_work_to_be_done_per_visit"."muscle_work_to_be_done_id" = "muscle_work_to_be_done"."id"
+    JOIN "muscle_work_bank" ON "muscle_work_to_be_done"."muscle_work_id" = "muscle_work_bank"."id" WHERE "treatment_plans"."id" = $1;`;
     pool
-        .query(queryText)
+        .query(queryText, [req.params.planId])
         .then((results) => res.send(results.rows))
         .catch((error) => {
             console.log('Error making SELECT for muscle work:', error);
