@@ -14,11 +14,11 @@ function* fetchPatientInfoSaga(action) {
 
 function* updatePatientInfoSaga(action) {
     try {
-        yield axios.put(`/api/patients/${action.payload.id}`, action.payload);
-        yield put({ type: 'FETCH_PATIENT_INFO' });
+        const response = yield axios.put(`/api/patients/${action.payload}`);
+        yield put({ type: 'FETCH_PATIENT_INFO', payload: response.data });
         console.log(response);
     } catch (error) {
-        console.log('get request failed', error);
+        console.log('put request failed', error);
     }
 }
 

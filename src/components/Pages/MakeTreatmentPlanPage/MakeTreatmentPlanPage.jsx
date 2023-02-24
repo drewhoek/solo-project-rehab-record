@@ -36,7 +36,7 @@ export default function MakeTreatmentPlanPage() {
 		};
 		console.log(newTreatmentPlanObject);
 		dispatch({ type: "ADD_TREATMENT_PLAN", payload: newTreatmentPlanObject });
-		dispatch({ type: "" });
+		dispatch({ type: "UPDATE_PATIENT_INFO", payload: patientId });
 	};
 
 	return (
