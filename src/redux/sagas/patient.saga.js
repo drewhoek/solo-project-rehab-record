@@ -16,4 +16,4 @@ function* patientSaga() {
     yield takeLatest('FETCH_PATIENTS_WITH_PLAN', fetchPatientSaga);
 }
 
-export default patientSaga;
+export default patientSaga;;

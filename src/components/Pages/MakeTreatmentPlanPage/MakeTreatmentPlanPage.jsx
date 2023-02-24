@@ -15,7 +15,6 @@ export default function MakeTreatmentPlanPage() {
 	const [primaryExerciseFocus, setPrimaryExerciseFocus] = useState("");
 	const [secondaryExerciseFocus, setSecondaryExerciseFocus] = useState("");
 	const [visitCount, setVisitCount] = useState(0);
-	const [coconutAllergy, setCoconutAllergy] = useState(false);
 	const [notes, setNotes] = useState("");
 
 	useEffect(() => {
@@ -34,10 +33,10 @@ export default function MakeTreatmentPlanPage() {
 			secondary_exercise_focus: secondaryExerciseFocus,
 			notes_for_rehab: notes,
 			units: Number(unitsOfTherapy),
-			coconut_allergy: coconutAllergy,
 		};
 		console.log(newTreatmentPlanObject);
 		dispatch({ type: "ADD_TREATMENT_PLAN", payload: newTreatmentPlanObject });
+		dispatch({ type: "" });
 	};
 
 	return (
@@ -95,12 +94,6 @@ export default function MakeTreatmentPlanPage() {
 					label="Visit Count"
 					value={visitCount}
 					onChange={(event) => setVisitCount(event.target.value)}
-				/>
-				<TextField
-					required
-					label="Coconut Allergy"
-					value={coconutAllergy}
-					onChange={(event) => setCoconutAllergy(event.target.value)}
 				/>
 				<TextField
 					required

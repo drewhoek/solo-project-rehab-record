@@ -20,11 +20,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // POST request to add a new treatment plan
 router.post('/', (req, res) => {
     console.log('POST request on /treatment-plan in treatment plan router');
-    const { patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units } = req.body;
-    const queryText = `INSERT INTO "treatment_plans" ("patient_id", "visit_count", "primary_complaint_area", "primary_exercise_focus", "secondary_exercise_focus", "units")
-    VALUES ($1, $2, $3, $4, $5, $6);`;
+    const { patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, notes_for_rehab, units } = req.body;
+    const queryText = `INSERT INTO "treatment_plans" ("patient_id", "visit_count", "primary_complaint_area", "primary_exercise_focus", "secondary_exercise_focus", "notes_for_rehab", "units")
+    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
     pool
-        .query(queryText, [patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, units])
+        .query(queryText, [patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, notes_for_rehab, units])
         .then((results) => res.sendStatus(201))
         .catch((error) => {
             console.log('Error making POST to treatment_plans:', error);

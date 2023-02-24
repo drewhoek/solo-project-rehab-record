@@ -8,7 +8,8 @@ import muscleWorkReducer from './muscle.work.reducer';
 import visitInformationReducer from './visit.information.reducer';
 import muscleWorkToBeDoneReducer from './muscle.work.to.be.done.reducer';
 import allExercisesDoneReducer from './all.exercises.done.reducer';
-
+import buildVisitInformationReducer from './build.visit.info.reducer';
+import patientInfoReducer from './patient.info.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -24,7 +25,9 @@ const rootReducer = combineReducers({
   muscleWorkReducer,
   visitInformationReducer,
   muscleWorkToBeDoneReducer,
-  allExercisesDoneReducer
+  allExercisesDoneReducer,
+  buildVisitInformationReducer,
+  patientInfoReducer
 });
 
 export default rootReducer;
