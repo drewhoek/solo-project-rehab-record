@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function RehabTimer() {
+	const dispatch = useDispatch();
 	const [startTime, setStartTime] = useState(null);
 	const [endTime, setEndTime] = useState(null);
 	const [pausedTime, setPausedTime] = useState(null);
@@ -23,7 +25,7 @@ function RehabTimer() {
 				time_out: formatTimeOfDay(endTime),
 				total_time: totalTime,
 			};
-			console.log(timeObject);
+			dispatch({ type: "SET_TIME_AND_DATE", payload: timeObject });
 		}
 	}, [endTime]);
 

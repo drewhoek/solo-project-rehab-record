@@ -6,6 +6,8 @@ export default function ReviewRehabComponent() {
 		(store) => store.allExercisesDoneReducer
 	);
 
+	const timeInformation = useSelector((store) => store.rehabTimerReducer);
+
 	return (
 		<>
 			<h1>Review Information</h1>
@@ -22,6 +24,10 @@ export default function ReviewRehabComponent() {
 					}}
 				>
 					Review Time
+					<h4>Date: {timeInformation.date}</h4>
+					<h4>Time In: {timeInformation.time_in}</h4>
+					<h4>Time Out: {timeInformation.time_out}</h4>
+					<h4>Total Time: {timeInformation.total_time}</h4>
 				</Paper>
 				<Paper
 					sx={{
@@ -29,7 +35,18 @@ export default function ReviewRehabComponent() {
 					}}
 				>
 					Review Exercises Done
-					<pre>{JSON.stringify(exerciseInformation)}</pre>
+					{/* <pre>{JSON.stringify(exerciseInformation)}</pre> */}
+					{exerciseInformation.map((exercise) => (
+						<Box key={exercise.exercise_id}>
+							<h3>Exercise Name: {exercise.exercise_id}</h3>
+							<ul>
+								<li>Exercise Variation: {exercise.variation_id}</li>
+								<li>Sets: {exercise.sets_done}</li>
+								<li>Reps: {exercise.reps_done}</li>
+								<li>Notes: {exercise.notes_for_exercise}</li>
+							</ul>
+						</Box>
+					))}
 				</Paper>
 				<Paper
 					sx={{
