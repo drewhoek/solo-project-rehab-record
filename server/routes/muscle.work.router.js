@@ -61,7 +61,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 // ------------------- Muscle work to be done routes ------------------ //
 router.get('/to-be-done-per-session/:planId', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /muscle-work/to-be-done in muscle work router');
-    const queryText = `SELECT "muscle_work_to_be_done_per_visit"."id" AS "muscle_work_to_be_done_per_visit_id", "muscle_work_name", "muscle_work_type", "is_done", "visit_information"."id" AS "visit_id" FROM "muscle_work_to_be_done_per_visit"
+    const queryText = `SELECT "muscle_work_to_be_done_per_visit"."id" AS "muscle_work_to_be_done_per_visit_id", "muscle_work_name", "muscle_work_type", "is_done", "visit_information"."id" AS "visit_id", "treatment_plans"."id" AS "treatment_plan_id" FROM "muscle_work_to_be_done_per_visit"
     JOIN "visit_information" ON "muscle_work_to_be_done_per_visit"."visit_information_id" = "visit_information"."id"
     JOIN "treatment_plans" ON "visit_information"."treatment_plan_id" = "treatment_plans"."id" 
     JOIN "muscle_work_to_be_done" ON "muscle_work_to_be_done_per_visit"."muscle_work_to_be_done_id" = "muscle_work_to_be_done"."id"
@@ -74,4 +74,17 @@ router.get('/to-be-done-per-session/:planId', rejectUnauthenticated, (req, res) 
             res.sendStatus(500);
         });
 });
+
+router.put('/to-be-done-per-session/:muscleWorkId', rejectUnauthenticated, (req, res) => {
+    console.log('GET request on /muscle-work/to-be-done in muscle work router');
+    const queryText = `UPDATE "muscle_work_to_be_done_per_visit" SET "is_done"= NOT "is_done" WHERE "muscle_work_to_be_done_per_visit"."id" = $1;`;
+    pool
+        .query(queryText, [req.params.muscleWorkId])
+        .then((results) => res.send(results.rows))
+        .catch((error) => {
+            console.log('Error making SELECT for muscle work:', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;

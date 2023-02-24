@@ -10,8 +10,9 @@ import { useParams } from "react-router-dom";
 
 export default function MainRehabPage() {
 	const params = useParams();
-	const dispatch = useDispatch();
 	const treatmentPlanId = Number(params.id);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch({
@@ -29,7 +30,7 @@ export default function MainRehabPage() {
 			<h1>This is the main rehab page</h1>
 			<RehabSummaryComponent />
 			<RehabTimer />
-			<ExerciseDocumentationComponent treatmentPlanId={treatmentPlanId} />
+			<ExerciseDocumentationComponent />
 			<MuscleWorkDocumentation />
 			<ReviewRehabComponent />
 		</Stack>

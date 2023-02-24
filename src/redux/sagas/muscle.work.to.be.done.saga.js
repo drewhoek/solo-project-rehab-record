@@ -12,8 +12,19 @@ function* fetchMuscleWorkToBeDoneSaga(action) {
     }
 }
 
+function* markMuscleWorkAsDone(action) {
+    try {
+        yield axios.put(`api/muscle-work/to-be-done-per-session/${action.payload.toBeDoneId}`);
+        yield put({ type: 'FETCH_MUSCLE_WORK_TO_BE_DONE', payload: action.payload.treatment_plan_id });
+        console.log(response);
+    } catch (error) {
+        console.log('get request failed', error);
+    }
+}
+
 function* muscleWorkToBeDoneSaga() {
     yield takeLatest('FETCH_MUSCLE_WORK_TO_BE_DONE', fetchMuscleWorkToBeDoneSaga);
+    yield takeLatest('MARK_MUSCLE_WORK_COMPLETE', markMuscleWorkAsDone);
 }
 
 export default muscleWorkToBeDoneSaga;
