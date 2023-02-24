@@ -16,7 +16,7 @@ export default function ExerciseDocumentationComponent() {
 			variation_id: Number(exerciseVariation),
 			sets_done: Number(sets),
 			reps_done: Number(reps),
-			notes_for_exercise: Number(notes),
+			notes_for_exercise: notes,
 		};
 		// Need dispatch here
 		console.log(exerciseObject);
