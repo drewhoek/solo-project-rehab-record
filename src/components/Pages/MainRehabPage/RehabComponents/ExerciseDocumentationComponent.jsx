@@ -6,8 +6,10 @@ import { useDispatch } from "react-redux";
 
 export default function ExerciseDocumentationComponent() {
 	const dispatch = useDispatch();
-	const visitId = useSelector((store) => store.muscleWorkToBeDoneReducer[0]); // Breaks if I put .visit_id after this why??
-	console.log(visitId);
+	// const visitId = useSelector(
+	// 	(store) => store.muscleWorkToBeDoneReducer[0]?.visit_id
+	// );
+	// console.log(visitId);
 
 	const exercisesDone = useSelector((store) => store.allExercisesDoneReducer);
 
@@ -27,7 +29,6 @@ export default function ExerciseDocumentationComponent() {
 			notes_for_exercise: notes,
 		};
 		dispatch({ type: "SET_ALL_EXERCISES_DONE", payload: exerciseObject });
-		console.log(exerciseObject);
 		setExerciseName("");
 		setExerciseVariation("");
 		setSets("");

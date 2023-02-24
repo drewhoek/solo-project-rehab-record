@@ -8,6 +8,37 @@ function RehabTimer() {
 	const [timerId, setTimerId] = useState(null);
 	const [isPaused, setIsPaused] = useState(false);
 
+	// When there is an end time present run this useEffect
+	useEffect(() => {
+		if (startTime && endTime) {
+			const timeString = formatTime(endTime);
+			const totalTime = convertToMinutes(timeString);
+			if (totalTime === null) {
+				console.error(`Invalid time format: "${timeString}"`);
+				return;
+			}
+			const timeObject = {
+				date: formatDate(startTime),
+				time_in: formatTimeOfDay(startTime),
+				time_out: formatTimeOfDay(endTime),
+				total_time: totalTime,
+			};
+			console.log(timeObject);
+		}
+	}, [endTime]);
+
+	function convertToMinutes(timeString) {
+		const match = timeString.match(/^(\d+) minute(s)? (\d+)? second(s)?$/);
+		if (!match) {
+			return null;
+		}
+		const [_, minutes, __, seconds] = match;
+		const totalSeconds =
+			parseInt(minutes, 10) * 60 + parseInt(seconds || 0, 10);
+		const totalMinutes = Math.floor(totalSeconds / 60);
+		return totalMinutes;
+	}
+
 	function startTimer() {
 		const now = Date.now();
 		setStartTime(now);
@@ -22,6 +53,7 @@ function RehabTimer() {
 		if (timerId) {
 			clearInterval(timerId);
 		}
+
 		setEndTime(Date.now());
 	}
 

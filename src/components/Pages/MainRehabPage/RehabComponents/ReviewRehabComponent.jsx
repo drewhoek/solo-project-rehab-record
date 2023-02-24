@@ -1,6 +1,11 @@
 import { Paper, Box } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export default function ReviewRehabComponent() {
+	const exerciseInformation = useSelector(
+		(store) => store.allExercisesDoneReducer
+	);
+
 	return (
 		<>
 			<h1>Review Information</h1>
@@ -24,6 +29,7 @@ export default function ReviewRehabComponent() {
 					}}
 				>
 					Review Exercises Done
+					<pre>{JSON.stringify(exerciseInformation)}</pre>
 				</Paper>
 				<Paper
 					sx={{

@@ -17,10 +17,6 @@ export default function MakeTreatmentPlanPage() {
 	const [visitCount, setVisitCount] = useState(0);
 	const [notes, setNotes] = useState("");
 
-	useEffect(() => {
-		dispatch({ type: "FETCH_MUSCLE_WORK" });
-	}, []);
-
 	// This will be sent to the muscle work saga/reducer
 	const [muscleWork, setMuscleWork] = useState([]);
 
@@ -35,9 +31,16 @@ export default function MakeTreatmentPlanPage() {
 			units: Number(unitsOfTherapy),
 		};
 		console.log(newTreatmentPlanObject);
+		// Creates new treatment plan
 		dispatch({ type: "ADD_TREATMENT_PLAN", payload: newTreatmentPlanObject });
+
+		// Sets patient info column has_treatment_plan to TRUE
 		dispatch({ type: "UPDATE_PATIENT_INFO", payload: patientId });
 	};
+
+	useEffect(() => {
+		dispatch({ type: "FETCH_MUSCLE_WORK" });
+	}, []);
 
 	return (
 		<Box
@@ -109,7 +112,21 @@ export default function MakeTreatmentPlanPage() {
 					Add
 				</Button>
 				<Box>
-					<Autocomplete
+					<select
+						onChange={(event) =>
+							setMuscleWork([...muscleWork, event.target.value])
+						}
+						multiple={true}
+					>
+						{muscleWorkBank.map((muscleWorkItem) => (
+							<option value={muscleWorkItem.id}>
+								{muscleWorkItem.muscle_work_name}{" "}
+								{muscleWorkItem.muscle_work_type}
+							</option>
+						))}
+					</select>
+					<Button>Add Muscle Work</Button>
+					{/* <Autocomplete
 						value={muscleWork}
 						onChange={(event, newValue) => {
 							setMuscleWork([...muscleWork, newValue]);
@@ -141,7 +158,7 @@ export default function MakeTreatmentPlanPage() {
 								placeholder="Search"
 							/>
 						)}
-					/>{" "}
+					/>{" "} */}
 					<ul>
 						{muscleWork.map((individualMuscleWork) => (
 							<li key={individualMuscleWork.id}>

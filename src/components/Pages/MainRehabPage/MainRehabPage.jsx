@@ -29,7 +29,7 @@ export default function MainRehabPage() {
 			<h1>This is the main rehab page</h1>
 			<RehabSummaryComponent />
 			<RehabTimer />
-			<ExerciseDocumentationComponent />
+			<ExerciseDocumentationComponent treatmentPlanId={treatmentPlanId} />
 			<MuscleWorkDocumentation />
 			<ReviewRehabComponent />
 		</Stack>
