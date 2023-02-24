@@ -2,10 +2,10 @@ import { put } from 'redux-saga/effects';
 import axios from 'axios';
 import { takeLatest } from 'redux-saga/effects';
 
-function* fetchAllExercisesDoneSaga() {
+function* fetchAllExercisesDoneSaga(action) {
     try {
-        const response = yield axios.get('/api/muscle-work');
-        yield put({ type: 'SET_MUSCLE_WORK', payload: response.data });
+        const response = yield axios.get(`/api/exercise/all-exercises-done/${action.payload}`);
+        yield put({ type: 'SET_ALL_EXERCISES_DONE', payload: response.data });
         console.log(response);
     } catch (error) {
         console.log('get request failed', error);

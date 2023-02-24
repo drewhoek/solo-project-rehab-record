@@ -1,8 +1,12 @@
 import { Button, Table, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function ExerciseDocumentationComponent() {
+	const visitId = useSelector((store) => store.muscleWorkToBeDoneReducer[0]); // Breaks if I put .visit_id after this why??
+	console.log(visitId);
+
 	const [exerciseName, setExerciseName] = useState(""); //PLACEHOLDER TILL CAN FIGURE OUT AUTOCOMPLETE/DROPDOWN
 	const [exerciseVariation, setExerciseVariation] = useState(""); //PLACEHOLDER TILL CAN FIGURE OUT AUTOCOMPLETE/DROPDOWN
 	const [sets, setSets] = useState("");
