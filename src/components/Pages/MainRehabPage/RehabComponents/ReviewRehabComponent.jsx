@@ -8,6 +8,10 @@ export default function ReviewRehabComponent() {
 
 	const timeInformation = useSelector((store) => store.rehabTimerReducer);
 
+	const muscleWorkInformation = useSelector(
+		(store) => store.muscleWorkToBeDoneReducer
+	);
+
 	return (
 		<>
 			<h1>Review Information</h1>
@@ -54,6 +58,16 @@ export default function ReviewRehabComponent() {
 					}}
 				>
 					Review Muscle Work Done
+					{/* <pre>{JSON.stringify(muscleWorkInformation)}</pre> */}
+					{muscleWorkInformation.map((muscleWork) => (
+						<Box key={muscleWork.exercise_id}>
+							<ul>
+								<li>Muscle Work Name: {muscleWork.muscle_work_name} </li>
+								<li>Muscle Work Type: {muscleWork.muscle_work_type}</li>
+								<li>Completed: {muscleWork.is_done ? "Yes" : "No"}</li>
+							</ul>
+						</Box>
+					))}
 				</Paper>
 			</Box>
 		</>
