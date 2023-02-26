@@ -49,11 +49,11 @@ router.get('/patient-recent-visit/:treatmentId', rejectUnauthenticated, (req, re
 // POST request to add a new visit
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('POST request on in visit information router');
-    const { date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id } = req.body;
-    const queryText = `INSERT INTO "visit_information" ("date", "time_in", "time_out", "total_time", "exercise_notes", "muscle_work_notes", "therapist", "units_completed", "treatment_plan_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+    const { date, time_in, time_out, total_time, therapist, units_completed, treatment_plan_id } = req.body;
+    const queryText = `INSERT INTO "visit_information" ("date", "time_in", "time_out", "total_time", "therapist", "units_completed", "treatment_plan_id")
+    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
     pool
-        .query(queryText, [date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id])
+        .query(queryText, [date, time_in, time_out, total_time, therapist, units_completed, treatment_plan_id])
         .then((results) => res.sendStatus(201))
         .catch((error) => {
             console.log('Error making POST to visit_information:', error);

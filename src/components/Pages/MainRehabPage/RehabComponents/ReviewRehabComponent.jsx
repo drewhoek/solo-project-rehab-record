@@ -1,8 +1,10 @@
 import { Paper, Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 
 export default function ReviewRehabComponent() {
+	const dispatch = useDispatch();
+
 	const exerciseInformation = useSelector(
 		(store) => store.allExercisesDoneReducer
 	);
@@ -25,7 +27,7 @@ export default function ReviewRehabComponent() {
 			units_completed: determineUnits(timeInformation.total_time),
 			treatment_plan_id: muscleWorkInformation[0].treatment_plan_id,
 		};
-		console.log(visitInfoObject);
+		dispatch({ type: "ADD_VISIT_INFORMATION", payload: visitInfoObject });
 	}
 
 	function determineUnits(num) {
