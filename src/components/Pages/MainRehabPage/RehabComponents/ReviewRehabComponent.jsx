@@ -1,5 +1,6 @@
 import { Paper, Box } from "@mui/material";
 import { useSelector } from "react-redux";
+import { Button } from "@mui/material";
 
 export default function ReviewRehabComponent() {
 	const exerciseInformation = useSelector(
@@ -11,6 +12,37 @@ export default function ReviewRehabComponent() {
 	const muscleWorkInformation = useSelector(
 		(store) => store.muscleWorkToBeDoneReducer
 	);
+
+	const therapist = useSelector((store) => store.user);
+
+	function submitVisitInformation() {
+		const visitInfoObject = {
+			date: timeInformation.date,
+			time_in: timeInformation.time_in,
+			time_out: timeInformation.time_out,
+			total_time: timeInformation.total_time,
+			therapist: therapist.id,
+			units_completed: determineUnits(timeInformation.total_time),
+			treatment_plan_id: muscleWorkInformation[0].treatment_plan_id,
+		};
+		console.log(visitInfoObject);
+	}
+
+	function determineUnits(num) {
+		let units_completed = 0;
+		if (num >= 8 && num < 23) {
+			units_completed = 1;
+		} else if (num >= 23 && num < 38) {
+			units_completed = 2;
+		} else if (num >= 38 && num < 54) {
+			units_completed = 3;
+		} else if (num < 8) {
+			units_completed = 0;
+		} else if (num >= 54) {
+			units_completed = 4;
+		}
+		return units_completed;
+	}
 
 	return (
 		<>
@@ -69,6 +101,9 @@ export default function ReviewRehabComponent() {
 						</Box>
 					))}
 				</Paper>
+				<Button variant="contained" onClick={submitVisitInformation}>
+					Submit Everything
+				</Button>
 			</Box>
 		</>
 	);
