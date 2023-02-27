@@ -16,10 +16,6 @@ export default function MainRehabPage() {
 
 	useEffect(() => {
 		dispatch({
-			type: "FETCH_PREVIOUS_VISIT_INFORMATION",
-			payload: treatmentPlanId,
-		});
-		dispatch({
 			type: "FETCH_MUSCLE_WORK_TO_BE_DONE",
 			payload: treatmentPlanId,
 		});
@@ -28,7 +24,7 @@ export default function MainRehabPage() {
 	return (
 		<Stack spacing={2}>
 			<h1>This is the main rehab page</h1>
-			<RehabSummaryComponent />
+			{/* <RehabSummaryComponent /> */}
 			<RehabTimer />
 			<ExerciseDocumentationComponent />
 			<MuscleWorkDocumentation />

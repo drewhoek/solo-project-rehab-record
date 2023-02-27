@@ -17,6 +17,19 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// GET request to retrieve all info from patients specific information
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('GET request on /treatment-plan in treatment plan router');
+    const queryText = `SELECT * FROM "treatment_plans" WHERE "treatment_plans"."id" = $1;`;
+    pool
+        .query(queryText, [req.params.id])
+        .then((results) => res.send(results.rows[0]))
+        .catch((error) => {
+            console.log('Error making SELECT for treatment plans:', error);
+            res.sendStatus(500);
+        });
+});
+
 // POST request to add a new treatment plan
 router.post('/', (req, res) => {
     console.log('POST request on /treatment-plan in treatment plan router');

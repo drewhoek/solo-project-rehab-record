@@ -75,6 +75,46 @@ router.get('/to-be-done-per-session/:planId', rejectUnauthenticated, (req, res) 
         });
 });
 
+
+// async router.post(req, res) => {
+//     try {
+//         const { muscle_work_id, treatment_plan_id } = req.body;
+//         const queryText = `INSERT INTO "muscle_work_to_be_done" ("muscle_work_id", "treatment_plan_id")
+//         VALUES ($1, $2) RETURNING "muscle_work_to_be_done"."id";`;
+//         const result = await pool
+//             .query(queryText, [muscle_work_id, treatment_plan_id])
+//             .then((results) => res.sendStatus(201))
+//             .catch((error) => {
+//                 console.log('Error making POST to muscle work to be done:', error);
+//                 res.sendStatus(500);
+//             });
+
+//         const { visit_information_id } = req.body;
+//         const queryText1 = `INSERT INTO "muscle_work_to_be_done_per_visit" ("muscle_work_id_to_be_done_id", "visit_information_id")
+//         VALUES ($1, $2);`;
+//         const result2 = await pool
+//             .query(queryText1, [result, visit_information_id])
+//             .then((results) => res.sendStatus(201))
+//             .catch((error) => {
+//                 console.log('Error making POST to muscle work to be done per session:', error);
+//                 res.sendStatus(500);
+//             });
+//     } catch {
+
+//     }
+// };
+
+
+
+
+
+
+
+
+
+
+
+
 router.post('/to-be-done', rejectUnauthenticated, (req, res) => {
     console.log('in post route for muscle work to be done');
     const { muscle_work_id, treatment_plan_id } = req.body;
@@ -84,7 +124,21 @@ router.post('/to-be-done', rejectUnauthenticated, (req, res) => {
         .query(queryText, [muscle_work_id, treatment_plan_id])
         .then((results) => res.sendStatus(201))
         .catch((error) => {
-            console.log('Error making PUT to patients:', error);
+            console.log('Error making POST to muscle work to be done:', error);
+            res.sendStatus(500);
+        });
+});
+
+router.post('/to-be-done-per-session', rejectUnauthenticated, (req, res) => {
+    console.log('in post route for muscle work to be done per session');
+    const { muscle_work_id_to_be_done_id, visit_information_id } = req.body;
+    const queryText = `INSERT INTO "muscle_work_to_be_done_per_visit" ("muscle_work_id_to_be_done_id", "visit_information_id")
+    VALUES ($1, $2);`;
+    pool
+        .query(queryText, [muscle_work_id_to_be_done_id, visit_information_id])
+        .then((results) => res.sendStatus(201))
+        .catch((error) => {
+            console.log('Error making POST to muscle work to be done per session:', error);
             res.sendStatus(500);
         });
 });
@@ -96,7 +150,7 @@ router.put('/to-be-done-per-session/:muscleWorkId', rejectUnauthenticated, (req,
         .query(queryText, [req.params.muscleWorkId])
         .then((results) => res.send(results.rows))
         .catch((error) => {
-            console.log('Error making SELECT for muscle work:', error);
+            console.log('Error making PUT for muscle work:', error);
             res.sendStatus(500);
         });
 });

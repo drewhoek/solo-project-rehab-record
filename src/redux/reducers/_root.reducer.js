@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import patientReducer from './patient.reducer';
-import currentTreatmentPlanReducer from './current.treatment.plans.reducer';
+import allCurrentTreatmentPlansReducer from './current.treatment.plans.reducer';
 import allTreatmentPlansReducer from './all.treatment.plans.reducer';
 import muscleWorkReducer from './muscle.work.reducer';
 import visitInformationReducer from './visit.information.reducer';
@@ -12,6 +12,7 @@ import buildVisitInformationReducer from './build.visit.info.reducer';
 import patientInfoReducer from './patient.info.reducer';
 import rehabTimerReducer from './rehab.timer.reducer';
 import allPatientsReducer from './all.patients.reducer';
+import currentTreatmentPlanReducer from './current.treatment.plan.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,7 +26,7 @@ const rootReducer = combineReducers({
   patientReducer,
   allTreatmentPlansReducer,
   allPatientsReducer,
-  currentTreatmentPlanReducer,
+  allCurrentTreatmentPlansReducer,
   muscleWorkReducer,
   visitInformationReducer,
   muscleWorkToBeDoneReducer,
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   buildVisitInformationReducer,
   patientInfoReducer,
   rehabTimerReducer,
+  currentTreatmentPlanReducer
 });
 
 export default rootReducer;

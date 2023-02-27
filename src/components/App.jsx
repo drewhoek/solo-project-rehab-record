@@ -20,6 +20,7 @@ import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import MainRehabPage from "./Pages/MainRehabPage/MainRehabPage";
 import MakeTreatmentPlanPage from "./Pages/MakeTreatmentPlanPage/MakeTreatmentPlanPage";
 import CreateNewPatientPage from "./Pages/CreateNewPatientPage/CreateNewPatientPage";
+import ViewPlanPage from "./Pages/ViewPlanPage/ViewPlanPage";
 
 import "./App.css";
 
@@ -71,6 +72,10 @@ function App() {
 
 					<ProtectedRoute exact path="/make-treatment-plan">
 						<MakeTreatmentPlanPage />
+					</ProtectedRoute>
+
+					<ProtectedRoute exact path="/view-treatment-plan/:id">
+						<ViewPlanPage />
 					</ProtectedRoute>
 
 					<Route exact path="/login">

@@ -77,7 +77,7 @@ function UserPage() {
 				<Button
 					variant="contained"
 					onClick={() => {
-						history.push(`/rehab/${treatmentPlanId}`);
+						history.push(`/view-treatment-plan/${treatmentPlanId}`);
 					}}
 				>
 					Next
