@@ -16,7 +16,7 @@ export default function MainRehabPage() {
 
 	useEffect(() => {
 		dispatch({
-			type: "FETCH_MUSCLE_WORK_TO_BE_DONE",
+			type: "FETCH_MUSCLE_WORK_TO_BE_DONE_PER_SESSION",
 			payload: treatmentPlanId,
 		});
 	}, [treatmentPlanId]);

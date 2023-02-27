@@ -28,10 +28,6 @@ function Nav() {
 							Home
 						</Link>
 
-						<Link className="navLink" to="/rehab">
-							Rehab
-						</Link>
-
 						<LogOutButton className="navLink" />
 					</>
 				)}

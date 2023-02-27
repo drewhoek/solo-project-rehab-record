@@ -6,7 +6,7 @@ import allCurrentTreatmentPlansReducer from './current.treatment.plans.reducer';
 import allTreatmentPlansReducer from './all.treatment.plans.reducer';
 import muscleWorkReducer from './muscle.work.reducer';
 import visitInformationReducer from './visit.information.reducer';
-import muscleWorkToBeDoneReducer from './muscle.work.to.be.done.reducer';
+import muscleWorkToBeDonePerSessionReducer from './muscle.work.to.be.done.per.session.reducer';
 import allExercisesDoneReducer from './all.exercises.done.reducer';
 import buildVisitInformationReducer from './build.visit.info.reducer';
 import patientInfoReducer from './patient.info.reducer';
@@ -29,7 +29,7 @@ const rootReducer = combineReducers({
   allCurrentTreatmentPlansReducer,
   muscleWorkReducer,
   visitInformationReducer,
-  muscleWorkToBeDoneReducer,
+  muscleWorkToBeDonePerSessionReducer,
   allExercisesDoneReducer,
   buildVisitInformationReducer,
   patientInfoReducer,

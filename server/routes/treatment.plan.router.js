@@ -20,7 +20,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // GET request to retrieve all info from patients specific information
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /treatment-plan in treatment plan router');
-    const queryText = `SELECT * FROM "treatment_plans" WHERE "treatment_plans"."id" = $1;`;
+    const queryText = `SELECT * FROM "treatment_plans" 
+    JOIN "patients" ON "treatment_plans"."patient_id" = "patients"."id"
+    WHERE "treatment_plans"."id" = $1;`;
     pool
         .query(queryText, [req.params.id])
         .then((results) => res.send(results.rows[0]))

@@ -2,12 +2,13 @@ import { Box, Stack } from "@mui/system";
 import { Paper, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import moment from "moment";
 
 export default function ViewPlanPage() {
 	const dispatch = useDispatch();
 	const params = useParams();
+	const history = useHistory();
 	const treatmentPlanId = Number(params.id);
 
 	const treatmentPlanInformation = useSelector(
@@ -17,6 +18,8 @@ export default function ViewPlanPage() {
 	const lastVisitInformation = useSelector(
 		(store) => store.visitInformationReducer
 	);
+
+    const muscleWorkInformation = 
 
 	let newDate = moment.utc(lastVisitInformation.date).format("MMM Do, YYYY");
 
@@ -36,7 +39,10 @@ export default function ViewPlanPage() {
 			<pre>{JSON.stringify(lastVisitInformation)}</pre>
 			<pre>{JSON.stringify(treatmentPlanInformation)}</pre>
 
-			<h2>Viewing Current Plan For Patient</h2>
+			<h2>
+				Viewing Current Treatment Plan For {treatmentPlanInformation.first_name}{" "}
+				{treatmentPlanInformation.last_name}
+			</h2>
 			{!lastVisitInformation ? (
 				<h2>No previous information visit information</h2>
 			) : (
@@ -51,17 +57,33 @@ export default function ViewPlanPage() {
 				</>
 			)}
 			<Box>
-				<h3>Primary Complaint Area</h3>
-				<h3>Primary Exercise Focus</h3>
-				<h3>Secondary Exercise Focus</h3>
+				<h3>
+					Complaint Area: {treatmentPlanInformation.primary_complaint_area}
+				</h3>
+				<h3>
+					Primary Exercise Focus:{" "}
+					{treatmentPlanInformation.primary_exercise_focus}
+				</h3>
+				<h3>
+					Secondary Exercise Focus:{" "}
+					{treatmentPlanInformation.secondary_exercise_focus}
+				</h3>
 				<h4>Muscle work that needs to be done</h4>
 
-				<h3>Summary of previous visits</h3>
+				<h3>Summary of Last Visit</h3>
+				<h3></h3>
 				<h4>Exercises that have been done during past visits</h4>
 			</Box>
-			<Paper>
-				Start a Session for this Treatment Plan
-				<Button variant="contained">Go</Button>
+			<Paper
+				sx={{
+					width: 400,
+					padding: 3,
+				}}
+			>
+				Start a Rehab Session for this Treatment Plan
+				<Button variant="contained" onClick={() => history.push("/rehab")}>
+					Go
+				</Button>
 			</Paper>
 		</Stack>
 	);
