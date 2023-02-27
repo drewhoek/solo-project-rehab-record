@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// Select all exercises from DB
+// Select all muscle work from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /muscle-work in muscle work router');
     const queryText = `SELECT "id", "muscle_work_name", "muscle_work_type" FROM "muscle_work_bank";`;
@@ -12,6 +12,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         .then((results) => res.send(results.rows))
         .catch((error) => {
             console.log('Error making SELECT for muscle work:', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/to-be-done/:id', rejectUnauthenticated, (req, res) => {
+    console.log('GET request on /muscle-work/to-be-done in muscle work router');
+    const queryText = `SELECT * FROM "muscle_work_to_be_done" 
+    JOIN "muscle_work_bank" ON "muscle_work_to_be_done"."muscle_work_id" = "muscle_work_bank"."id"
+    WHERE "treatment_plan_id" = $1;`;
+    pool
+        .query(queryText, [req.params.id])
+        .then((results) => res.send(results.rows))
+        .catch((error) => {
+            console.log('Error making SELECT for muscle work to be done:', error);
             res.sendStatus(500);
         });
 });

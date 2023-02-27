@@ -6,7 +6,7 @@ function* fetchAllExercisesDoneSaga(action) {
     try {
         const response = yield axios.get(`/api/exercise/all-exercises-done/${action.payload}`);
         yield put({ type: 'SET_ALL_EXERCISES_DONE', payload: response.data });
-        console.log(response);
+        console.log(response.data);
     } catch (error) {
         console.log('get request failed', error);
     }

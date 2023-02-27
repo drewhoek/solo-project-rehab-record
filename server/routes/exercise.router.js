@@ -56,7 +56,7 @@ router.get('/all-exercises-done/:visitID', rejectUnauthenticated, (req, res) => 
     .query(queryText, [req.params.visitID])
     .then((results) => res.send(results.rows))
     .catch((error) => {
-      console.log('Error making SELECT for exercise variations:', error);
+      console.log('Error making SELECT for all exercises done:', error);
       res.sendStatus(500);
     });
 });
