@@ -9,13 +9,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import Nav from "./Shared/Nav/Nav";
-import Footer from "./Shared/Footer/Footer";
 
 import ProtectedRoute from "./Shared/ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "./Pages/AboutPage/AboutPage";
 import UserPage from "./Pages/UserPage/UserPage";
-import InfoPage from "./Pages/InfoPage/InfoPage";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
@@ -75,14 +73,6 @@ function App() {
 						<MakeTreatmentPlanPage />
 					</ProtectedRoute>
 
-					<ProtectedRoute
-						// logged in shows InfoPage else shows LoginPage
-						exact
-						path="/info"
-					>
-						<InfoPage />
-					</ProtectedRoute>
-
 					<Route exact path="/login">
 						{user.id ? (
 							// If the user is already logged in,
@@ -121,7 +111,6 @@ function App() {
 						<h1>404</h1>
 					</Route>
 				</Switch>
-				<Footer />
 			</div>
 		</Router>
 	);
