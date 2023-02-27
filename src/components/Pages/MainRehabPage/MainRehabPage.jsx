@@ -15,7 +15,6 @@ export default function MainRehabPage() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch({ action: "FETCH_ALL_PATIENTS" });
 		dispatch({
 			type: "FETCH_PREVIOUS_VISIT_INFORMATION",
 			payload: treatmentPlanId,

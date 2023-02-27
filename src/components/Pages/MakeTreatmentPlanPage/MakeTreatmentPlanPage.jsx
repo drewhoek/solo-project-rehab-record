@@ -36,6 +36,14 @@ export default function MakeTreatmentPlanPage() {
 
 		// Sets patient info column has_treatment_plan to TRUE
 		dispatch({ type: "UPDATE_PATIENT_INFO", payload: patientId });
+
+		setPatientId(0);
+		setUnitsOfTherapy(0);
+		setPrimaryComplaintArea("");
+		setPrimaryExerciseFocus("");
+		setSecondaryExerciseFocus("");
+		setVisitCount(0);
+		setNotes("");
 	};
 
 	useEffect(() => {

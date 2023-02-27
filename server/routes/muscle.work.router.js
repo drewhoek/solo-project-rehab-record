@@ -75,6 +75,20 @@ router.get('/to-be-done-per-session/:planId', rejectUnauthenticated, (req, res) 
         });
 });
 
+router.post('/to-be-done', rejectUnauthenticated, (req, res) => {
+    console.log('in post route for muscle work to be done');
+    const { muscle_work_id, treatment_plan_id } = req.body;
+    const queryText = `INSERT INTO "muscle_work_to_be_done" ("muscle_work_id", "treatment_plan_id")
+    VALUES ($1, $2);`;
+    pool
+        .query(queryText, [muscle_work_id, treatment_plan_id])
+        .then((results) => res.sendStatus(201))
+        .catch((error) => {
+            console.log('Error making PUT to patients:', error);
+            res.sendStatus(500);
+        });
+});
+
 router.put('/to-be-done-per-session/:muscleWorkId', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /muscle-work/to-be-done in muscle work router');
     const queryText = `UPDATE "muscle_work_to_be_done_per_visit" SET "is_done"= NOT "is_done" WHERE "muscle_work_to_be_done_per_visit"."id" = $1;`;
