@@ -1,5 +1,4 @@
-import { Box } from "@mui/system";
-import { Button, Paper, TextField } from "@mui/material";
+import { Button, Paper, Stack, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,19 +24,19 @@ export default function CreateNewPatientPage() {
 	}, []);
 
 	return (
-		<Box
+		<Stack
+			spacing={2}
 			sx={{
 				display: "flex",
 				justifyContent: "space-around",
-				flexDirection: "column",
 				alignItems: "center",
 			}}
 		>
 			<Paper
 				elevation={3}
-				padding={3}
 				sx={{
 					width: 400,
+					padding: 3,
 				}}
 			>
 				<TextField
@@ -54,7 +53,13 @@ export default function CreateNewPatientPage() {
 					Add Patient
 				</Button>
 			</Paper>
-			<Paper>
+			<Paper
+				elevation={3}
+				sx={{
+					width: 600,
+					padding: 3,
+				}}
+			>
 				<h3>Current Patients</h3>
 				<table>
 					<thead>
@@ -72,13 +77,20 @@ export default function CreateNewPatientPage() {
 								<td>{patient.last_name}</td>
 								<td>{patient.has_treatment_plan ? "Yes" : "No"}</td>
 								<td>
-									<Button variant="contained">Delete Patient</Button>
+									<Button
+										variant="contained"
+										onClick={() =>
+											dispatch({ type: "DELETE_PATIENT", payload: patient.id })
+										}
+									>
+										Delete Patient
+									</Button>
 								</td>
 							</tr>
 						))}
 					</tbody>
 				</table>
 			</Paper>
-		</Box>
+		</Stack>
 	);
 }

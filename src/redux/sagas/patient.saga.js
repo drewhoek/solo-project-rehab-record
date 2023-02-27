@@ -29,10 +29,20 @@ function* addPatientSaga(action) {
     }
 }
 
+function* deletePatientSaga(action) {
+    try {
+        yield axios.delete(`/api/patients/${action.payload}`);
+        yield put({ type: 'FETCH_ALL_PATIENTS' });
+    } catch (error) {
+        console.log('get request failed', error);
+    }
+}
+
 function* patientSaga() {
     yield takeLatest('FETCH_PATIENTS_WITH_PLAN', fetchPatientSaga);
     yield takeLatest('FETCH_ALL_PATIENTS', fetchAllPatientsSaga);
     yield takeLatest('ADD_PATIENT', addPatientSaga);
+    yield takeLatest('DELETE_PATIENT', deletePatientSaga);
 }
 
 export default patientSaga;;
