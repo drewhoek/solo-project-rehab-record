@@ -46,6 +46,20 @@ export default function ReviewRehabComponent() {
 		return units_completed;
 	}
 
+	function submitExerciseInformation() {
+		for (let i = 0; i < exerciseInformation.length; i++) {
+			const exercise = exerciseInformation[i];
+			const exercisesDoneObj = {
+				exercise_id: exercise.exercise_id,
+				variation_id: exercise.variation_id,
+				sets_done: exercise.sets_done,
+				reps_done: exercise.reps_done,
+				notes_for_exercise: exercise.notes_for_exercise,
+				// visit_information_id:
+			};
+		}
+	}
+
 	return (
 		<>
 			<h1>Review Information</h1>
@@ -103,7 +117,7 @@ export default function ReviewRehabComponent() {
 						</Box>
 					))}
 				</Paper>
-				<Button variant="contained" onClick={submitVisitInformation}>
+				<Button variant="contained" onClick={submitExerciseInformation}>
 					Submit Everything
 				</Button>
 			</Box>

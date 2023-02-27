@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import LogOutButton from "../../Shared/LogOutButton/LogOutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
-import { Autocomplete, Button, Paper, TextField } from "@mui/material";
+import { Autocomplete, Button, Paper, Stack, TextField } from "@mui/material";
 import { useHistory } from "react-router-dom";
 
 function UserPage() {
@@ -21,11 +21,11 @@ function UserPage() {
 	}, []);
 
 	return (
-		<Box
+		<Stack
 			className="container"
+			spacing={3}
 			sx={{
 				display: "flex",
-				flexDirection: "column",
 				justifyContent: "space-between",
 				alignItems: "center",
 			}}
@@ -37,15 +37,14 @@ function UserPage() {
 					{user.is_doctor ? "Doctor" : "Rehab Therapist"}
 				</p>
 			</Box>
-			<h2>Begin Rehab Session</h2>
 			<Paper
 				elevation={3}
 				sx={{
 					width: 400,
-					marginBottom: 5,
 					padding: 3,
 				}}
 			>
+				<h2>Begin Rehab Session</h2>
 				<h3>Lookup patient</h3>
 				<Autocomplete
 					sx={{
@@ -99,7 +98,22 @@ function UserPage() {
 					Go
 				</Button>
 			</Paper>
-		</Box>
+			<Paper
+				elevation={3}
+				sx={{
+					padding: 3,
+				}}
+			>
+				<h3>Add New Patient</h3>
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={() => history.push(`/add-patient`)}
+				>
+					Go
+				</Button>
+			</Paper>
+		</Stack>
 	);
 }
 

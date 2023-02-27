@@ -21,6 +21,7 @@ import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import MainRehabPage from "./Pages/MainRehabPage/MainRehabPage";
 import MakeTreatmentPlanPage from "./Pages/MakeTreatmentPlanPage/MakeTreatmentPlanPage";
+import CreateNewPatientPage from "./Pages/CreateNewPatientPage/CreateNewPatientPage";
 
 import "./App.css";
 
@@ -60,6 +61,10 @@ function App() {
 						path="/user"
 					>
 						<UserPage />
+					</ProtectedRoute>
+
+					<ProtectedRoute exact path="/add-patient">
+						<CreateNewPatientPage />
 					</ProtectedRoute>
 
 					<ProtectedRoute exact path="/rehab/:id">

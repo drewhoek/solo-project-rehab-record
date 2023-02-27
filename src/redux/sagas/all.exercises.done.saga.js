@@ -12,8 +12,18 @@ function* fetchAllExercisesDoneSaga(action) {
     }
 }
 
-function* muscleWorkSaga() {
+function* addExerciseSaga(action) {
+    try {
+        const response = yield axios.post(`/api/exercise`, action.payload);
+        yield put({ type: 'FETCH_ALL_EXERCISES_DONE', payload: response.data });
+        console.log(response);
+    } catch (error) {
+        console.log('get request failed', error);
+    }
+}
+
+function* allExercisesDoneSaga() {
     yield takeLatest('FETCH_ALL_EXERCISES_DONE', fetchAllExercisesDoneSaga);
 }
 
-export default muscleWorkSaga;
+export default allExercisesDoneSaga;

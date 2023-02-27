@@ -11,6 +11,7 @@ import allExercisesDoneReducer from './all.exercises.done.reducer';
 import buildVisitInformationReducer from './build.visit.info.reducer';
 import patientInfoReducer from './patient.info.reducer';
 import rehabTimerReducer from './rehab.timer.reducer';
+import allPatientsReducer from './all.patients.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   patientReducer,
   allTreatmentPlansReducer,
+  allPatientsReducer,
   currentTreatmentPlanReducer,
   muscleWorkReducer,
   visitInformationReducer,

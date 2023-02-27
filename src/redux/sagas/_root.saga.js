@@ -8,6 +8,7 @@ import muscleWorkSaga from './muscle.work.saga';
 import visitInformationSaga from './visit.information.saga';
 import muscleWorkToBeDoneSaga from './muscle.work.to.be.done.saga';
 import patientInfoSaga from './patient.info.saga';
+import allExercisesDoneSaga from './all.exercises.done.saga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -26,6 +27,7 @@ export default function* rootSaga() {
     visitInformationSaga(),
     muscleWorkToBeDoneSaga(),
     patientInfoSaga(),
+    allExercisesDoneSaga()
   ]);
 
 }
