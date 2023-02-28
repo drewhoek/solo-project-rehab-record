@@ -35,9 +35,8 @@ function* addMuscleWorkToBeDoneSaga(action) {
 
 function* markMuscleWorkAsDone(action) {
     try {
-        yield axios.put(`api/muscle-work/to-be-done-per-session/${action.payload.toBeDoneId}`);
-        yield put({ type: 'FETCH_MUSCLE_WORK_TO_BE_DONE_PER_SESSION', payload: action.payload.treatment_plan_id });
-        console.log(response);
+        yield axios.put(`api/muscle-work/to-be-done-per-session/${action.payload.id}`);
+        yield put({ type: 'FETCH_MUSCLE_WORK_TO_BE_DONE_PER_SESSION', payload: action.payload.visit_information_id });
     } catch (error) {
         console.log('get request failed', error);
     }
