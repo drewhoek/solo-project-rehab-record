@@ -12,23 +12,8 @@ export default function ReviewRehabComponent() {
 	const timeInformation = useSelector((store) => store.rehabTimerReducer);
 
 	const muscleWorkInformation = useSelector(
-		(store) => store.muscleWorkToBeDoneReducer
+		(store) => store.muscleWorkToBeDonePerSessionReducer
 	);
-
-	const therapist = useSelector((store) => store.user);
-
-	function submitVisitInformation() {
-		const visitInfoObject = {
-			date: timeInformation.date,
-			time_in: timeInformation.time_in,
-			time_out: timeInformation.time_out,
-			total_time: timeInformation.total_time,
-			therapist: therapist.id,
-			units_completed: determineUnits(timeInformation.total_time),
-			treatment_plan_id: muscleWorkInformation[0].treatment_plan_id,
-		};
-		dispatch({ type: "ADD_VISIT_INFORMATION", payload: visitInfoObject });
-	}
 
 	function determineUnits(num) {
 		let units_completed = 0;
@@ -44,20 +29,6 @@ export default function ReviewRehabComponent() {
 			units_completed = 4;
 		}
 		return units_completed;
-	}
-
-	function submitExerciseInformation() {
-		for (let i = 0; i < exerciseInformation.length; i++) {
-			const exercise = exerciseInformation[i];
-			const exercisesDoneObj = {
-				exercise_id: exercise.exercise_id,
-				variation_id: exercise.variation_id,
-				sets_done: exercise.sets_done,
-				reps_done: exercise.reps_done,
-				notes_for_exercise: exercise.notes_for_exercise,
-				// visit_information_id:
-			};
-		}
 	}
 
 	return (
@@ -96,7 +67,11 @@ export default function ReviewRehabComponent() {
 								<li>Exercise Variation: {exercise.variation_id}</li>
 								<li>Sets: {exercise.sets_done}</li>
 								<li>Reps: {exercise.reps_done}</li>
-								<li>Notes: {exercise.notes_for_exercise}</li>
+								{exercise.notes_for_exercise ? (
+									<li>Notes: {exercise.notes_for_exercise}</li>
+								) : (
+									""
+								)}
 							</ul>
 						</Box>
 					))}
@@ -125,9 +100,7 @@ export default function ReviewRehabComponent() {
 					justifyContent: "center",
 				}}
 			>
-				<Button variant="contained" onClick={submitExerciseInformation}>
-					Submit Everything
-				</Button>
+				<Button variant="contained">Submit Everything</Button>
 			</Box>
 		</>
 	);

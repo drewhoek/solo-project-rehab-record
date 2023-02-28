@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 
 export default function MuscleWorkDocumentation() {
 	const params = useParams();
-
 	const visitId = params.id;
 
 	const dispatch = useDispatch();
@@ -35,8 +34,7 @@ export default function MuscleWorkDocumentation() {
 	return (
 		<>
 			<h1>Muscle Work to be done</h1>
-			<pre>{JSON.stringify(muscleWorkToBeDonePerVisit)}</pre>
-
+			{/* <pre>{JSON.stringify(muscleWorkToBeDonePerVisit)}</pre> */}
 			<table>
 				<thead>
 					<tr>
@@ -54,7 +52,7 @@ export default function MuscleWorkDocumentation() {
 									variant="contained"
 									onClick={() => markMuscleWorkComplete(muscleWork.MWTBDPV_id)}
 								>
-									Mark Complete
+									{muscleWork.is_done ? "Mark Incomplete" : "Mark Complete"}
 								</Button>
 							</td>
 							<td>{muscleWork.muscle_work_name}</td>

@@ -6,10 +6,6 @@ import { useDispatch } from "react-redux";
 
 export default function ExerciseDocumentationComponent() {
 	const dispatch = useDispatch();
-	// const visitId = useSelector(
-	// 	(store) => store.muscleWorkToBeDoneReducer[0]?.visit_id
-	// );
-	// console.log(visitId);
 
 	const exercisesDone = useSelector((store) => store.allExercisesDoneReducer);
 
