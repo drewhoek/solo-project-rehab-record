@@ -4,7 +4,7 @@ import { takeLatest } from 'redux-saga/effects';
 
 function* fetchPatientInfoSaga(action) {
     try {
-        yield axios.put(`/api/patients/${action.payload}`);
+        yield axios.get(`/api/patients/${action.payload}`);
         yield put({ type: 'SET_PATIENT_INFO' });
         console.log(response);
     } catch (error) {

@@ -37,10 +37,12 @@ router.post('/', (req, res) => {
     console.log('POST request on /treatment-plan in treatment plan router');
     const { patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, notes_for_rehab, units } = req.body;
     const queryText = `INSERT INTO "treatment_plans" ("patient_id", "visit_count", "primary_complaint_area", "primary_exercise_focus", "secondary_exercise_focus", "notes_for_rehab", "units")
-    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "treatment_plans"."id";`;
     pool
         .query(queryText, [patient_id, visit_count, primary_complaint_area, primary_exercise_focus, secondary_exercise_focus, notes_for_rehab, units])
-        .then((results) => res.sendStatus(201))
+        .then((results) => {
+            res.status(201).send(results.rows);
+        })
         .catch((error) => {
             console.log('Error making POST to treatment_plans:', error);
             res.sendStatus(500);

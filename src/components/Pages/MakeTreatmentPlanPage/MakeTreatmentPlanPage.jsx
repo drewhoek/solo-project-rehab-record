@@ -1,4 +1,4 @@
-import { SetMealSharp } from "@mui/icons-material";
+import { SetMealSharp, VpnLock } from "@mui/icons-material";
 import { Button, Paper, TextField, Autocomplete } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
@@ -32,7 +32,10 @@ export default function MakeTreatmentPlanPage() {
 		};
 		console.log(newTreatmentPlanObject);
 		// Creates new treatment plan
-		dispatch({ type: "ADD_TREATMENT_PLAN", payload: newTreatmentPlanObject });
+		dispatch({
+			type: "ADD_TREATMENT_PLAN",
+			payload: newTreatmentPlanObject,
+		});
 
 		// Sets patient info column has_treatment_plan to TRUE
 		dispatch({ type: "UPDATE_PATIENT_INFO", payload: patientId });
@@ -45,6 +48,13 @@ export default function MakeTreatmentPlanPage() {
 		setVisitCount(0);
 		setNotes("");
 	};
+
+	// function handleSubmitMuscleWork() {
+	// 	const muscleWorkObject = {
+	// 		muscle_work_id:
+	// 		treatment_plan_id:
+	// 	}
+	// }
 
 	useEffect(() => {
 		dispatch({ type: "FETCH_MUSCLE_WORK" });
@@ -121,9 +131,10 @@ export default function MakeTreatmentPlanPage() {
 				</Button>
 				<Box>
 					<select
-						onChange={(event) =>
-							setMuscleWork([...muscleWork, event.target.value])
-						}
+						onDoubleClick={(event) => {
+							setMuscleWork([...muscleWork, event.target]);
+							console.log(event.target.value);
+						}}
 						multiple={true}
 					>
 						{muscleWorkBank.map((muscleWorkItem) => (
@@ -133,7 +144,6 @@ export default function MakeTreatmentPlanPage() {
 							</option>
 						))}
 					</select>
-					<Button>Add Muscle Work</Button>
 					{/* <Autocomplete
 						value={muscleWork}
 						onChange={(event, newValue) => {
@@ -169,12 +179,19 @@ export default function MakeTreatmentPlanPage() {
 					/>{" "} */}
 					<ul>
 						{muscleWork.map((individualMuscleWork) => (
-							<li key={individualMuscleWork.id}>
-								{individualMuscleWork.muscle_work_name}{" "}
-								{individualMuscleWork.muscle_work_type}
-							</li>
+							<li key={individualMuscleWork.id}>{individualMuscleWork.text}</li>
 						))}
 					</ul>
+					<Button
+						onClick={() =>
+							dispatch({
+								type: "ADD_MUSCLE_WORK_TO_BE_DONE",
+								payload: muscleWork,
+							})
+						}
+					>
+						Submit
+					</Button>
 				</Box>
 			</Paper>
 		</Box>

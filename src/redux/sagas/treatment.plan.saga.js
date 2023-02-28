@@ -24,9 +24,8 @@ function* fetchAllTreatmentPlansSaga() {
 
 function* addTreatmentPlanSaga(action) {
     try {
-        yield axios.post('/api/treatment-plan', action.payload);
-        yield put({ type: 'FETCH_ALL_TREATMENT_PLANS' });
-        console.log(action.payload);
+        const response = yield axios.post('/api/treatment-plan', action.payload);
+        console.log(response.data);
     } catch (error) {
         console.log('get post failed', error);
     }
