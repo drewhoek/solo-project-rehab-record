@@ -25,8 +25,10 @@ function* fetchAllTreatmentPlansSaga() {
 function* addTreatmentPlanSaga(action) {
     try {
         const response = yield axios.post('/api/treatment-plan', action.payload);
-        console.log(response.data);
-        yield put({ type: "SET_CURRENT_PLAN_ID" });
+        console.log(response.data[0].id);
+        yield put({ type: "SET_CURRENT_PLAN_ID", payload: response.data[0].id });
+        // push to add muscle-work to the plan after response is populated
+        action.history.push(`/add-muscle-work-to-plan/${response.data[0].id}`);
     } catch (error) {
         console.log('get post failed', error);
     }

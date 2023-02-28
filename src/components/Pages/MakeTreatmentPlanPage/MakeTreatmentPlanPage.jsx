@@ -8,10 +8,6 @@ export default function MakeTreatmentPlanPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const newTreatmentPlanID = useSelector(
-		(store) => store.currentTreatmentPlanIDReducer
-	);
-
 	// All of the following will be dispatched to the treatment plan saga/reducer
 	const [patientId, setPatientId] = useState("");
 	const [unitsOfTherapy, setUnitsOfTherapy] = useState("");
@@ -36,6 +32,7 @@ export default function MakeTreatmentPlanPage() {
 		dispatch({
 			type: "ADD_TREATMENT_PLAN",
 			payload: newTreatmentPlanObject,
+			history: history,
 		});
 
 		// Sets patient info column has_treatment_plan to TRUE
@@ -49,12 +46,6 @@ export default function MakeTreatmentPlanPage() {
 		setVisitCount("");
 		setNotes("");
 	};
-
-	// if an id is present push to add muscle work
-	useEffect(() => {
-		if (newTreatmentPlanID !== undefined) {
-		}
-	}, [newTreatmentPlanID]);
 
 	return (
 		<Box
@@ -124,7 +115,11 @@ export default function MakeTreatmentPlanPage() {
 				/>
 				<br />
 				<br />
-				<Button variant="contained" type="button">
+				<Button
+					variant="contained"
+					type="button"
+					onClick={handleSubmitTreatmentPlan}
+				>
 					Add
 				</Button>
 			</Paper>

@@ -2,11 +2,15 @@ import { Button, Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export default function AddMuscleWorkToPlan() {
+	const params = useParams();
 	const dispatch = useDispatch();
 
 	const muscleWorkBank = useSelector((store) => store.muscleWorkReducer);
+
+	const treatmentPlanId = params.id;
 
 	// This will be sent to the muscle work saga/reducer
 	const [muscleWork, setMuscleWork] = useState([]);
@@ -16,13 +20,12 @@ export default function AddMuscleWorkToPlan() {
 			const element = muscleWork[i];
 			const muscleWorkObj = {
 				muscle_work_id: element,
-				treatment_plan_id: newTreatmentPlanID,
+				treatment_plan_id: treatmentPlanId,
 			};
-			console.log(newTreatmentPlanID);
-			// dispatch({
-			// 	type: "ADD_MUSCLE_WORK_TO_BE_DONE",
-			// 	payload: muscleWorkObj,
-			// });
+			dispatch({
+				type: "ADD_MUSCLE_WORK_TO_BE_DONE",
+				payload: muscleWorkObj,
+			});
 		}
 	}
 
