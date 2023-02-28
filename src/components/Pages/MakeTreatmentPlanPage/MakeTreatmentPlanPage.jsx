@@ -1,5 +1,11 @@
 import { SetMealSharp, VpnLock } from "@mui/icons-material";
-import { Button, Paper, TextField, Autocomplete } from "@mui/material";
+import {
+	Button,
+	Paper,
+	TextField,
+	Autocomplete,
+	Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +15,12 @@ export default function MakeTreatmentPlanPage() {
 	const muscleWorkBank = useSelector((store) => store.muscleWorkReducer);
 
 	// All of the following will be dispatched to the treatment plan saga/reducer
-	const [patientId, setPatientId] = useState(0);
-	const [unitsOfTherapy, setUnitsOfTherapy] = useState(0);
+	const [patientId, setPatientId] = useState("");
+	const [unitsOfTherapy, setUnitsOfTherapy] = useState("");
 	const [primaryComplaintArea, setPrimaryComplaintArea] = useState("");
 	const [primaryExerciseFocus, setPrimaryExerciseFocus] = useState("");
 	const [secondaryExerciseFocus, setSecondaryExerciseFocus] = useState("");
-	const [visitCount, setVisitCount] = useState(0);
+	const [visitCount, setVisitCount] = useState("");
 	const [notes, setNotes] = useState("");
 
 	// This will be sent to the muscle work saga/reducer
@@ -40,12 +46,12 @@ export default function MakeTreatmentPlanPage() {
 		// Sets patient info column has_treatment_plan to TRUE
 		dispatch({ type: "UPDATE_PATIENT_INFO", payload: patientId });
 
-		setPatientId(0);
-		setUnitsOfTherapy(0);
+		setPatientId("");
+		setUnitsOfTherapy("");
 		setPrimaryComplaintArea("");
 		setPrimaryExerciseFocus("");
 		setSecondaryExerciseFocus("");
-		setVisitCount(0);
+		setVisitCount("");
 		setNotes("");
 	};
 
@@ -68,8 +74,12 @@ export default function MakeTreatmentPlanPage() {
 				alignItems: "center",
 			}}
 		>
-			<h2>Create a New Treatment Plan</h2>
-			<h4>Get Corresponding Information from PCP</h4>
+			<Typography component="h3" variant="h5">
+				Create a New Treatment Plan
+			</Typography>
+			<Typography component="h5" variant="h6">
+				Get Corresponding Information from PCP
+			</Typography>
 			<Paper
 				elevation={3}
 				sx={{
@@ -122,6 +132,8 @@ export default function MakeTreatmentPlanPage() {
 					value={notes}
 					onChange={(event) => setNotes(event.target.value)}
 				/>
+				<br />
+				<br />
 				<Button
 					variant="contained"
 					type="button"
@@ -129,6 +141,8 @@ export default function MakeTreatmentPlanPage() {
 				>
 					Add
 				</Button>
+				<br />
+				<br />
 				<Box>
 					<select
 						onDoubleClick={(event) => {
@@ -183,6 +197,7 @@ export default function MakeTreatmentPlanPage() {
 						))}
 					</ul>
 					<Button
+						variant="contained"
 						onClick={() =>
 							dispatch({
 								type: "ADD_MUSCLE_WORK_TO_BE_DONE",
