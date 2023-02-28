@@ -48,7 +48,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 // -------------- route to grab all exercises done in a session --------------- //
 router.get('/all-exercises-done/:visitID', rejectUnauthenticated, (req, res) => {
   console.log('GET request on /exercise/all-exercises-done/:visitID in exercise router');
-  const queryText = `SELECT "sets_done", "reps_done", "exercise_name", "exercise_variation" FROM "all_exercises_done" 
+  const queryText = `SELECT "all_exercises_done"."id", "sets_done", "reps_done", "exercise_name", "exercise_variation", "notes_for_exercise" FROM "all_exercises_done" 
   JOIN "exercise_variations" ON "variation_id" = "exercise_variations"."id"
   JOIN "exercise_bank" ON "exercise_variations"."exercise_id" = "exercise_bank"."id"
   WHERE "visit_information_id" = $1; `;

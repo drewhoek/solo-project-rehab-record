@@ -9,9 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import Nav from "./Shared/Nav/Nav";
-
 import ProtectedRoute from "./Shared/ProtectedRoute/ProtectedRoute";
-
 import AboutPage from "./Pages/AboutPage/AboutPage";
 import UserPage from "./Pages/UserPage/UserPage";
 import LandingPage from "./Pages/LandingPage/LandingPage";
@@ -21,7 +19,6 @@ import MainRehabPage from "./Pages/MainRehabPage/MainRehabPage";
 import MakeTreatmentPlanPage from "./Pages/MakeTreatmentPlanPage/MakeTreatmentPlanPage";
 import CreateNewPatientPage from "./Pages/CreateNewPatientPage/CreateNewPatientPage";
 import ViewPlanPage from "./Pages/ViewPlanPage/ViewPlanPage";
-
 import "./App.css";
 
 function App() {

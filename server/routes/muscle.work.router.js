@@ -90,33 +90,23 @@ router.get('/to-be-done-per-session/:planId', rejectUnauthenticated, (req, res) 
 });
 
 
-// async router.post(req, res) => {
-//     try {
-//         const { muscle_work_id, treatment_plan_id } = req.body;
-//         const queryText = `INSERT INTO "muscle_work_to_be_done" ("muscle_work_id", "treatment_plan_id")
-//         VALUES ($1, $2) RETURNING "muscle_work_to_be_done"."id";`;
-//         const result = await pool
-//             .query(queryText, [muscle_work_id, treatment_plan_id])
-//             .then((results) => res.sendStatus(201))
-//             .catch((error) => {
-//                 console.log('Error making POST to muscle work to be done:', error);
-//                 res.sendStatus(500);
-//             });
+router.post('/to-be-done', rejectUnauthenticated, async (req, res) => {
+    try {
+        const { muscle_work_id, treatment_plan_id, visit_information_id } = req.body;
+        const queryText = `INSERT INTO "muscle_work_to_be_done" ("muscle_work_id", "treatment_plan_id")
+        VALUES ($1, $2) RETURNING "muscle_work_to_be_done"."id";`;
+        const result = await pool.query(queryText, [muscle_work_id, treatment_plan_id]);
 
-//         const { visit_information_id } = req.body;
-//         const queryText1 = `INSERT INTO "muscle_work_to_be_done_per_visit" ("muscle_work_id_to_be_done_id", "visit_information_id")
-//         VALUES ($1, $2);`;
-//         const result2 = await pool
-//             .query(queryText1, [result, visit_information_id])
-//             .then((results) => res.sendStatus(201))
-//             .catch((error) => {
-//                 console.log('Error making POST to muscle work to be done per session:', error);
-//                 res.sendStatus(500);
-//             });
-//     } catch {
-
-//     }
-// };
+        const queryText1 = `INSERT INTO "muscle_work_to_be_done_per_visit" ("muscle_work_to_be_done_id", "visit_information_id")
+        VALUES ($1, $2);`;
+        console.log(result.rows[0].id);
+        await pool.query(queryText1, [result.rows[0].id, visit_information_id]);
+        res.sendStatus(201);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+});
 
 
 

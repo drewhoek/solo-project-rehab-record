@@ -1,5 +1,14 @@
 import { Box, Stack } from "@mui/system";
-import { Paper, Button } from "@mui/material";
+import {
+	Paper,
+	Button,
+	Table,
+	TableBody,
+	TableHead,
+	TableRow,
+	TableCell,
+	Typography,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
@@ -42,53 +51,50 @@ export default function ViewPlanPage() {
 			type: "FETCH_MUSCLE_WORK_TO_BE_DONE",
 			payload: treatmentPlanId,
 		});
-		dispatch({
-			type: "FETCH_ALL_EXERCISES_DONE",
-			payload: lastVisitInformation?.id,
-		});
 	}, []);
+
+	useEffect(() => {
+		if (lastVisitInformation.id !== undefined) {
+			dispatch({
+				type: "FETCH_ALL_EXERCISES_DONE",
+				payload: lastVisitInformation.id,
+			});
+		}
+	}, [lastVisitInformation]);
 
 	return (
 		<Stack spacing={2}>
-			<pre>{JSON.stringify(lastVisitInformation)}</pre>
+			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre>
 			<pre>{JSON.stringify(treatmentPlanInformation)}</pre>
 			<pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre>
-			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre>
+			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre> */}
 
-			<h2>
+			<Typography variant="h2" component="h2">
 				Viewing Current Treatment Plan For {treatmentPlanInformation.first_name}{" "}
 				{treatmentPlanInformation.last_name}
-			</h2>
-			{!lastVisitInformation ? (
-				<h2>No previous information visit information</h2>
-			) : (
-				<>
-					<h2>Last Visit Date: {newDate}</h2>
-					<h2>
-						{lastVisitInformation.units_completed} units completed Last Visit
-					</h2>
-					<h2>Exercises Done Last Visit:</h2>
-					<ul></ul>
-					<img
-						src="http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg"
-						width={200}
-						height={350}
-					/>
-				</>
-			)}
-			<Box>
-				<h3>
+			</Typography>
+			<Paper
+				elevation={3}
+				sx={{
+					width: 300,
+				}}
+			>
+				<Typography variant="subtitle1" component="h3">
+					Treatment Plan Information
+				</Typography>
+
+				<Typography variant="subtitle1" component="h3">
 					Complaint Area: {treatmentPlanInformation.primary_complaint_area}
-				</h3>
-				<h3>
+				</Typography>
+				<Typography variant="subtitle1" component="h3">
 					Primary Exercise Focus:{" "}
 					{treatmentPlanInformation.primary_exercise_focus}
-				</h3>
-				<h3>
+				</Typography>
+				<Typography variant="subtitle1" component="h3">
 					Secondary Exercise Focus:{" "}
 					{treatmentPlanInformation.secondary_exercise_focus}
-				</h3>
-				<h4>Muscle work that needs to be done</h4>
+				</Typography>
+				<h4>Muscle work to be completed during rehab visit</h4>
 				<ul>
 					{muscleWorkToBeDoneInformation.map((muscleWork) => (
 						<li key={muscleWork.id}>
@@ -96,7 +102,49 @@ export default function ViewPlanPage() {
 						</li>
 					))}
 				</ul>
-			</Box>
+			</Paper>
+			{!lastVisitInformation ? (
+				<Typography>No previous information visit information</Typography>
+			) : (
+				<>
+					<Typography>Last Visit Date: {newDate}</Typography>
+					<Typography>
+						{lastVisitInformation.units_completed} units completed Last Visit
+					</Typography>
+					<Typography>Exercises Done Last Visit:</Typography>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>Exercise Name</TableCell>
+								<TableCell>Exercise Variation</TableCell>
+								<TableCell>Sets Done</TableCell>
+								<TableCell>Reps Done</TableCell>
+								<TableCell>Notes</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{exercisesDoneLastVisit.map((exercise) => (
+								<TableRow key={exercise.id}>
+									<TableCell>{exercise.exercise_name}</TableCell>
+									<TableCell>{exercise.exercise_variation}</TableCell>
+									<TableCell>{exercise.sets_done}</TableCell>
+									<TableCell>{exercise.reps_done}</TableCell>
+									<TableCell>
+										{exercise.notes_for_exercise
+											? exercise.notes_for_exercise
+											: "None"}
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+					<img
+						src="http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg"
+						width={200}
+						height={350}
+					/>
+				</>
+			)}
 			<Paper
 				sx={{
 					width: 400,
