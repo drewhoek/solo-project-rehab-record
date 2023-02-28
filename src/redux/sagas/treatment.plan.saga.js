@@ -26,7 +26,7 @@ function* addTreatmentPlanSaga(action) {
     try {
         const response = yield axios.post('/api/treatment-plan', action.payload);
         console.log(response.data);
-        yield put({ type: "SET_TREATMENT_PLAN_ID" });
+        yield put({ type: "SET_CURRENT_PLAN_ID" });
     } catch (error) {
         console.log('get post failed', error);
     }

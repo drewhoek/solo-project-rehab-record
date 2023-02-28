@@ -1,18 +1,16 @@
-import { SetMealSharp, VpnLock } from "@mui/icons-material";
-import {
-	Button,
-	Paper,
-	TextField,
-	Autocomplete,
-	Typography,
-} from "@mui/material";
+import { Button, Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export default function MakeTreatmentPlanPage() {
 	const dispatch = useDispatch();
-	const muscleWorkBank = useSelector((store) => store.muscleWorkReducer);
+	const history = useHistory();
+
+	const newTreatmentPlanID = useSelector(
+		(store) => store.currentTreatmentPlanIDReducer
+	);
 
 	// All of the following will be dispatched to the treatment plan saga/reducer
 	const [patientId, setPatientId] = useState("");
@@ -22,9 +20,6 @@ export default function MakeTreatmentPlanPage() {
 	const [secondaryExerciseFocus, setSecondaryExerciseFocus] = useState("");
 	const [visitCount, setVisitCount] = useState("");
 	const [notes, setNotes] = useState("");
-
-	// This will be sent to the muscle work saga/reducer
-	const [muscleWork, setMuscleWork] = useState([]);
 
 	const handleSubmitTreatmentPlan = () => {
 		const newTreatmentPlanObject = {
@@ -55,16 +50,11 @@ export default function MakeTreatmentPlanPage() {
 		setNotes("");
 	};
 
-	// function handleSubmitMuscleWork() {
-	// 	const muscleWorkObject = {
-	// 		muscle_work_id:
-	// 		treatment_plan_id:
-	// 	}
-	// }
-
+	// if an id is present push to add muscle work
 	useEffect(() => {
-		dispatch({ type: "FETCH_MUSCLE_WORK" });
-	}, []);
+		if (newTreatmentPlanID !== undefined) {
+		}
+	}, [newTreatmentPlanID]);
 
 	return (
 		<Box
@@ -134,80 +124,9 @@ export default function MakeTreatmentPlanPage() {
 				/>
 				<br />
 				<br />
-				<Button
-					variant="contained"
-					type="button"
-					onClick={handleSubmitTreatmentPlan}
-				>
+				<Button variant="contained" type="button">
 					Add
 				</Button>
-				<br />
-				<br />
-				<Box>
-					<select
-						onDoubleClick={(event) => {
-							setMuscleWork([...muscleWork, event.target]);
-							console.log(event.target.value);
-						}}
-						multiple={true}
-					>
-						{muscleWorkBank.map((muscleWorkItem) => (
-							<option value={muscleWorkItem.id}>
-								{muscleWorkItem.muscle_work_name}{" "}
-								{muscleWorkItem.muscle_work_type}
-							</option>
-						))}
-					</select>
-					{/* <Autocomplete
-						value={muscleWork}
-						onChange={(event, newValue) => {
-							setMuscleWork([...muscleWork, newValue]);
-							console.log(muscleWork);
-						}}
-						sx={{
-							width: 600,
-							marginBottom: 2,
-						}}
-						id="muscle-work-lookup"
-						getOptionLabel={(muscleWorkBank) =>
-							`${muscleWorkBank.id} ${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
-						}
-						options={muscleWorkBank}
-						isOptionEqualToValue={(option, value) =>
-							option.muscle_work_name === value.muscle_work_name
-						}
-						noOptionsText={"Not valid muscle work"}
-						renderOption={(props, muscleWorkBank) => (
-							<Box component="li" {...props} key={muscleWorkBank.id}>
-								{muscleWorkBank.muscle_work_name}{" "}
-								{muscleWorkBank.muscle_work_type}
-							</Box>
-						)}
-						renderInput={(params) => (
-							<TextField
-								{...params}
-								label="Search for Muscle Work"
-								placeholder="Search"
-							/>
-						)}
-					/>{" "} */}
-					<ul>
-						{muscleWork.map((individualMuscleWork) => (
-							<li key={individualMuscleWork.id}>{individualMuscleWork.text}</li>
-						))}
-					</ul>
-					<Button
-						variant="contained"
-						onClick={() =>
-							dispatch({
-								type: "ADD_MUSCLE_WORK_TO_BE_DONE",
-								payload: muscleWork,
-							})
-						}
-					>
-						Submit
-					</Button>
-				</Box>
 			</Paper>
 		</Box>
 	);

@@ -14,6 +14,7 @@ import rehabTimerReducer from './rehab.timer.reducer';
 import allPatientsReducer from './all.patients.reducer';
 import currentTreatmentPlanReducer from './current.treatment.plan.reducer';
 import muscleWorkToBeDoneReducer from './muscle.work.to.be.done.reducer';
+import currentTreatmentPlanIDReducer from './current.treatment.plan.id.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -36,7 +37,8 @@ const rootReducer = combineReducers({
   patientInfoReducer,
   rehabTimerReducer,
   currentTreatmentPlanReducer,
-  muscleWorkToBeDoneReducer
+  muscleWorkToBeDoneReducer,
+  currentTreatmentPlanIDReducer,
 });
 
 export default rootReducer;

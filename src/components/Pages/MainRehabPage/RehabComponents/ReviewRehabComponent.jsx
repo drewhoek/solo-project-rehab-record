@@ -67,6 +67,7 @@ export default function ReviewRehabComponent() {
 				sx={{
 					display: "flex",
 					flexDirection: "row",
+					flexWrap: "wrap",
 					justifyContent: "space-around",
 				}}
 			>
@@ -117,6 +118,13 @@ export default function ReviewRehabComponent() {
 						</Box>
 					))}
 				</Paper>
+			</Box>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+				}}
+			>
 				<Button variant="contained" onClick={submitExerciseInformation}>
 					Submit Everything
 				</Button>

@@ -90,34 +90,23 @@ router.get('/to-be-done-per-session/:planId', rejectUnauthenticated, (req, res) 
 });
 
 
-router.post('/to-be-done', rejectUnauthenticated, async (req, res) => {
-    try {
-        const { muscle_work_id, treatment_plan_id, visit_information_id } = req.body;
-        const queryText = `INSERT INTO "muscle_work_to_be_done" ("muscle_work_id", "treatment_plan_id")
-        VALUES ($1, $2) RETURNING "muscle_work_to_be_done"."id";`;
-        const result = await pool.query(queryText, [muscle_work_id, treatment_plan_id]);
+// router.post('/to-be-done', rejectUnauthenticated, async (req, res) => {
+//     try {
+//         const { muscle_work_id, treatment_plan_id, visit_information_id } = req.body;
+//         const queryText = `INSERT INTO "muscle_work_to_be_done" ("muscle_work_id", "treatment_plan_id")
+//         VALUES ($1, $2) RETURNING "muscle_work_to_be_done"."id";`;
+//         const result = await pool.query(queryText, [muscle_work_id, treatment_plan_id]);
 
-        const queryText1 = `INSERT INTO "muscle_work_to_be_done_per_visit" ("muscle_work_to_be_done_id", "visit_information_id")
-        VALUES ($1, $2);`;
-        console.log(result.rows[0].id);
-        await pool.query(queryText1, [result.rows[0].id, visit_information_id]);
-        res.sendStatus(201);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(500);
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
+//         const queryText1 = `INSERT INTO "muscle_work_to_be_done_per_visit" ("muscle_work_to_be_done_id", "visit_information_id")
+//         VALUES ($1, $2);`;
+//         console.log(result.rows[0].id);
+//         await pool.query(queryText1, [result.rows[0].id, visit_information_id]);
+//         res.sendStatus(201);
+//     } catch (err) {
+//         console.log(err);
+//         res.sendStatus(500);
+//     }
+// });
 
 router.post('/to-be-done', rejectUnauthenticated, (req, res) => {
     console.log('in post route for muscle work to be done');

@@ -152,7 +152,10 @@ export default function ViewPlanPage() {
 				}}
 			>
 				Start a Rehab Visit for this Treatment Plan
-				<Button variant="contained" onClick={() => history.push("/rehab")}>
+				<Button
+					variant="contained"
+					onClick={() => history.push(`/rehab/${treatmentPlanId}`)}
+				>
 					Go
 				</Button>
 			</Paper>

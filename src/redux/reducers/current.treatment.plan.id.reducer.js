@@ -1,0 +1,12 @@
+const currentTreatmentPlanIDReducer = (state = "", action) => {
+    switch (action.type) {
+        case 'SET_CURRENT_PLAN_ID':
+            return action.payload;
+        case 'UNSET_CURRENT_PLAN_ID':
+            return "";
+        default:
+            return state;
+    }
+};
+
+export default currentTreatmentPlanIDReducer;

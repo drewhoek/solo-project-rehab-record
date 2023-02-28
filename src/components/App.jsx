@@ -19,6 +19,7 @@ import MainRehabPage from "./Pages/MainRehabPage/MainRehabPage";
 import MakeTreatmentPlanPage from "./Pages/MakeTreatmentPlanPage/MakeTreatmentPlanPage";
 import CreateNewPatientPage from "./Pages/CreateNewPatientPage/CreateNewPatientPage";
 import ViewPlanPage from "./Pages/ViewPlanPage/ViewPlanPage";
+import AddMuscleWorkToPlan from "./Pages/AddMuscleWorkToPlan/AddMuscleWorkToPlan";
 import "./App.css";
 
 function App() {
@@ -69,6 +70,10 @@ function App() {
 
 					<ProtectedRoute exact path="/make-treatment-plan">
 						<MakeTreatmentPlanPage />
+					</ProtectedRoute>
+
+					<ProtectedRoute exact path="/add-muscle-work-to-plan/:id">
+						<AddMuscleWorkToPlan />
 					</ProtectedRoute>
 
 					<ProtectedRoute exact path="/view-treatment-plan/:id">
