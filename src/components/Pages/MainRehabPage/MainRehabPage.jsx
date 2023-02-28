@@ -9,18 +9,6 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 export default function MainRehabPage() {
-	const params = useParams();
-	const treatmentPlanId = Number(params.id);
-
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch({
-			type: "FETCH_MUSCLE_WORK_TO_BE_DONE_PER_SESSION",
-			payload: treatmentPlanId,
-		});
-	}, [treatmentPlanId]);
-
 	return (
 		<Stack spacing={2}>
 			<h1>This is the main rehab page</h1>

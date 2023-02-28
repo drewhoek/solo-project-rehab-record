@@ -47,19 +47,32 @@ router.get('/patient-recent-visit/:treatmentId', rejectUnauthenticated, (req, re
 });
 
 // POST request to add a new visit
-router.post('/', rejectUnauthenticated, (req, res) => {
+router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('POST request on in visit information router');
-    const { date, time_in, time_out, total_time, therapist, units_completed, treatment_plan_id } = req.body;
-    const queryText = `INSERT INTO "visit_information" ("date", "time_in", "time_out", "total_time", "therapist", "units_completed", "treatment_plan_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
-    pool
-        .query(queryText, [date, time_in, time_out, total_time, therapist, units_completed, treatment_plan_id])
-        .then((results) => res.sendStatus(201))
-        .catch((error) => {
-            console.log('Error making POST to visit_information:', error);
-            res.sendStatus(500);
-        });
+    try {
+        const { treatment_plan_id, array_of_muscle_work_ids } = req.body;
+        const queryText = `INSERT INTO "visit_information" ("therapist", "treatment_plan_id")
+        VALUES ($1, $2) RETURNING "visit_information"."id";`;
+        const result = await pool.query(queryText, [req.user.id, treatment_plan_id]);
+
+        const queryText1 = `INSERT INTO "muscle_work_to_be_done_per_visit" ("muscle_work_to_be_done_id", "visit_information_id")
+        VALUES ($1, $2);`;
+
+        for (const id of array_of_muscle_work_ids) {
+            await pool.query(queryText1, [Number(id), Number(result.rows[0].id)]);
+        }
+        res.send(result.rows[0]).status(201);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 });
+
+
+
+
+
+
 
 // EDIT request to edit visit information
 router.put('/:id', rejectUnauthenticated, (req, res) => {

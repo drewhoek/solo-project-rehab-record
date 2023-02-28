@@ -18,8 +18,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.get('/to-be-done/:id', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /muscle-work/to-be-done in muscle work router');
-    const queryText = `SELECT * FROM "muscle_work_to_be_done" 
-    JOIN "muscle_work_bank" ON "muscle_work_to_be_done"."muscle_work_id" = "muscle_work_bank"."id"
+    const queryText = `SELECT "MWTBD"."id", "MWTBD"."muscle_work_id", "MWTBD"."treatment_plan_id", "MWB"."muscle_work_name", "MWB"."muscle_work_type" FROM "muscle_work_to_be_done" as "MWTBD"
+    JOIN "muscle_work_bank" as "MWB" ON "MWTBD"."muscle_work_id" = "MWB"."id"
     WHERE "treatment_plan_id" = $1;`;
     pool
         .query(queryText, [req.params.id])

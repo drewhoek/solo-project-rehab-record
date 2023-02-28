@@ -62,12 +62,30 @@ export default function ViewPlanPage() {
 		}
 	}, [lastVisitInformation]);
 
+	function startVisit() {
+		const arrayOfMuscleWorkIds = [];
+		for (let i = 0; i < muscleWorkToBeDoneInformation.length; i++) {
+			const muscleWorkToBeDoneId = muscleWorkToBeDoneInformation[i].id;
+			console.log(arrayOfMuscleWorkIds);
+			arrayOfMuscleWorkIds.push(muscleWorkToBeDoneId);
+		}
+		const startingVisitObject = {
+			treatment_plan_id: treatmentPlanId,
+			array_of_muscle_work_ids: arrayOfMuscleWorkIds,
+		};
+		dispatch({
+			type: "ADD_VISIT_INFORMATION",
+			payload: startingVisitObject,
+			history,
+		});
+	}
+
 	return (
 		<Stack spacing={2}>
-			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre>
-			<pre>{JSON.stringify(treatmentPlanInformation)}</pre>
+			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre> */}
+			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
 			<pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre>
-			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre> */}
+			{/* <pre>{JSON.stringify(exercisesDoneLastVisit)}</pre> */}
 
 			<Typography variant="h2" component="h2">
 				Viewing Current Treatment Plan For {treatmentPlanInformation.first_name}{" "}
@@ -154,7 +172,8 @@ export default function ViewPlanPage() {
 				Start a Rehab Visit for this Treatment Plan
 				<Button
 					variant="contained"
-					onClick={() => history.push(`/rehab/${treatmentPlanId}`)}
+					// onClick={() => history.push(`/rehab/${treatmentPlanId}`)}
+					onClick={startVisit}
 				>
 					Go
 				</Button>

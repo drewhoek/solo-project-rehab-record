@@ -3,8 +3,10 @@ import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function AddMuscleWorkToPlan() {
+	const history = useHistory();
 	const params = useParams();
 	const dispatch = useDispatch();
 
@@ -27,6 +29,7 @@ export default function AddMuscleWorkToPlan() {
 				payload: muscleWorkObj,
 			});
 		}
+		history.push("/user");
 	}
 
 	useEffect(() => {
