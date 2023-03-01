@@ -1,6 +1,19 @@
-import { Button, Paper, Stack, TextField } from "@mui/material";
+import {
+	Button,
+	Paper,
+	Stack,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 export default function CreateNewPatientPage() {
 	const allPatients = useSelector((store) => store.allPatientsReducer);
@@ -35,20 +48,29 @@ export default function CreateNewPatientPage() {
 			<Paper
 				elevation={3}
 				sx={{
-					width: 400,
+					width: 500,
 					padding: 3,
 				}}
 			>
+				<Typography component="h3" variant="h5">
+					Enter Patient Name
+				</Typography>
+				<br />
 				<TextField
 					label="Enter First Name"
 					value={firstName}
 					onChange={(event) => setFirstName(event.target.value)}
+					sx={{
+						marginRight: 3,
+					}}
 				/>
 				<TextField
 					label="Enter Last Name "
 					value={lastName}
 					onChange={(event) => setLastName(event.target.value)}
 				/>
+				<br />
+				<br />
 				<Button variant="contained" onClick={addPatient}>
 					Add Patient
 				</Button>
@@ -56,40 +78,53 @@ export default function CreateNewPatientPage() {
 			<Paper
 				elevation={3}
 				sx={{
-					width: 600,
+					width: 500,
 					padding: 3,
 				}}
 			>
-				<h3>Current Patients</h3>
-				<table>
-					<thead>
-						<tr>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Has Treatment Plan?</th>
-							<th>DELETE</th>
-						</tr>
-					</thead>
-					<tbody>
-						{allPatients.map((patient) => (
-							<tr key={patient.id}>
-								<td>{patient.first_name}</td>
-								<td>{patient.last_name}</td>
-								<td>{patient.has_treatment_plan ? "Yes" : "No"}</td>
-								<td>
-									<Button
-										variant="contained"
-										onClick={() =>
-											dispatch({ type: "DELETE_PATIENT", payload: patient.id })
-										}
-									>
-										Delete Patient
-									</Button>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<Typography component="h3" variant="h5">
+					Current Patients
+				</Typography>
+				<TableContainer
+					sx={{
+						maxHeight: 440,
+						maxWidth: 500,
+					}}
+				>
+					<Table stickyHeader aria-label="sticky table">
+						<TableHead>
+							<TableRow>
+								<TableCell align="center">First Name</TableCell>
+								<TableCell align="center">Last Name</TableCell>
+								<TableCell align="center">Has Treatment Plan?</TableCell>
+								<TableCell align="center">Delete Patient</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{allPatients.map((patient) => (
+								<TableRow key={patient.id}>
+									<TableCell align="center">{patient.first_name}</TableCell>
+									<TableCell align="center">{patient.last_name}</TableCell>
+									<TableCell align="center">
+										{patient.has_treatment_plan ? "Yes" : "No"}
+									</TableCell>
+									<TableCell align="center">
+										<Button
+											onClick={() =>
+												dispatch({
+													type: "DELETE_PATIENT",
+													payload: patient.id,
+												})
+											}
+										>
+											<DeleteForeverIcon />
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
 			</Paper>
 		</Stack>
 	);

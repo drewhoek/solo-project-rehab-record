@@ -20,6 +20,7 @@ import MakeTreatmentPlanPage from "./Pages/MakeTreatmentPlanPage/MakeTreatmentPl
 import CreateNewPatientPage from "./Pages/CreateNewPatientPage/CreateNewPatientPage";
 import ViewPlanPage from "./Pages/ViewPlanPage/ViewPlanPage";
 import AddMuscleWorkToPlan from "./Pages/AddMuscleWorkToPlan/AddMuscleWorkToPlan";
+import Footer from "./Shared/Footer/Footer";
 import "./App.css";
 
 function App() {
@@ -119,6 +120,7 @@ function App() {
 					</Route>
 				</Switch>
 			</div>
+			<Footer />
 		</Router>
 	);
 }
