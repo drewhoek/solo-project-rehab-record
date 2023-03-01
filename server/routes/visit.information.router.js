@@ -77,11 +77,11 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 // EDIT request to edit visit information
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     // endpoint functionality
-    const { date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id } = req.body;
+    const { date, time_in, time_out, total_time, units_completed } = req.body;
     console.log('in put route');
-    const queryText = `UPDATE "visit_information" SET "date" = $1, "time_in" = $2, "time_out" = $3, "total_time" = $4, "exercise_notes" = $5, "muscle_work_notes" = $6, "therapist" = $7, "units_completed" = $8, "treatment_plan_id" = $9 WHERE "id" = $10;`;
+    const queryText = `UPDATE "visit_information" SET "date" = $1, "time_in" = $2, "time_out" = $3, "total_time" = $4, "units_completed" = $5 WHERE "id" = $6;`;
     pool
-        .query(queryText, [date, time_in, time_out, total_time, exercise_notes, muscle_work_notes, therapist, units_completed, treatment_plan_id, req.params.id])
+        .query(queryText, [date, time_in, time_out, total_time, units_completed, req.params.id])
         .then(response => {
             res.sendStatus(204);
         })

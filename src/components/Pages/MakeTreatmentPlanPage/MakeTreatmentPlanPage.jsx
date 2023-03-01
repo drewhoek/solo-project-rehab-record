@@ -108,7 +108,6 @@ export default function MakeTreatmentPlanPage() {
 					onChange={(event) => setVisitCount(event.target.value)}
 				/>
 				<TextField
-					required
 					label="Notes for Rehab"
 					value={notes}
 					onChange={(event) => setNotes(event.target.value)}

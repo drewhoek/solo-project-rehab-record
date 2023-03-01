@@ -31,6 +31,16 @@ export default function ReviewRehabComponent() {
 		return units_completed;
 	}
 
+	function updateVisitInformation() {
+		const visitInfoObject = {
+			date: timeInformation.date,
+			time_in: timeInformation.time_in,
+			time_out: timeInformation.time_out,
+			total_time: timeInformation.total_time,
+			unit_completed: determineUnits(timeInformation.total_time),
+		};
+	}
+
 	return (
 		<>
 			<h1>Review Information</h1>
@@ -100,7 +110,9 @@ export default function ReviewRehabComponent() {
 					justifyContent: "center",
 				}}
 			>
-				<Button variant="contained">Submit Everything</Button>
+				<Button variant="contained" onClick={updateVisitInformation}>
+					Submit Everything
+				</Button>
 			</Box>
 		</>
 	);
