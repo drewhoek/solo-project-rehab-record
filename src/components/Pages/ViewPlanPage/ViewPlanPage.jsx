@@ -85,7 +85,7 @@ export default function ViewPlanPage() {
 			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre> */}
 			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
 			<pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre>
-			{/* <pre>{JSON.stringify(exercisesDoneLastVisit)}</pre> */}
+			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre>
 
 			<Typography variant="h2" component="h2">
 				Viewing Current Treatment Plan For {treatmentPlanInformation.first_name}{" "}

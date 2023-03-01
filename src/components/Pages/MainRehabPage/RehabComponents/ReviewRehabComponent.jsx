@@ -1,9 +1,14 @@
 import { Paper, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
+import { useHistory, useParams } from "react-router-dom";
 
 export default function ReviewRehabComponent() {
 	const dispatch = useDispatch();
+	const params = useParams();
+	const history = useHistory();
+
+	const visitId = params.id;
 
 	const exerciseInformation = useSelector(
 		(store) => store.allExercisesDoneReducer
@@ -31,14 +36,33 @@ export default function ReviewRehabComponent() {
 		return units_completed;
 	}
 
-	function updateVisitInformation() {
+	function handleSubmitInformation() {
 		const visitInfoObject = {
+			visit_id: visitId,
 			date: timeInformation.date,
 			time_in: timeInformation.time_in,
 			time_out: timeInformation.time_out,
 			total_time: timeInformation.total_time,
 			unit_completed: determineUnits(timeInformation.total_time),
 		};
+		dispatch({ type: "UPDATE_VISIT_INFORMATION", payload: visitInfoObject });
+
+		for (let i = 0; i < exerciseInformation.length; i++) {
+			const exercise = exerciseInformation[i];
+			const exercisesObject = {
+				exercise_id: exercise.exercise_id,
+				variation_id: exercise.variation_id,
+				sets_done: exercise.sets_done,
+				reps_done: exercise.reps_done,
+				notes_for_exercise: exercise.notes_for_exercise,
+				visit_information_id: Number(visitId),
+			};
+			dispatch({
+				type: "ADD_EXERCISE_DONE_DURING_VISIT",
+				payload: exercisesObject,
+			});
+		}
+		history.push("/user");
 	}
 
 	return (
@@ -110,7 +134,7 @@ export default function ReviewRehabComponent() {
 					justifyContent: "center",
 				}}
 			>
-				<Button variant="contained" onClick={updateVisitInformation}>
+				<Button variant="contained" onClick={handleSubmitInformation}>
 					Submit Everything
 				</Button>
 			</Box>

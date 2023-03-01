@@ -14,9 +14,7 @@ function* fetchAllExercisesDoneSaga(action) {
 
 function* addExerciseSaga(action) {
     try {
-        const response = yield axios.post(`/api/exercise`, action.payload);
-        yield put({ type: 'FETCH_ALL_EXERCISES_DONE', payload: response.data });
-        console.log(response);
+        yield axios.post(`/api/exercise`, action.payload);
     } catch (error) {
         console.log('get request failed', error);
     }
@@ -24,6 +22,7 @@ function* addExerciseSaga(action) {
 
 function* allExercisesDoneSaga() {
     yield takeLatest('FETCH_ALL_EXERCISES_DONE', fetchAllExercisesDoneSaga);
+    yield takeLatest('ADD_EXERCISE_DONE_DURING_VISIT', addExerciseSaga);
 }
 
 export default allExercisesDoneSaga;

@@ -19,7 +19,15 @@ function* addVisitInformationSaga(action) {
         console.log(response);
         action.history.push(`/rehab/${response.data.id}`);
     } catch (error) {
-        console.log('get request failed', error);
+        console.log('post request failed', error);
+    }
+}
+
+function* updateVisitInformationSaga(action) {
+    try {
+        yield axios.put(`/api/visit-information/${action.payload.visit_id}`, action.payload);
+    } catch (error) {
+        console.log('put request failed', error);
     }
 }
 
@@ -27,6 +35,7 @@ function* addVisitInformationSaga(action) {
 function* visitInformationSaga() {
     yield takeLatest('FETCH_PREVIOUS_VISIT_INFORMATION', fetchLastVisitInformationSaga);
     yield takeLatest('ADD_VISIT_INFORMATION', addVisitInformationSaga);
+    yield takeLatest('UPDATE_VISIT_INFORMATION', updateVisitInformationSaga);
 }
 
 export default visitInformationSaga;
