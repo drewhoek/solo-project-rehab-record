@@ -1,69 +1,62 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import './LandingPage.css';
+import { useHistory } from "react-router-dom";
+import "./LandingPage.css";
 
 // CUSTOM COMPONENTS
-import RegisterForm from '../RegisterPage/RegisterForm';
+import RegisterForm from "../RegisterPage/RegisterForm";
+import { Button, Typography } from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
-  const history = useHistory();
+	const history = useHistory();
 
-  const onLogin = (event) => {
-    history.push('/login');
-  };
+	const onLogin = (event) => {
+		history.push("/login");
+	};
 
-  return (
-    <div className="container">
-      <h2>{heading}</h2>
+	return (
+		<div className="container">
+			<Typography component="h2" variant="h4">
+				Welcome! Let's do some rehab!
+			</Typography>
+			<br />
+			<br />
+			<div className="grid">
+				<div className="grid-col grid-col_8">
+					<Typography component="p" variant="p">
+						Our purpose is to make it easier for you to document during a rehab
+						session. We handle the math and make it easy for you to pay more
+						attention to those that need it, your patients! Specializing in
+						chiropractic rehabilitation care we help you document your active
+						muscle release, therapeutic exercises and make tracking your unit
+						times a breeze!
+					</Typography>
+					<br />
+					<Typography component="p" variant="p">
+						Make an account as a rehab specialist to get right into documenting
+						your rehab sessions.
+					</Typography>
+					<br />
+					<Typography component="p" variant="p">
+						If you are a doctor, contact a member of your IT department for your
+						account information.
+					</Typography>
+					{/* <img src="./images/PT-image"></img> */}
+				</div>
+				<div className="grid-col grid-col_4">
+					<RegisterForm />
 
-      <div className="grid">
-        <div className="grid-col grid-col_8">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus
-            ut ex molestie blandit. Etiam et turpis sit amet risus mollis
-            interdum. Suspendisse et justo vitae metus bibendum fringilla sed
-            sed justo. Aliquam sollicitudin dapibus lectus, vitae consequat odio
-            elementum eget. Praesent efficitur eros vitae nunc interdum, eu
-            interdum justo facilisis. Sed pulvinar nulla ac dignissim efficitur.
-            Quisque eget eros metus. Vestibulum bibendum fringilla nibh a
-            luctus. Duis a sapien metus.
-          </p>
-
-          <p>
-            Praesent consectetur orci dui, id elementum eros facilisis id. Sed
-            id dolor in augue porttitor faucibus eget sit amet ante. Nunc
-            consectetur placerat pharetra. Aenean gravida ex ut erat commodo, ut
-            finibus metus facilisis. Nullam eget lectus non urna rhoncus
-            accumsan quis id massa. Curabitur sit amet dolor nisl. Proin
-            euismod, augue at condimentum rhoncus, massa lorem semper lacus, sed
-            lobortis augue mi vel felis. Duis ultrices sapien at est convallis
-            congue.
-          </p>
-
-          <p>
-            Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
-            Suspendisse posuere dapibus maximus. Aliquam vitae felis libero. In
-            vehicula sapien at semper ultrices. Vivamus sed feugiat libero. Sed
-            sagittis neque id diam euismod, ut egestas felis ultricies. Nullam
-            non fermentum mauris. Sed in enim ac turpis faucibus pretium in sit
-            amet nisi.
-          </p>
-        </div>
-        <div className="grid-col grid-col_4">
-          <RegisterForm />
-
-          <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
-          </center>
-        </div>
-      </div>
-    </div>
-  );
+					<center>
+						<Typography component="h4" variant="h6">
+							Already have an Account?
+						</Typography>
+						<Button variant="outlined" onClick={onLogin}>
+							<LoginIcon />
+						</Button>
+					</center>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default LandingPage;

@@ -8,6 +8,7 @@ import {
 	RadioGroup,
 	Radio,
 	FormControlLabel,
+	Typography,
 } from "@mui/material";
 
 function RegisterForm() {
@@ -36,61 +37,63 @@ function RegisterForm() {
 
 	return (
 		<form className="formPanel" onSubmit={registerUser}>
-			<h2>Register User</h2>
+			<Typography component="h2" variant="h5">
+				Register User
+			</Typography>
 			{errors.registrationMessage && (
-				<h3 className="alert" role="alert">
+				<Typography component="h3" variant="h6" className="alert" role="alert">
 					{errors.registrationMessage}
-				</h3>
+				</Typography>
 			)}
+			<br />
+			<Typography component="p" variant="caption">
+				Please fill out all information below
+			</Typography>
 			<div>
-				<FormLabel htmlFor="first_name">
-					First Name:
-					<TextField
-						type="text"
-						name="first_name"
-						value={firstName}
-						required
-						onChange={(event) => setFirstName(event.target.value)}
-					/>
-				</FormLabel>
+				<TextField
+					type="text"
+					name="first_name"
+					value={firstName}
+					label="First Name"
+					required
+					onChange={(event) => setFirstName(event.target.value)}
+				/>
 			</div>
+			<br />
 			<div>
-				<FormLabel htmlFor="last_name">
-					Last Name:
-					<TextField
-						type="text"
-						name="last_name"
-						value={lastName}
-						required
-						onChange={(event) => setLastName(event.target.value)}
-					/>
-				</FormLabel>
+				<TextField
+					type="text"
+					name="last_name"
+					value={lastName}
+					label="Last Name"
+					required
+					onChange={(event) => setLastName(event.target.value)}
+				/>
 			</div>
+			<br />
 			<div>
-				<FormLabel htmlFor="username">
-					Username:
-					<TextField
-						type="text"
-						name="username"
-						value={username}
-						required
-						onChange={(event) => setUsername(event.target.value)}
-					/>
-				</FormLabel>
+				<TextField
+					type="text"
+					name="username"
+					value={username}
+					label="Create Username"
+					required
+					onChange={(event) => setUsername(event.target.value)}
+				/>
 			</div>
+			<br />
 			<div>
-				<FormLabel htmlFor="password">
-					Password:
-					<TextField
-						type="password"
-						name="password"
-						value={password}
-						required
-						onChange={(event) => setPassword(event.target.value)}
-					/>
-				</FormLabel>
+				<TextField
+					type="password"
+					name="password"
+					value={password}
+					label="Create Password"
+					required
+					onChange={(event) => setPassword(event.target.value)}
+				/>
 			</div>
-			<div>
+			<br />
+			{/* <div>
 				<FormLabel htmlFor="is_doctor">Are you a Doctor?:</FormLabel>
 				<RadioGroup
 					defaultValue="No"
@@ -102,7 +105,8 @@ function RegisterForm() {
 					<FormControlLabel value={true} control={<Radio />} label="Yes" />
 					<FormControlLabel value={false} control={<Radio />} label="No" />
 				</RadioGroup>
-			</div>
+			</div> */}
+			<br />
 			<div>
 				<Button
 					variant="contained"
