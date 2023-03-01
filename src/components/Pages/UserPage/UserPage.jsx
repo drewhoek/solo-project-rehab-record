@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import LogOutButton from "../../Shared/LogOutButton/LogOutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
-import { Autocomplete, Button, Paper, Stack, TextField } from "@mui/material";
+import {
+	Autocomplete,
+	Button,
+	Paper,
+	Stack,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { useHistory } from "react-router-dom";
 
 function UserPage() {
@@ -30,12 +37,28 @@ function UserPage() {
 				alignItems: "center",
 			}}
 		>
-			<Box>
-				<h2>Welcome, {user.first_name}!</h2>
-				<p>
+			<Box
+				sx={{
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					width: 1 / 2,
+				}}
+			>
+				<Typography
+					component="h2"
+					variant="h4"
+					sx={{
+						fontWeight: "medium",
+					}}
+				>
+					Welcome, {user.first_name}!
+				</Typography>
+				<br />
+				<Typography component="p" variant="body1">
 					Your are a logged in as a{" "}
 					{user.is_doctor ? "Doctor" : "Rehab Therapist"}
-				</p>
+				</Typography>
 			</Box>
 			<Paper
 				elevation={3}
@@ -44,8 +67,13 @@ function UserPage() {
 					padding: 3,
 				}}
 			>
-				<h2>Begin Rehab Session</h2>
-				<h3>Lookup patient</h3>
+				<Typography component="h3" variant="h5">
+					Begin Rehab Session
+				</Typography>
+				<hr />
+				<Typography component="h4" variant="h6">
+					Lookup patient
+				</Typography>
 				<Autocomplete
 					sx={{
 						width: 300,
@@ -83,36 +111,53 @@ function UserPage() {
 					Next
 				</Button>
 			</Paper>
-			<Paper
-				elevation={3}
+			<Box
 				sx={{
-					padding: 3,
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-around",
+					alignItems: "flex-start",
 				}}
 			>
-				<h3>Add New Treatment Plan</h3>
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => history.push("/make-treatment-plan")}
+				<Paper
+					elevation={3}
+					sx={{
+						padding: 3,
+						margin: 5,
+					}}
 				>
-					Go
-				</Button>
-			</Paper>
-			<Paper
-				elevation={3}
-				sx={{
-					padding: 3,
-				}}
-			>
-				<h3>Add New Patient</h3>
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => history.push(`/add-patient`)}
+					<Typography component="h3" variant="h5">
+						Add New Treatment Plan
+					</Typography>
+					<br />
+					<Button
+						variant="contained"
+						color="secondary"
+						onClick={() => history.push("/make-treatment-plan")}
+					>
+						Go
+					</Button>
+				</Paper>
+				<Paper
+					elevation={3}
+					sx={{
+						padding: 3,
+						margin: 5,
+					}}
 				>
-					Go
-				</Button>
-			</Paper>
+					<Typography component="h3" variant="h5">
+						Add New Patient
+					</Typography>
+					<br />
+					<Button
+						variant="contained"
+						color="secondary"
+						onClick={() => history.push(`/add-patient`)}
+					>
+						Go
+					</Button>
+				</Paper>
+			</Box>
 		</Stack>
 	);
 }
