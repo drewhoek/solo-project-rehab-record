@@ -64,6 +64,8 @@ export default function ViewPlanPage() {
 		}
 	}, [lastVisitInformation]);
 
+	// ^^^^ This is the problem I think ^^^^^^^
+
 	function startVisit() {
 		const arrayOfMuscleWorkIds = [];
 		for (let i = 0; i < muscleWorkToBeDoneInformation.length; i++) {
@@ -109,8 +111,8 @@ export default function ViewPlanPage() {
 				}}
 			>
 				<Typography
-					variant="subtitle1"
 					component="h3"
+					variant="h5"
 					sx={{
 						textDecoration: "underline",
 					}}
@@ -145,14 +147,24 @@ export default function ViewPlanPage() {
 					<Typography>No previous information visit information</Typography>
 				) : (
 					<>
-						<Typography sx={{ textDecoration: "underline" }}>
+						<Typography
+							sx={{ textDecoration: "underline" }}
+							component="h3"
+							variant="h5"
+						>
 							From Previous Visit
 						</Typography>
 						<Typography>Last Visit Date: {newDate}</Typography>
 						<Typography>
-							{lastVisitInformation.units_completed} units completed Last Visit
+							{lastVisitInformation.units_completed
+								? lastVisitInformation.units_completed
+								: 0}{" "}
+							units completed
 						</Typography>
-						<Typography>Exercises Done Last Visit:</Typography>
+						<br />
+						<Typography sx={{ textDecoration: "underline" }}>
+							Exercises Done Last Visit:
+						</Typography>
 						<Table>
 							<TableHead>
 								<TableRow>
