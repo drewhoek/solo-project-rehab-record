@@ -1,8 +1,21 @@
-import { Button } from "@mui/material";
+import {
+	Button,
+	IconButton,
+	Paper,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+	Typography,
+} from "@mui/material";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import CheckBoxOutlineBlankSharpIcon from "@mui/icons-material/CheckBoxOutlineBlankSharp";
+import CheckBoxSharpIcon from "@mui/icons-material/CheckBoxSharp";
+import { Stack } from "@mui/system";
 
 export default function MuscleWorkDocumentation() {
 	const params = useParams();
@@ -32,36 +45,63 @@ export default function MuscleWorkDocumentation() {
 	}, []);
 
 	return (
-		<>
-			<h1>Muscle Work to be done</h1>
-			{/* <pre>{JSON.stringify(muscleWorkToBeDonePerVisit)}</pre> */}
-			<table>
-				<thead>
-					<tr>
-						<th>Mark Complete</th>
-						<th>Area</th>
-						<th>Method</th>
-						<th>Complete?</th>
-					</tr>
-				</thead>
-				<tbody>
-					{muscleWorkToBeDonePerVisit.map((muscleWork) => (
-						<tr key={muscleWork.MWTBDPV_id}>
-							<td>
-								<Button
-									variant="contained"
-									onClick={() => markMuscleWorkComplete(muscleWork.MWTBDPV_id)}
-								>
-									{muscleWork.is_done ? "Mark Incomplete" : "Mark Complete"}
-								</Button>
-							</td>
-							<td>{muscleWork.muscle_work_name}</td>
-							<td>{muscleWork.muscle_work_type}</td>
-							<td>{muscleWork.is_done ? "Yes" : "No"}</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
-		</>
+		<Stack
+			sx={{
+				display: "flex",
+				alignItems: "center",
+			}}
+		>
+			<Paper
+				elevation={3}
+				sx={{
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					width: 600,
+					padding: 3,
+				}}
+			>
+				<Typography component="h1" variant="h4">
+					Muscle Work that needs to be done
+				</Typography>
+				<br />
+				<Typography component="h3" variant="h6">
+					Please Mark Off Muscle Work When Complete
+				</Typography>
+				<Table>
+					<TableHead>
+						<TableRow>
+							<TableCell>Mark Complete</TableCell>
+							<TableCell>Area</TableCell>
+							<TableCell>Method</TableCell>
+							<TableCell>Complete?</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{muscleWorkToBeDonePerVisit.map((muscleWork) => (
+							<TableRow key={muscleWork.MWTBDPV_id}>
+								<TableCell>
+									<IconButton
+										variant="contained"
+										onClick={() =>
+											markMuscleWorkComplete(muscleWork.MWTBDPV_id)
+										}
+									>
+										{muscleWork.is_done ? (
+											<CheckBoxSharpIcon fontSize="large" />
+										) : (
+											<CheckBoxOutlineBlankSharpIcon fontSize="large" />
+										)}
+									</IconButton>
+								</TableCell>
+								<TableCell>{muscleWork.muscle_work_name}</TableCell>
+								<TableCell>{muscleWork.muscle_work_type}</TableCell>
+								<TableCell>{muscleWork.is_done ? "Yes" : "No"}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</Paper>
+		</Stack>
 	);
 }
