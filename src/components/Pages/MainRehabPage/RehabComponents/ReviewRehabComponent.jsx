@@ -1,7 +1,9 @@
-import { Paper, Box } from "@mui/material";
+import { Paper, Box, Typography, List, ListItem } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import { useHistory, useParams } from "react-router-dom";
+import { Stack } from "@mui/system";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 export default function ReviewRehabComponent() {
 	const dispatch = useDispatch();
@@ -66,78 +68,163 @@ export default function ReviewRehabComponent() {
 	}
 
 	return (
-		<>
-			<h1>Review Information</h1>
-			<Box
+		<Stack
+			sx={{
+				display: "flex",
+				alignItems: "center",
+			}}
+		>
+			<Paper
+				elevation={3}
 				sx={{
+					padding: 3,
 					display: "flex",
-					flexDirection: "row",
-					flexWrap: "wrap",
-					justifyContent: "space-around",
+					flexDirection: "column",
+					alignItems: "center",
+					width: 700,
 				}}
 			>
-				<Paper
+				<Typography component="h4" variant="h4">
+					Review
+				</Typography>
+				<br />
+				<Typography component="h5" variant="h6">
+					Review all info and finish when ready
+				</Typography>
+				<br />
+				<Box
 					sx={{
-						width: 200,
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-evenly",
 					}}
 				>
-					Review Time
-					<h4>Date: {timeInformation.date}</h4>
-					<h4>Time In: {timeInformation.time_in}</h4>
-					<h4>Time Out: {timeInformation.time_out}</h4>
-					<h4>Total Time: {timeInformation.total_time}</h4>
-				</Paper>
-				<Paper
+					<Paper
+						elevation={3}
+						sx={{
+							width: 175,
+							marginRight: 1,
+							padding: 3,
+						}}
+					>
+						<Typography
+							component="h5"
+							variant="h5"
+							sx={{
+								textDecoration: "underline",
+							}}
+						>
+							Time/Units
+						</Typography>
+						<br />
+						<Typography component="h4" variant="h6">
+							Date: {timeInformation.date}
+						</Typography>
+						<Typography component="h4" variant="h6">
+							Time In: {timeInformation.time_in}
+						</Typography>
+						<Typography component="h4" variant="h6">
+							Time Out: {timeInformation.time_out}
+						</Typography>
+						<Typography component="h4" variant="h6">
+							Total Time: {timeInformation.total_time}
+						</Typography>
+					</Paper>
+					<Paper
+						elevation={3}
+						sx={{
+							width: 175,
+							marginRight: 1,
+							padding: 3,
+						}}
+					>
+						<Typography
+							component="h5"
+							variant="h5"
+							sx={{
+								textDecoration: "underline",
+							}}
+						>
+							Exercises
+						</Typography>
+						{/* <pre>{JSON.stringify(exerciseInformation)}</pre> */}
+						{exerciseInformation.map((exercise) => (
+							<Stack key={exercise.exercise_id} spacing={1}>
+								<List>
+									<Typography component="h4" variant="h6">
+										Name: {exercise.exercise_id}
+									</Typography>
+									<ListItem>
+										<FitnessCenterIcon fontSize="small" />
+										Variation:
+										{exercise.variation_id}
+									</ListItem>
+									<ListItem>
+										<FitnessCenterIcon fontSize="small" />
+										Sets: {exercise.sets_done}
+									</ListItem>
+									<ListItem>
+										<FitnessCenterIcon fontSize="small" />
+										Reps: {exercise.reps_done}
+									</ListItem>
+
+									{exercise.notes_for_exercise ? (
+										<ListItem>
+											{" "}
+											<FitnessCenterIcon />
+											Notes: {exercise.notes_for_exercise}
+										</ListItem>
+									) : (
+										""
+									)}
+									<hr />
+								</List>
+								<br />
+							</Stack>
+						))}
+					</Paper>
+					<Paper
+						elevation={3}
+						sx={{
+							width: 175,
+							padding: 3,
+						}}
+					>
+						<Typography
+							component="h5"
+							variant="h5"
+							sx={{
+								textDecoration: "underline",
+							}}
+						>
+							Muscle Work
+						</Typography>
+						{muscleWorkInformation.map((muscleWork) => (
+							<Stack key={muscleWork.exercise_id} spacing={1}>
+								<List>
+									<ListItem>Name: {muscleWork.muscle_work_name} </ListItem>
+									<ListItem>Type: {muscleWork.muscle_work_type}</ListItem>
+									<ListItem>
+										Completed?: {muscleWork.is_done ? "Yes" : "No"}
+									</ListItem>
+								</List>
+								<hr />
+							</Stack>
+						))}
+					</Paper>
+				</Box>
+				<br />
+				<Box
 					sx={{
-						width: 200,
+						display: "flex",
+						justifyContent: "center",
 					}}
 				>
-					Review Exercises Done
-					{/* <pre>{JSON.stringify(exerciseInformation)}</pre> */}
-					{exerciseInformation.map((exercise) => (
-						<Box key={exercise.exercise_id}>
-							<h3>Exercise Name: {exercise.exercise_id}</h3>
-							<ul>
-								<li>Exercise Variation: {exercise.variation_id}</li>
-								<li>Sets: {exercise.sets_done}</li>
-								<li>Reps: {exercise.reps_done}</li>
-								{exercise.notes_for_exercise ? (
-									<li>Notes: {exercise.notes_for_exercise}</li>
-								) : (
-									""
-								)}
-							</ul>
-						</Box>
-					))}
-				</Paper>
-				<Paper
-					sx={{
-						width: 200,
-					}}
-				>
-					Review Muscle Work Done
-					{/* <pre>{JSON.stringify(muscleWorkInformation)}</pre> */}
-					{muscleWorkInformation.map((muscleWork) => (
-						<Box key={muscleWork.exercise_id}>
-							<ul>
-								<li>Muscle Work Name: {muscleWork.muscle_work_name} </li>
-								<li>Muscle Work Type: {muscleWork.muscle_work_type}</li>
-								<li>Completed: {muscleWork.is_done ? "Yes" : "No"}</li>
-							</ul>
-						</Box>
-					))}
-				</Paper>
-			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-				}}
-			>
-				<Button variant="contained" onClick={handleSubmitInformation}>
-					Submit Everything
-				</Button>
-			</Box>
-		</>
+					<Button variant="contained" onClick={handleSubmitInformation}>
+						Submit Everything
+					</Button>
+				</Box>
+			</Paper>
+		</Stack>
 	);
 }
