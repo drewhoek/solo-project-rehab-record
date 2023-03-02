@@ -9,9 +9,10 @@ import {
 	TableRow,
 	TextField,
 	Typography,
+	Autocomplete,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -19,18 +20,29 @@ export default function ExerciseDocumentationComponent() {
 	const dispatch = useDispatch();
 
 	const exercisesDone = useSelector((store) => store.allExercisesDoneReducer);
+	const allExercises = useSelector((store) => store.exercisesReducer);
+	const variationsForExercises = useSelector(
+		(store) => store.exerciseVariationsReducer
+	);
 
-	const [exerciseName, setExerciseName] = useState(""); //PLACEHOLDER TILL CAN FIGURE OUT AUTOCOMPLETE/DROPDOWN
-	const [exerciseVariation, setExerciseVariation] = useState(""); //PLACEHOLDER TILL CAN FIGURE OUT AUTOCOMPLETE/DROPDOWN
+	const [exerciseName, setExerciseName] = useState(allExercises[0]);
+	const [exerciseNameInput, setExerciseNameInput] = useState("");
+	const [exerciseVariation, setExerciseVariation] = useState(
+		variationsForExercises[0]
+	);
+	const [exerciseVariationInput, setExerciseVariationInput] = useState("");
+
 	const [sets, setSets] = useState("");
 	const [reps, setReps] = useState("");
 	const [notes, setNotes] = useState("");
 
+	const [fieldDisabled, setFieldDisabled] = useState(true);
+
 	function handleSubmit(event) {
 		event.preventDefault();
 		const exerciseObject = {
-			exercise_id: Number(exerciseName),
-			variation_id: Number(exerciseVariation),
+			exercise: exerciseName.exercise_name,
+			variation: exerciseVariation.exercise_variation,
 			sets_done: Number(sets),
 			reps_done: Number(reps),
 			notes_for_exercise: notes,
@@ -43,6 +55,10 @@ export default function ExerciseDocumentationComponent() {
 		setNotes("");
 	}
 
+	useEffect(() => {
+		dispatch({ type: "FETCH_EXERCISES" });
+	}, []);
+
 	return (
 		<Stack
 			spacing={2}
@@ -51,7 +67,10 @@ export default function ExerciseDocumentationComponent() {
 				alignItems: "center",
 			}}
 		>
-			<pre>{JSON.stringify(exercisesDone)}</pre>
+			{/* <pre>{JSON.stringify(exercisesDone)}</pre>
+			<pre>{JSON.stringify(allExercises)}</pre>
+			<pre>{JSON.stringify(variationsForExercises)}</pre> */}
+
 			<Paper
 				sx={{
 					padding: 3,
@@ -83,27 +102,80 @@ export default function ExerciseDocumentationComponent() {
 									justifyContent: "space-between",
 								}}
 							>
-								<TextField
-									label="Exercise Name"
-									value={exerciseName}
-									onChange={(event) => setExerciseName(event.target.value)}
+								<Autocomplete
+									limitTags={4}
 									sx={{
-										marginBottom: 1,
 										marginRight: 1,
-									}}
-								/>
-								<TextField
-									label="Exercise Variation"
-									value={exerciseVariation}
-									onChange={(event) => setExerciseVariation(event.target.value)}
-									sx={{
 										marginBottom: 1,
+										width: 200,
 									}}
+									value={exerciseName}
+									onChange={(event, newValue) => {
+										setExerciseName(newValue);
+										setFieldDisabled(false);
+										dispatch({
+											type: "FETCH_EXERCISE_VARIATIONS",
+											payload: newValue.id,
+										});
+									}}
+									inputValue={exerciseNameInput}
+									onInputChange={(event, newInputValue) => {
+										setExerciseNameInput(newInputValue);
+									}}
+									id="all-exercises-autofill"
+									getOptionLabel={(allExercises) =>
+										`${allExercises.exercise_name}`
+									}
+									renderOption={(props, allExercises) => (
+										<Box component="li" {...props} key={allExercises.id}>
+											{allExercises.exercise_name}
+										</Box>
+									)}
+									options={allExercises}
+									noOptionsText="No exercise with that name"
+									renderInput={(params) => (
+										<TextField {...params} label="Search Exercises" />
+									)}
+								/>
+								<Autocomplete
+									sx={{
+										marginRight: 1,
+										marginBottom: 1,
+										width: 200,
+									}}
+									value={exerciseVariation}
+									onChange={(event, newValue) => {
+										setExerciseVariation(newValue);
+									}}
+									inputValue={exerciseVariationInput}
+									onInputChange={(event, newInputValue) => {
+										setExerciseVariationInput(newInputValue);
+									}}
+									id="exercise-variation-autofill"
+									getOptionLabel={(variationsForExercises) =>
+										`${variationsForExercises.exercise_variation}`
+									}
+									options={variationsForExercises}
+									renderOption={(props, variationsForExercises) => (
+										<Box
+											component="li"
+											{...props}
+											key={variationsForExercises.id}
+										>
+											{allExercises.variation_name}
+										</Box>
+									)}
+									noOptionsText="No variation with that name"
+									renderInput={(params) => (
+										<TextField {...params} label="Search Variations" />
+									)}
+									disabled={fieldDisabled}
 								/>
 							</Box>
 							<Box>
 								<TextField
 									label="Sets"
+									type="number"
 									value={sets}
 									onChange={(event) => setSets(event.target.value)}
 									sx={{
@@ -113,6 +185,7 @@ export default function ExerciseDocumentationComponent() {
 								/>
 								<TextField
 									label="Reps"
+									type="number"
 									value={reps}
 									onChange={(event) => setReps(event.target.value)}
 									sx={{
@@ -164,7 +237,7 @@ export default function ExerciseDocumentationComponent() {
 							{exercisesDone.map((exercise) => (
 								<TableRow>
 									<TableCell>
-										{exercise.exercise_id} {exercise.variation_id}
+										{exercise.exercise} {exercise.variation}
 									</TableCell>
 									<TableCell>{exercise.sets_done}</TableCell>
 									<TableCell>{exercise.reps_done}</TableCell>

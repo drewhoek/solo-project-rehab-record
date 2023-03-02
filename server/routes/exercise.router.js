@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // Select all exercises from DB
 router.get('/', rejectUnauthenticated, (req, res) => {
   console.log('GET request on /exercise in exercise router');
-  const queryText = `SELECT "exercise_name" FROM "exercise_bank";`;
+  const queryText = `SELECT * FROM "exercise_bank";`;
   pool
     .query(queryText)
     .then((results) => res.send(results.rows))
@@ -17,13 +17,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 // Select exercise variations for specific exercise
-router.get('/variations', rejectUnauthenticated, (req, res) => {
+router.get('/variations/:id', rejectUnauthenticated, (req, res) => {
   console.log('GET request on /exercise/variations in exercise router');
-  const { exercise_id } = req.body;
-  const queryText = `SELECT "exercise_variation" FROM "exercise_variations"
+  const queryText = `SELECT * FROM "exercise_variations"
   WHERE "exercise_id" = $1;`;
   pool
-    .query(queryText, [exercise_id])
+    .query(queryText, [req.params.id])
     .then((results) => res.send(results.rows))
     .catch((error) => {
       console.log('Error making SELECT for exercise variations:', error);
