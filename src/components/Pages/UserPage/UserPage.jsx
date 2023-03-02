@@ -21,7 +21,13 @@ function UserPage() {
 		(store) => store.patientReducer
 	);
 
-	const [treatmentPlanId, setTreatmentPlanId] = useState(null);
+	// const [treatmentPlanId, setTreatmentPlanId] = useState(
+	// 	patientsWithTreatmentPlans[0]
+	// );
+	// const [treatmentPlanIdInput, setTreatmentPlanIdInput] = useState("");
+
+	const [patient, setPatient] = useState(patientsWithTreatmentPlans[0]);
+	const [patientInput, setPatientInput] = useState("");
 
 	useEffect(() => {
 		dispatch({ type: "FETCH_PATIENTS_WITH_PLAN" });
@@ -80,21 +86,27 @@ function UserPage() {
 						width: 300,
 						marginBottom: 2,
 					}}
-					value={treatmentPlanId}
-					onChange={(event, newValue) =>
-						setTreatmentPlanId(newValue.treatment_plan_id)
-					}
+					value={patient}
+					onChange={(event, newValue) => setPatient(newValue)}
+					inputValue={patientInput}
+					onInputChange={(event, newInputValue) => {
+						setPatientInput(newInputValue);
+					}}
 					id="patient-lookup"
 					getOptionLabel={(patientsWithTreatmentPlans) =>
 						`${patientsWithTreatmentPlans.first_name} ${patientsWithTreatmentPlans.last_name}`
 					}
 					options={patientsWithTreatmentPlans}
 					isOptionEqualToValue={(option, value) =>
-						option.treatment_plan_id === value.treatment_plan_id
+						option.first_name === value.first_name
 					}
 					noOptionsText={"No patients with this name"}
 					renderOption={(props, patientsWithTreatmentPlans) => (
-						<Box component="li" {...props} key={patientsWithTreatmentPlans.id}>
+						<Box
+							component="li"
+							{...props}
+							key={patientsWithTreatmentPlans.treatment_plan_id}
+						>
 							{patientsWithTreatmentPlans.first_name}{" "}
 							{patientsWithTreatmentPlans.last_name}
 						</Box>
@@ -106,7 +118,8 @@ function UserPage() {
 				<Button
 					variant="contained"
 					onClick={() => {
-						history.push(`/view-treatment-plan/${treatmentPlanId}`);
+						history.push(`/view-treatment-plan/${patient.treatment_plan_id}`);
+						console.log(patient);
 					}}
 				>
 					Next

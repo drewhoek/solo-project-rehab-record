@@ -51,6 +51,7 @@ export default function ExerciseDocumentationComponent() {
 				alignItems: "center",
 			}}
 		>
+			<pre>{JSON.stringify(exercisesDone)}</pre>
 			<Paper
 				sx={{
 					padding: 3,
