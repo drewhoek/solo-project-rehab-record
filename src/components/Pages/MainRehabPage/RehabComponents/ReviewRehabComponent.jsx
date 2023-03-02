@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import { useHistory, useParams } from "react-router-dom";
 import { Stack } from "@mui/system";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 export default function ReviewRehabComponent() {
 	const dispatch = useDispatch();
@@ -87,6 +86,8 @@ export default function ReviewRehabComponent() {
 				<Typography component="h4" variant="h4">
 					Review
 				</Typography>
+				<pre>{JSON.stringify(exerciseInformation)}</pre>
+
 				<br />
 				<Typography component="h5" variant="h6">
 					Review all info and finish when ready
@@ -147,33 +148,18 @@ export default function ReviewRehabComponent() {
 						>
 							Exercises
 						</Typography>
-						{/* <pre>{JSON.stringify(exerciseInformation)}</pre> */}
 						{exerciseInformation.map((exercise) => (
 							<Stack key={exercise.exercise_id} spacing={1}>
 								<List>
 									<Typography component="h4" variant="h6">
-										Name: {exercise.exercise_id}
+										Name: {exercise.exercise}
 									</Typography>
-									<ListItem>
-										<FitnessCenterIcon fontSize="small" />
-										Variation:
-										{exercise.variation_id}
-									</ListItem>
-									<ListItem>
-										<FitnessCenterIcon fontSize="small" />
-										Sets: {exercise.sets_done}
-									</ListItem>
-									<ListItem>
-										<FitnessCenterIcon fontSize="small" />
-										Reps: {exercise.reps_done}
-									</ListItem>
+									<ListItem>Variation: {exercise.variation}</ListItem>
+									<ListItem>Sets: {exercise.sets_done}</ListItem>
+									<ListItem>Reps: {exercise.reps_done}</ListItem>
 
 									{exercise.notes_for_exercise ? (
-										<ListItem>
-											{" "}
-											<FitnessCenterIcon />
-											Notes: {exercise.notes_for_exercise}
-										</ListItem>
+										<ListItem>Notes: {exercise.notes_for_exercise}</ListItem>
 									) : (
 										""
 									)}
@@ -221,7 +207,7 @@ export default function ReviewRehabComponent() {
 					}}
 				>
 					<Button variant="contained" onClick={handleSubmitInformation}>
-						Submit Everything
+						FINISH
 					</Button>
 				</Box>
 			</Paper>

@@ -41,8 +41,10 @@ export default function ExerciseDocumentationComponent() {
 	function handleSubmit(event) {
 		event.preventDefault();
 		const exerciseObject = {
+			exercise_id: exerciseName.id,
 			exercise: exerciseName.exercise_name,
 			variation: exerciseVariation.exercise_variation,
+			variation_id: exerciseVariation.id,
 			sets_done: Number(sets),
 			reps_done: Number(reps),
 			notes_for_exercise: notes,
@@ -53,6 +55,10 @@ export default function ExerciseDocumentationComponent() {
 		setSets("");
 		setReps("");
 		setNotes("");
+		setExerciseNameInput("");
+		setExerciseVariationInput("");
+		setExerciseName(allExercises[0]);
+		setExerciseVariation(variationsForExercises[0]);
 	}
 
 	useEffect(() => {
@@ -84,7 +90,11 @@ export default function ExerciseDocumentationComponent() {
 					}}
 				>
 					<Typography component="h4" variant="h4">
-						Exercise Documentation
+						Add Exercise
+					</Typography>
+					<br />
+					<Typography component="h5" variant="subtitle1">
+						A Record of Exercises Will Show Once an Exercise is Added
 					</Typography>
 					<br />
 					<form onSubmit={handleSubmit}>
@@ -103,7 +113,7 @@ export default function ExerciseDocumentationComponent() {
 								}}
 							>
 								<Autocomplete
-									limitTags={4}
+									required
 									sx={{
 										marginRight: 1,
 										marginBottom: 1,
@@ -138,6 +148,7 @@ export default function ExerciseDocumentationComponent() {
 									)}
 								/>
 								<Autocomplete
+									required
 									sx={{
 										marginRight: 1,
 										marginBottom: 1,
@@ -162,7 +173,7 @@ export default function ExerciseDocumentationComponent() {
 											{...props}
 											key={variationsForExercises.id}
 										>
-											{allExercises.variation_name}
+											{variationsForExercises.exercise_variation}
 										</Box>
 									)}
 									noOptionsText="No variation with that name"
@@ -174,6 +185,7 @@ export default function ExerciseDocumentationComponent() {
 							</Box>
 							<Box>
 								<TextField
+									required
 									label="Sets"
 									type="number"
 									value={sets}
@@ -184,6 +196,7 @@ export default function ExerciseDocumentationComponent() {
 									}}
 								/>
 								<TextField
+									required
 									label="Reps"
 									type="number"
 									value={reps}
@@ -210,48 +223,53 @@ export default function ExerciseDocumentationComponent() {
 					</form>
 				</Stack>
 			</Paper>
-			<Paper
-				sx={{
-					padding: 3,
-					width: 600,
-				}}
-			>
-				<Stack
+			{exercisesDone.length > 0 ? (
+				<Paper
 					sx={{
-						alignItems: "center",
+						padding: 3,
+						width: 600,
 					}}
 				>
-					<Typography component="h4" variant="h4">
-						Current Exercises Done
-					</Typography>
-					<Table>
-						<TableHead>
-							<TableRow>
-								<TableCell>Exercise Name and Variation</TableCell>
-								<TableCell>Sets</TableCell>
-								<TableCell>Reps</TableCell>
-								<TableCell>Notes</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{exercisesDone.map((exercise) => (
+					<Stack
+						sx={{
+							alignItems: "center",
+						}}
+					>
+						<Typography component="h4" variant="h4">
+							Current Exercises Done
+						</Typography>
+
+						<Table>
+							<TableHead>
 								<TableRow>
-									<TableCell>
-										{exercise.exercise} {exercise.variation}
-									</TableCell>
-									<TableCell>{exercise.sets_done}</TableCell>
-									<TableCell>{exercise.reps_done}</TableCell>
-									<TableCell>
-										{!exercise.notes_for_exercise
-											? "No notes"
-											: exercise.notes_for_exercise}
-									</TableCell>
+									<TableCell>Name</TableCell>
+									<TableCell>Variation</TableCell>
+									<TableCell>Sets</TableCell>
+									<TableCell>Reps</TableCell>
+									<TableCell>Notes</TableCell>
 								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				</Stack>
-			</Paper>
+							</TableHead>
+							<TableBody>
+								{exercisesDone.map((exercise, index) => (
+									<TableRow key={index}>
+										<TableCell>{exercise.exercise}</TableCell>
+										<TableCell>{exercise.variation}</TableCell>
+										<TableCell>{exercise.sets_done}</TableCell>
+										<TableCell>{exercise.reps_done}</TableCell>
+										<TableCell>
+											{!exercise.notes_for_exercise
+												? "No notes"
+												: exercise.notes_for_exercise}
+										</TableCell>
+									</TableRow>
+								))}
+							</TableBody>
+						</Table>
+					</Stack>
+				</Paper>
+			) : (
+				""
+			)}
 		</Stack>
 	);
 }
