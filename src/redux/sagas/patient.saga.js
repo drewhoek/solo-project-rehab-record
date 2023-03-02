@@ -11,6 +11,15 @@ function* fetchPatientSaga() {
     }
 }
 
+function* fetchPatientsWithoutPlanSaga() {
+    try {
+        const response = yield axios.get('/api/patients/without-treatment-plan');
+        yield put({ type: 'SET_PATIENTS_WITHOUT_PLAN', payload: response.data });
+    } catch (error) {
+        console.log('get request failed', error);
+    }
+}
+
 function* fetchAllPatientsSaga() {
     try {
         const response = yield axios.get('/api/patients');
@@ -43,6 +52,7 @@ function* patientSaga() {
     yield takeLatest('FETCH_ALL_PATIENTS', fetchAllPatientsSaga);
     yield takeLatest('ADD_PATIENT', addPatientSaga);
     yield takeLatest('DELETE_PATIENT', deletePatientSaga);
+    yield takeLatest('FETCH_PATIENTS_WITHOUT_PLAN', fetchPatientsWithoutPlanSaga);
 }
 
 export default patientSaga;;

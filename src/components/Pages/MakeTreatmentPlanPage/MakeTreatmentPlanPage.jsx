@@ -1,15 +1,25 @@
-import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import {
+	Button,
+	Paper,
+	Stack,
+	TextField,
+	Typography,
+	Autocomplete,
+} from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export default function MakeTreatmentPlanPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
+	const patientsWithoutPlans = useSelector(
+		(store) => store.patientsWithoutPlansReducer
+	);
+
 	// All of the following will be dispatched to the treatment plan saga/reducer
-	const [patientId, setPatientId] = useState("");
 	const [unitsOfTherapy, setUnitsOfTherapy] = useState("");
 	const [primaryComplaintArea, setPrimaryComplaintArea] = useState("");
 	const [primaryExerciseFocus, setPrimaryExerciseFocus] = useState("");
@@ -17,9 +27,12 @@ export default function MakeTreatmentPlanPage() {
 	const [visitCount, setVisitCount] = useState("");
 	const [notes, setNotes] = useState("");
 
+	const [patient, setPatient] = useState(patientsWithoutPlans[0]);
+	const [patientInput, setPatientInput] = useState("");
+
 	const handleSubmitTreatmentPlan = () => {
 		const newTreatmentPlanObject = {
-			patient_id: Number(patientId),
+			patient_id: Number(patient.id),
 			visit_count: Number(visitCount),
 			primary_complaint_area: primaryComplaintArea,
 			primary_exercise_focus: primaryExerciseFocus,
@@ -36,9 +49,8 @@ export default function MakeTreatmentPlanPage() {
 		});
 
 		// Sets patient info column has_treatment_plan to TRUE
-		dispatch({ type: "UPDATE_PATIENT_INFO", payload: patientId });
+		dispatch({ type: "UPDATE_PATIENT_INFO", payload: patient.id });
 
-		setPatientId("");
 		setUnitsOfTherapy("");
 		setPrimaryComplaintArea("");
 		setPrimaryExerciseFocus("");
@@ -46,6 +58,10 @@ export default function MakeTreatmentPlanPage() {
 		setVisitCount("");
 		setNotes("");
 	};
+
+	useEffect(() => {
+		dispatch({ type: "FETCH_PATIENTS_WITHOUT_PLAN" });
+	}, []);
 
 	return (
 		<Box
@@ -79,23 +95,41 @@ export default function MakeTreatmentPlanPage() {
 						alignItems: "flex-start",
 					}}
 				>
-					<TextField
-						label="Patient ID"
-						required
-						type="number"
-						value={patientId}
-						variant="filled"
+					<Autocomplete
 						sx={{
-							marginBottom: 1,
+							width: 300,
+							marginBottom: 2,
 						}}
-						onChange={(event) => setPatientId(event.target.value)}
+						value={patient}
+						onChange={(event, newValue) => setPatient(newValue)}
+						inputValue={patientInput}
+						onInputChange={(event, newInputValue) =>
+							setPatientInput(newInputValue)
+						}
+						id="patient-without-plan-lookup"
+						getOptionLabel={(patientsWithoutPlans) =>
+							`${patientsWithoutPlans.first_name} ${patientsWithoutPlans.last_name}`
+						}
+						options={patientsWithoutPlans}
+						isOptionEqualToValue={(option, value) =>
+							option.first_name === value.first_name
+						}
+						noOptionsText={"No patients with this name"}
+						renderOption={(props, patientsWithoutPlans) => (
+							<Box component="li" {...props} key={patientsWithoutPlans.id}>
+								{patientsWithoutPlans.first_name}{" "}
+								{patientsWithoutPlans.last_name}
+							</Box>
+						)}
+						renderInput={(params) => (
+							<TextField {...params} label="Search for Patient" />
+						)}
 					/>
 					<TextField
 						required
 						type="number"
 						label="Units of Therapy"
 						value={unitsOfTherapy}
-						variant="filled"
 						sx={{
 							marginBottom: 1,
 						}}
@@ -105,7 +139,6 @@ export default function MakeTreatmentPlanPage() {
 						required
 						label="Primary Area of Complaint"
 						value={primaryComplaintArea}
-						variant="filled"
 						sx={{
 							marginBottom: 1,
 							width: 250,
@@ -116,7 +149,6 @@ export default function MakeTreatmentPlanPage() {
 						required
 						label="Primary Exercise Focus"
 						value={primaryExerciseFocus}
-						variant="filled"
 						sx={{
 							marginBottom: 1,
 							width: 250,
@@ -127,7 +159,6 @@ export default function MakeTreatmentPlanPage() {
 						required
 						label="Secondary Exercise Focus"
 						value={secondaryExerciseFocus}
-						variant="filled"
 						sx={{
 							marginBottom: 1,
 							width: 250,
@@ -139,7 +170,6 @@ export default function MakeTreatmentPlanPage() {
 						type="number"
 						label="Visit Count"
 						value={visitCount}
-						variant="filled"
 						sx={{
 							marginBottom: 1,
 						}}
@@ -150,7 +180,6 @@ export default function MakeTreatmentPlanPage() {
 						rows={4}
 						label="Notes for Rehab"
 						value={notes}
-						variant="filled"
 						sx={{
 							marginBottom: 1,
 						}}
