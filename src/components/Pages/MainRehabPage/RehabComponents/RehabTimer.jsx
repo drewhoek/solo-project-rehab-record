@@ -1,3 +1,5 @@
+import { AppBar, Button, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -123,36 +125,134 @@ function RehabTimer() {
 	}, [startTime, endTime, isPaused]);
 
 	return (
-		<div>
-			<h2>Here is the timer</h2>
-			{!startTime && <button onClick={startTimer}>Start</button>}
-			{startTime && !endTime && !isPaused && (
-				<div>
-					<div>Date: {formatDate(startTime)}</div>
-					<div>Start time: {formatTimeOfDay(startTime)}</div>
-					<div>Time elapsed: {formatTime(currentTime)}</div>
-					<button onClick={pauseTimer}>Pause</button>
-					<button onClick={stopTimer}>Stop</button>
-				</div>
-			)}
-			{startTime && !endTime && isPaused && (
-				<div>
-					<div>Date: {formatDate(startTime)}</div>
-					<div>Start time: {formatTimeOfDay(startTime)}</div>
-					<div>Paused at: {formatTime(currentTime)}</div>
-					<button onClick={resumeTimer}>Resume</button>
-					<button onClick={stopTimer}>Stop</button>
-				</div>
-			)}
-			{startTime && endTime && (
-				<div>
-					<div>Date: {formatDate(startTime)}</div>
-					<div>Start time: {formatTimeOfDay(startTime)}</div>
-					<div>End time: {formatTimeOfDay(endTime)}</div>
-					<div>Total time: {formatTime(endTime)}</div>
-				</div>
-			)}
-		</div>
+		<AppBar
+			position="static"
+			sx={{
+				padding: 1,
+				display: "flex",
+				alignItems: "baseline",
+				justifyContent: "space-between",
+			}}
+		>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "space-evenly",
+				}}
+			>
+				<Typography component="h3" variant="h5">
+					Begin Session
+				</Typography>
+				{!startTime && (
+					<Button variant="contained" color="secondary" onClick={startTimer}>
+						Start
+					</Button>
+				)}
+				{startTime && !endTime && !isPaused && (
+					<Box
+						sx={{
+							display: "flex",
+						}}
+					>
+						{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
+						<Typography
+							sx={{
+								marginRight: 1,
+							}}
+						>
+							Start: {formatTimeOfDay(startTime)}
+						</Typography>
+						<Typography
+							sx={{
+								marginRight: 1,
+							}}
+						>
+							Elapsed: {formatTime(currentTime)}
+						</Typography>
+						<Button
+							sx={{
+								marginRight: 1,
+							}}
+							variant="contained"
+							color="secondary"
+							onClick={pauseTimer}
+						>
+							Pause
+						</Button>
+						<Button variant="contained" color="secondary" onClick={stopTimer}>
+							Stop
+						</Button>
+					</Box>
+				)}
+				{startTime && !endTime && isPaused && (
+					<Box
+						sx={{
+							display: "flex",
+						}}
+					>
+						{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
+						<Typography
+							sx={{
+								marginRight: 1,
+							}}
+						>
+							Start: {formatTimeOfDay(startTime)}
+						</Typography>
+						<Typography
+							sx={{
+								marginRight: 1,
+							}}
+						>
+							Paused at: {formatTime(currentTime)}
+						</Typography>
+						<Button
+							sx={{
+								marginRight: 1,
+							}}
+							variant="contained"
+							color="secondary"
+							onClick={resumeTimer}
+						>
+							Resume
+						</Button>
+						<Button variant="contained" color="secondary" onClick={stopTimer}>
+							Stop
+						</Button>
+					</Box>
+				)}
+				{startTime && endTime && (
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+						}}
+					>
+						{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
+						<Box>
+							<Typography
+								sx={{
+									marginRight: 1,
+								}}
+							>
+								Start: {formatTimeOfDay(startTime)}
+							</Typography>
+						</Box>
+						<Box>
+							<Typography
+								sx={{
+									marginRight: 1,
+								}}
+							>
+								End: {formatTimeOfDay(endTime)}
+							</Typography>
+						</Box>
+						<Box>
+							<Typography>Total: {formatTime(endTime)}</Typography>
+						</Box>
+					</Box>
+				)}
+			</Box>
+		</AppBar>
 	);
 }
 
