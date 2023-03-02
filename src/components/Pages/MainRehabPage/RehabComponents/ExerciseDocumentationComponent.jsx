@@ -1,4 +1,15 @@
-import { Button, Table, TextField } from "@mui/material";
+import {
+	Button,
+	Paper,
+	Stack,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -33,68 +44,140 @@ export default function ExerciseDocumentationComponent() {
 	}
 
 	return (
-		<Box>
-			<h1>Exercise Documentation</h1>
-			<Box>
-				<form onSubmit={handleSubmit}>
-					<TextField
-						label="Exercise Name"
-						value={exerciseName}
-						onChange={(event) => setExerciseName(event.target.value)}
-					/>
-					<TextField
-						label="Exercise Variation"
-						value={exerciseVariation}
-						onChange={(event) => setExerciseVariation(event.target.value)}
-					/>
-					<TextField
-						label="Sets"
-						value={sets}
-						onChange={(event) => setSets(event.target.value)}
-					/>
-					<TextField
-						label="Reps"
-						value={reps}
-						onChange={(event) => setReps(event.target.value)}
-					/>
-					<TextField
-						label="Notes"
-						value={notes}
-						onChange={(event) => setNotes(event.target.value)}
-					/>
-					<Button type="submit" variant="contained">
-						Add Exercise
-					</Button>
-				</form>
-			</Box>
-			<Box>
-				<table>
-					<thead>
-						<tr>
-							<th>Exercise Name and Variation</th>
-							<th>Sets</th>
-							<th>Reps</th>
-							<th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						{exercisesDone.map((exercise) => (
-							<tr>
-								<td>
-									{exercise.exercise_id} {exercise.variation_id}
-								</td>
-								<td>{exercise.sets_done}</td>
-								<td>{exercise.reps_done}</td>
-								<td>
-									{!exercise.notes_for_exercise
-										? "No notes"
-										: exercise.notes_for_exercise}
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			</Box>
-		</Box>
+		<Stack
+			spacing={2}
+			sx={{
+				display: "flex",
+				alignItems: "center",
+			}}
+		>
+			<Paper
+				sx={{
+					padding: 3,
+					width: 600,
+				}}
+			>
+				<Stack
+					sx={{
+						display: "flex",
+						alignItems: "center",
+					}}
+				>
+					<Typography component="h4" variant="h4">
+						Exercise Documentation
+					</Typography>
+					<br />
+					<form onSubmit={handleSubmit}>
+						<Box
+							sx={{
+								display: "flex",
+								flexWrap: "wrap",
+								flexDirection: "column",
+							}}
+						>
+							<Box
+								sx={{
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "space-between",
+								}}
+							>
+								<TextField
+									label="Exercise Name"
+									value={exerciseName}
+									onChange={(event) => setExerciseName(event.target.value)}
+									sx={{
+										marginBottom: 1,
+										marginRight: 1,
+									}}
+								/>
+								<TextField
+									label="Exercise Variation"
+									value={exerciseVariation}
+									onChange={(event) => setExerciseVariation(event.target.value)}
+									sx={{
+										marginBottom: 1,
+									}}
+								/>
+							</Box>
+							<Box>
+								<TextField
+									label="Sets"
+									value={sets}
+									onChange={(event) => setSets(event.target.value)}
+									sx={{
+										marginRight: 1,
+										marginBottom: 1,
+									}}
+								/>
+								<TextField
+									label="Reps"
+									value={reps}
+									onChange={(event) => setReps(event.target.value)}
+									sx={{
+										marginBottom: 1,
+									}}
+								/>
+							</Box>
+							<Box>
+								<TextField
+									label="Notes"
+									value={notes}
+									onChange={(event) => setNotes(event.target.value)}
+									sx={{
+										marginBottom: 1,
+									}}
+								/>
+							</Box>
+						</Box>
+						<Button type="submit" variant="contained">
+							Add Exercise
+						</Button>
+					</form>
+				</Stack>
+			</Paper>
+			<Paper
+				sx={{
+					padding: 3,
+					width: 600,
+				}}
+			>
+				<Stack
+					sx={{
+						alignItems: "center",
+					}}
+				>
+					<Typography component="h4" variant="h4">
+						Current Exercises Done
+					</Typography>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>Exercise Name and Variation</TableCell>
+								<TableCell>Sets</TableCell>
+								<TableCell>Reps</TableCell>
+								<TableCell>Notes</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{exercisesDone.map((exercise) => (
+								<TableRow>
+									<TableCell>
+										{exercise.exercise_id} {exercise.variation_id}
+									</TableCell>
+									<TableCell>{exercise.sets_done}</TableCell>
+									<TableCell>{exercise.reps_done}</TableCell>
+									<TableCell>
+										{!exercise.notes_for_exercise
+											? "No notes"
+											: exercise.notes_for_exercise}
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</Stack>
+			</Paper>
+		</Stack>
 	);
 }
