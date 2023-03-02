@@ -8,6 +8,8 @@ import {
 	TableRow,
 	TableCell,
 	Typography,
+	List,
+	ListItem,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -81,24 +83,39 @@ export default function ViewPlanPage() {
 	}
 
 	return (
-		<Stack spacing={2}>
+		<Stack
+			spacing={2}
+			sx={{
+				display: "flex",
+				alignItems: "center",
+			}}
+		>
 			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre> */}
 			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
 			<pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre>
 			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre>
-
-			<Typography variant="h2" component="h2">
-				Viewing Current Treatment Plan For {treatmentPlanInformation.first_name}{" "}
+			<Typography variant="h3" component="h3">
+				Viewing Treatment Plan for {treatmentPlanInformation.first_name}{" "}
 				{treatmentPlanInformation.last_name}
 			</Typography>
 			<Paper
 				elevation={3}
 				sx={{
-					width: 300,
+					width: 600,
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					padding: 3,
 				}}
 			>
-				<Typography variant="subtitle1" component="h3">
-					Treatment Plan Information
+				<Typography
+					variant="subtitle1"
+					component="h3"
+					sx={{
+						textDecoration: "underline",
+					}}
+				>
+					Overview of Treatment Plan
 				</Typography>
 
 				<Typography variant="subtitle1" component="h3">
@@ -112,69 +129,103 @@ export default function ViewPlanPage() {
 					Secondary Exercise Focus:{" "}
 					{treatmentPlanInformation.secondary_exercise_focus}
 				</Typography>
-				<h4>Muscle work to be completed during rehab visit</h4>
-				<ul>
-					{muscleWorkToBeDoneInformation.map((muscleWork) => (
-						<li key={muscleWork.id}>
-							{muscleWork.muscle_work_name} {muscleWork.muscle_work_type}
-						</li>
-					))}
-				</ul>
+				<br />
 			</Paper>
-			{!lastVisitInformation ? (
-				<Typography>No previous information visit information</Typography>
-			) : (
-				<>
-					<Typography>Last Visit Date: {newDate}</Typography>
-					<Typography>
-						{lastVisitInformation.units_completed} units completed Last Visit
-					</Typography>
-					<Typography>Exercises Done Last Visit:</Typography>
-					<Table>
-						<TableHead>
-							<TableRow>
-								<TableCell>Exercise Name</TableCell>
-								<TableCell>Exercise Variation</TableCell>
-								<TableCell>Sets Done</TableCell>
-								<TableCell>Reps Done</TableCell>
-								<TableCell>Notes</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{exercisesDoneLastVisit.map((exercise) => (
-								<TableRow key={exercise.id}>
-									<TableCell>{exercise.exercise_name}</TableCell>
-									<TableCell>{exercise.exercise_variation}</TableCell>
-									<TableCell>{exercise.sets_done}</TableCell>
-									<TableCell>{exercise.reps_done}</TableCell>
-									<TableCell>
-										{exercise.notes_for_exercise
-											? exercise.notes_for_exercise
-											: "None"}
-									</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-					<img
-						src="http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg"
-						width={200}
-						height={350}
-					/>
-				</>
-			)}
 			<Paper
+				elevation={3}
 				sx={{
-					width: 400,
+					width: 650,
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
 					padding: 3,
 				}}
 			>
-				Start a Rehab Visit for this Treatment Plan
-				<Button
-					variant="contained"
-					// onClick={() => history.push(`/rehab/${treatmentPlanId}`)}
-					onClick={startVisit}
-				>
+				{!lastVisitInformation ? (
+					<Typography>No previous information visit information</Typography>
+				) : (
+					<>
+						<Typography sx={{ textDecoration: "underline" }}>
+							From Previous Visit
+						</Typography>
+						<Typography>Last Visit Date: {newDate}</Typography>
+						<Typography>
+							{lastVisitInformation.units_completed} units completed Last Visit
+						</Typography>
+						<Typography>Exercises Done Last Visit:</Typography>
+						<Table>
+							<TableHead>
+								<TableRow>
+									<TableCell>Exercise Name</TableCell>
+									<TableCell>Exercise Variation</TableCell>
+									<TableCell>Sets Done</TableCell>
+									<TableCell>Reps Done</TableCell>
+									<TableCell>Notes</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{exercisesDoneLastVisit.map((exercise) => (
+									<TableRow key={exercise.id}>
+										<TableCell>{exercise.exercise_name}</TableCell>
+										<TableCell>{exercise.exercise_variation}</TableCell>
+										<TableCell>{exercise.sets_done}</TableCell>
+										<TableCell>{exercise.reps_done}</TableCell>
+										<TableCell>
+											{exercise.notes_for_exercise
+												? exercise.notes_for_exercise
+												: "None"}
+										</TableCell>
+									</TableRow>
+								))}
+							</TableBody>
+						</Table>
+					</>
+				)}
+			</Paper>
+			<Paper
+				elevation={3}
+				sx={{
+					width: 600,
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					padding: 3,
+				}}
+			>
+				<Typography component="h4" variant="h5">
+					Affected Muscle Group
+				</Typography>
+				<br />
+				<img
+					src="http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg"
+					width={200}
+					height={350}
+				/>
+				<br />
+				<Typography component="h4" variant="h6">
+					Muscle work areas to be completed during rehab visit
+				</Typography>
+				<List>
+					{muscleWorkToBeDoneInformation.map((muscleWork) => (
+						<ListItem key={muscleWork.id}>
+							{muscleWork.muscle_work_name} {muscleWork.muscle_work_type}
+						</ListItem>
+					))}
+				</List>
+			</Paper>
+			<Paper
+				elevation={3}
+				sx={{
+					width: 600,
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					padding: 3,
+				}}
+			>
+				<Typography>Start a Rehab Visit for this Treatment Plan</Typography>
+				<br />
+				<Button variant="contained" onClick={startVisit}>
 					Go
 				</Button>
 			</Paper>
