@@ -1,7 +1,7 @@
-import { Button, Paper, TextField, Typography } from "@mui/material";
+import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export default function MakeTreatmentPlanPage() {
@@ -55,12 +55,6 @@ export default function MakeTreatmentPlanPage() {
 				alignItems: "center",
 			}}
 		>
-			<Typography component="h3" variant="h5">
-				Create a New Treatment Plan
-			</Typography>
-			<Typography component="h5" variant="h6">
-				Get Corresponding Information from PCP
-			</Typography>
 			<Paper
 				elevation={3}
 				sx={{
@@ -68,59 +62,112 @@ export default function MakeTreatmentPlanPage() {
 					padding: 3,
 				}}
 			>
-				<TextField
-					label="Patient ID"
-					required
-					type="number"
-					value={patientId}
-					onChange={(event) => setPatientId(event.target.value)}
-				/>
-				<TextField
-					required
-					type="number"
-					label="Units of Therapy"
-					value={unitsOfTherapy}
-					onChange={(event) => setUnitsOfTherapy(event.target.value)}
-				/>
-				<TextField
-					required
-					label="Primary Area of Complaint"
-					value={primaryComplaintArea}
-					onChange={(event) => setPrimaryComplaintArea(event.target.value)}
-				/>
-				<TextField
-					required
-					label="Primary Exercise Focus"
-					value={primaryExerciseFocus}
-					onChange={(event) => setPrimaryExerciseFocus(event.target.value)}
-				/>
-				<TextField
-					required
-					label="Secondary Exercise Focus"
-					value={secondaryExerciseFocus}
-					onChange={(event) => setSecondaryExerciseFocus(event.target.value)}
-				/>
-				<TextField
-					required
-					type="number"
-					label="Visit Count"
-					value={visitCount}
-					onChange={(event) => setVisitCount(event.target.value)}
-				/>
-				<TextField
-					label="Notes for Rehab"
-					value={notes}
-					onChange={(event) => setNotes(event.target.value)}
-				/>
+				<Box>
+					<Typography component="h3" variant="h5">
+						Create a New Treatment Plan
+					</Typography>
+					<Typography component="h5" variant="h6">
+						Get Corresponding Information from PCP
+					</Typography>
+				</Box>
 				<br />
-				<br />
-				<Button
-					variant="contained"
-					type="button"
-					onClick={handleSubmitTreatmentPlan}
+				<Stack
+					sx={{
+						display: "flex",
+						flexWrap: "wrap",
+						justifyContent: "space-between",
+						alignItems: "flex-start",
+					}}
 				>
-					Add
-				</Button>
+					<TextField
+						label="Patient ID"
+						required
+						type="number"
+						value={patientId}
+						variant="filled"
+						sx={{
+							marginBottom: 1,
+						}}
+						onChange={(event) => setPatientId(event.target.value)}
+					/>
+					<TextField
+						required
+						type="number"
+						label="Units of Therapy"
+						value={unitsOfTherapy}
+						variant="filled"
+						sx={{
+							marginBottom: 1,
+						}}
+						onChange={(event) => setUnitsOfTherapy(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Primary Area of Complaint"
+						value={primaryComplaintArea}
+						variant="filled"
+						sx={{
+							marginBottom: 1,
+							width: 250,
+						}}
+						onChange={(event) => setPrimaryComplaintArea(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Primary Exercise Focus"
+						value={primaryExerciseFocus}
+						variant="filled"
+						sx={{
+							marginBottom: 1,
+							width: 250,
+						}}
+						onChange={(event) => setPrimaryExerciseFocus(event.target.value)}
+					/>
+					<TextField
+						required
+						label="Secondary Exercise Focus"
+						value={secondaryExerciseFocus}
+						variant="filled"
+						sx={{
+							marginBottom: 1,
+							width: 250,
+						}}
+						onChange={(event) => setSecondaryExerciseFocus(event.target.value)}
+					/>
+					<TextField
+						required
+						type="number"
+						label="Visit Count"
+						value={visitCount}
+						variant="filled"
+						sx={{
+							marginBottom: 1,
+						}}
+						onChange={(event) => setVisitCount(event.target.value)}
+					/>
+					<TextField
+						multiline
+						rows={4}
+						label="Notes for Rehab"
+						value={notes}
+						variant="filled"
+						sx={{
+							marginBottom: 1,
+						}}
+						onChange={(event) => setNotes(event.target.value)}
+					/>
+				</Stack>
+				<br />
+				<br />
+				<Box>
+					<Button
+						variant="contained"
+						type="button"
+						onClick={handleSubmitTreatmentPlan}
+					>
+						Add
+					</Button>
+				</Box>
 			</Paper>
 		</Box>
 	);

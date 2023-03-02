@@ -12,7 +12,6 @@ export default function Footer() {
 				left: 0,
 				bottom: 0,
 				right: 0,
-				marginBottom: 5,
 			}}
 		>
 			<Typography component="h5" variant="caption">

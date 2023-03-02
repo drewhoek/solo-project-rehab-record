@@ -68,12 +68,13 @@ function UserPage() {
 				}}
 			>
 				<Typography component="h3" variant="h5">
-					Begin Rehab Session
+					View Treatment Plan for Patient
 				</Typography>
 				<hr />
 				<Typography component="h4" variant="h6">
-					Lookup patient
+					Lookup name
 				</Typography>
+				<br />
 				<Autocomplete
 					sx={{
 						width: 300,
