@@ -17,6 +17,7 @@ import muscleWorkToBeDoneReducer from './muscle.work.to.be.done.reducer';
 import exercisesReducer from './exercises.reducer';
 import exerciseVariationsReducer from './exercise.variations.reducer';
 import patientsWithoutPlansReducer from './patients.without.plans.reducer';
+import allExercisesDoneDuringVisitReducer from './all.exercises.done.during.visit.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
   exercisesReducer,
   exerciseVariationsReducer,
   patientsWithoutPlansReducer,
+  allExercisesDoneDuringVisitReducer,
 });
 
 export default rootReducer;

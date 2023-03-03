@@ -19,7 +19,9 @@ import { useDispatch } from "react-redux";
 export default function ExerciseDocumentationComponent() {
 	const dispatch = useDispatch();
 
-	const exercisesDone = useSelector((store) => store.allExercisesDoneReducer);
+	const exercisesDone = useSelector(
+		(store) => store.allExercisesDoneDuringVisitReducer
+	);
 	const allExercises = useSelector((store) => store.exercisesReducer);
 	const variationsForExercises = useSelector(
 		(store) => store.exerciseVariationsReducer
@@ -49,7 +51,10 @@ export default function ExerciseDocumentationComponent() {
 			reps_done: Number(reps),
 			notes_for_exercise: notes,
 		};
-		dispatch({ type: "SET_ALL_EXERCISES_DONE", payload: exerciseObject });
+		dispatch({
+			type: "SET_ALL_EXERCISES_DONE_DURING_VISIT",
+			payload: exerciseObject,
+		});
 		setExerciseName("");
 		setExerciseVariation("");
 		setSets("");

@@ -92,11 +92,11 @@ export default function ViewPlanPage() {
 				alignItems: "center",
 			}}
 		>
-			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre> */}
+			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre>  */}
 			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
-			<pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre>
+			{/* <pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre> */}
 			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre>
-			<Typography variant="h3" component="h3">
+			<Typography variant="h3" component="h3" align="center">
 				Viewing Treatment Plan for {treatmentPlanInformation.first_name}{" "}
 				{treatmentPlanInformation.last_name}
 			</Typography>
@@ -144,7 +144,7 @@ export default function ViewPlanPage() {
 				}}
 			>
 				{!lastVisitInformation ? (
-					<Typography>No previous information visit information</Typography>
+					<Typography>No previous visit information</Typography>
 				) : (
 					<>
 						<Typography

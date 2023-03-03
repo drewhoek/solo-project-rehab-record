@@ -12,7 +12,7 @@ export default function ReviewRehabComponent() {
 	const visitId = params.id;
 
 	const exerciseInformation = useSelector(
-		(store) => store.allExercisesDoneReducer
+		(store) => store.allExercisesDoneDuringVisitReducer
 	);
 
 	const timeInformation = useSelector((store) => store.rehabTimerReducer);
@@ -63,6 +63,8 @@ export default function ReviewRehabComponent() {
 				payload: exercisesObject,
 			});
 		}
+		dispatch({ type: "UNSET_ALL_EXERCISES_DONE_DURING_VISIT" });
+		dispatch({ type: "UNSET_TIME_AND_DATE" });
 		history.push("/user");
 	}
 
@@ -86,7 +88,7 @@ export default function ReviewRehabComponent() {
 				<Typography component="h4" variant="h4">
 					Review
 				</Typography>
-				<pre>{JSON.stringify(exerciseInformation)}</pre>
+				{/* <pre>{JSON.stringify(exerciseInformation)}</pre> */}
 
 				<br />
 				<Typography component="h5" variant="h6">

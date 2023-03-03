@@ -4,7 +4,6 @@ import {
 	TextField,
 	Typography,
 	Autocomplete,
-	Checkbox,
 	Stack,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -13,12 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-
 export default function AddMuscleWorkToPlan() {
-	const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-	const checkedIcon = <CheckBoxIcon fontSize="small" />;
 	const history = useHistory();
 	const params = useParams();
 	const dispatch = useDispatch();
