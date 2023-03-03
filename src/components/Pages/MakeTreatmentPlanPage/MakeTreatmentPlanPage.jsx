@@ -64,7 +64,8 @@ export default function MakeTreatmentPlanPage() {
 	}, []);
 
 	return (
-		<Box
+		<Stack
+			className="container"
 			sx={{
 				display: "flex",
 				flexDirection: "column",
@@ -198,6 +199,6 @@ export default function MakeTreatmentPlanPage() {
 					</Button>
 				</Box>
 			</Paper>
-		</Box>
+		</Stack>
 	);
 }

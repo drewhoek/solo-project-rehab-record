@@ -82,7 +82,7 @@ export default function ReviewRehabComponent() {
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
-					width: 700,
+					width: 600,
 				}}
 			>
 				<Typography component="h4" variant="h4">

@@ -84,6 +84,7 @@ export default function ViewPlanPage() {
 
 	return (
 		<Stack
+			className="container"
 			spacing={2}
 			sx={{
 				display: "flex",
@@ -94,10 +95,7 @@ export default function ViewPlanPage() {
 			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
 			{/* <pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre> */}
 			{/* <pre>{JSON.stringify(exercisesDoneLastVisit)}</pre> */}
-			<Typography variant="h3" component="h3" align="center">
-				Viewing Treatment Plan for {treatmentPlanInformation.first_name}{" "}
-				{treatmentPlanInformation.last_name}
-			</Typography>
+
 			<Paper
 				elevation={3}
 				sx={{
@@ -108,6 +106,10 @@ export default function ViewPlanPage() {
 					padding: 3,
 				}}
 			>
+				<Typography variant="h5" component="h4" align="center">
+					Viewing Treatment Plan for {treatmentPlanInformation.first_name}{" "}
+					{treatmentPlanInformation.last_name}
+				</Typography>
 				<Typography
 					component="h3"
 					variant="h5"
@@ -115,7 +117,7 @@ export default function ViewPlanPage() {
 						textDecoration: "underline",
 					}}
 				>
-					Overview of Treatment Plan
+					Overview
 				</Typography>
 
 				<Typography variant="subtitle1" component="h3">
@@ -142,7 +144,7 @@ export default function ViewPlanPage() {
 			<Paper
 				elevation={3}
 				sx={{
-					width: 650,
+					width: 600,
 					display: "flex",
 					alignItems: "center",
 					flexDirection: "column",
@@ -241,7 +243,9 @@ export default function ViewPlanPage() {
 					padding: 3,
 				}}
 			>
-				<Typography>Start a Rehab Visit for this Treatment Plan</Typography>
+				<Typography component="h4" variant="h6">
+					Start a Rehab Visit for this Treatment Plan
+				</Typography>
 				<br />
 				<Button variant="contained" onClick={startVisit}>
 					Go

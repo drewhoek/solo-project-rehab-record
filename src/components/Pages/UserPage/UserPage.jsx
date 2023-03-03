@@ -58,7 +58,7 @@ function UserPage() {
 				<Paper
 					elevation={3}
 					sx={{
-						minWidth: 500,
+						minWidth: 600,
 						padding: 3,
 					}}
 				>
@@ -78,10 +78,65 @@ function UserPage() {
 					</Typography>
 				</Paper>
 			</Box>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					minWidth: 650,
+				}}
+			>
+				<Card sx={{ maxWidth: 345, minWidth: 300 }} elevation={3}>
+					<CardMedia
+						sx={{ height: 140 }}
+						image="https://res.cloudinary.com/highereducation/image/upload/v1533591754/TheBestColleges.org/chiropractor-1.jpg"
+						title="chiropractic consult"
+					/>
+					<CardContent sx={{ paddingLeft: 3, paddingRight: 3 }}>
+						<Typography component="h3" variant="h5">
+							Add New Treatment Plan
+						</Typography>
+					</CardContent>
+					<CardActions
+						sx={{ paddingLeft: 3, paddingBottom: 3, paddingRight: 3 }}
+					>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => history.push("/make-treatment-plan")}
+						>
+							Go
+						</Button>
+					</CardActions>
+				</Card>
+				<Card sx={{ maxWidth: 345, minWidth: 300 }} elevation={3}>
+					<CardMedia
+						sx={{ height: 140 }}
+						image="https://www.yestoperfecthealth.com/wp-content/uploads/2020/09/Chiropractic-Irving-TX-New-Patients-Welcome.jpg"
+						title="chiropractic new patient visit"
+					/>
+					<CardContent sx={{ paddingLeft: 3, paddingRight: 3 }}>
+						<Typography component="h3" variant="h5">
+							Add New Patient
+						</Typography>
+					</CardContent>
+					<CardActions
+						sx={{ paddingLeft: 3, paddingBottom: 3, paddingRight: 3 }}
+					>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => history.push(`/add-patient`)}
+						>
+							Go
+						</Button>
+					</CardActions>
+				</Card>
+			</Box>
 			<Paper
 				elevation={3}
 				sx={{
-					minWidth: 500,
+					minWidth: 600,
 					padding: 3,
 				}}
 			>
@@ -134,61 +189,6 @@ function UserPage() {
 					Next
 				</Button>
 			</Paper>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-					minWidth: 550,
-				}}
-			>
-				<Card sx={{ maxWidth: 345, minWidth: 300 }} elevation={3}>
-					<CardMedia
-						sx={{ height: 140 }}
-						image="https://res.cloudinary.com/highereducation/image/upload/v1533591754/TheBestColleges.org/chiropractor-1.jpg"
-						title="chiropractic consult"
-					/>
-					<CardContent sx={{ paddingLeft: 3, paddingRight: 3 }}>
-						<Typography component="h3" variant="h5">
-							Add New Treatment Plan
-						</Typography>
-					</CardContent>
-					<CardActions
-						sx={{ paddingLeft: 3, paddingBottom: 3, paddingRight: 3 }}
-					>
-						<Button
-							variant="contained"
-							color="secondary"
-							onClick={() => history.push("/make-treatment-plan")}
-						>
-							Go
-						</Button>
-					</CardActions>
-				</Card>
-				<Card sx={{ maxWidth: 345 }} elevation={3}>
-					<CardMedia
-						sx={{ height: 140 }}
-						image="https://www.yestoperfecthealth.com/wp-content/uploads/2020/09/Chiropractic-Irving-TX-New-Patients-Welcome.jpg"
-						title="chiropractic new patient visit"
-					/>
-					<CardContent sx={{ paddingLeft: 3, paddingRight: 3 }}>
-						<Typography component="h3" variant="h5">
-							Add New Patient
-						</Typography>
-					</CardContent>
-					<CardActions
-						sx={{ paddingLeft: 3, paddingBottom: 3, paddingRight: 3 }}
-					>
-						<Button
-							variant="contained"
-							color="info"
-							onClick={() => history.push(`/add-patient`)}
-						>
-							Go
-						</Button>
-					</CardActions>
-				</Card>
-			</Box>
 		</Stack>
 	);
 }

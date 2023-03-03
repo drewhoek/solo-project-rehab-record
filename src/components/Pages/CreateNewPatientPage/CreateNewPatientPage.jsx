@@ -38,6 +38,7 @@ export default function CreateNewPatientPage() {
 
 	return (
 		<Stack
+			className="container"
 			spacing={2}
 			sx={{
 				display: "flex",
@@ -48,7 +49,7 @@ export default function CreateNewPatientPage() {
 			<Paper
 				elevation={3}
 				sx={{
-					width: 500,
+					width: 600,
 					padding: 3,
 				}}
 			>
@@ -78,7 +79,7 @@ export default function CreateNewPatientPage() {
 			<Paper
 				elevation={3}
 				sx={{
-					width: 500,
+					width: 600,
 					padding: 3,
 				}}
 			>
@@ -88,7 +89,7 @@ export default function CreateNewPatientPage() {
 				<TableContainer
 					sx={{
 						maxHeight: 440,
-						maxWidth: 500,
+						maxWidth: 600,
 					}}
 				>
 					<Table stickyHeader aria-label="sticky table">
