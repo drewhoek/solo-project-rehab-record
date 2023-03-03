@@ -1,11 +1,24 @@
-import { Button, Paper, TextField, Typography } from "@mui/material";
+import {
+	Button,
+	Paper,
+	TextField,
+	Typography,
+	Autocomplete,
+	Checkbox,
+	Stack,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+
 export default function AddMuscleWorkToPlan() {
+	const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+	const checkedIcon = <CheckBoxIcon fontSize="small" />;
 	const history = useHistory();
 	const params = useParams();
 	const dispatch = useDispatch();
@@ -16,12 +29,13 @@ export default function AddMuscleWorkToPlan() {
 
 	// This will be sent to the muscle work saga/reducer
 	const [muscleWork, setMuscleWork] = useState([]);
+	const [muscleWorkInput, setMuscleWorkInput] = useState("");
 
 	function handleSubmitMuscleWork() {
 		for (let i = 0; i < muscleWork.length; i++) {
 			const element = muscleWork[i];
 			const muscleWorkObj = {
-				muscle_work_id: element,
+				muscle_work_id: element.id,
 				treatment_plan_id: treatmentPlanId,
 			};
 			dispatch({
@@ -37,28 +51,69 @@ export default function AddMuscleWorkToPlan() {
 	}, []);
 
 	return (
-		<Box>
-			<select
-				onClick={(event) => {
-					setMuscleWork([...muscleWork, event.target.value]);
-					console.log(event.target.value);
+		<Stack
+			sx={{
+				display: "flex",
+				alignItems: "center",
+			}}
+		>
+			<Paper
+				elevation={3}
+				sx={{
+					width: 600,
+					padding: 3,
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
 				}}
-				multiple={true}
 			>
-				{muscleWorkBank.map((muscleWorkItem) => (
-					<option value={muscleWorkItem.id}>
-						{muscleWorkItem.muscle_work_name} {muscleWorkItem.muscle_work_type}
-					</option>
-				))}
-			</select>
-			<ul>
-				{muscleWork.map((individualMuscleWork) => (
-					<li key={individualMuscleWork.id}>{individualMuscleWork}</li>
-				))}
-			</ul>
-			<Button variant="contained" onClick={handleSubmitMuscleWork}>
-				Submit
-			</Button>
-		</Box>
+				<Typography component="h2" variant="h4">
+					Add Muscle Work Areas
+				</Typography>
+				<Typography component="h4" variant="h6">
+					You may add more than one area
+				</Typography>
+				<br />
+				<Autocomplete
+					limitTags={3}
+					multiple
+					sx={{
+						width: 300,
+						marginBottom: 2,
+					}}
+					value={muscleWork}
+					onChange={(event, newValue) => setMuscleWork(newValue)}
+					inputValue={muscleWorkInput}
+					onInputChange={(event, newInputValue) =>
+						setMuscleWorkInput(newInputValue)
+					}
+					id="add-muscle-work-to-plan-autocomplete"
+					getOptionLabel={(muscleWorkBank) =>
+						`${muscleWorkBank.muscle_work_name} ${muscleWorkBank.muscle_work_type}`
+					}
+					options={muscleWorkBank}
+					isOptionEqualToValue={(option, value) =>
+						option.muscle_work_name === value.muscle_work_name
+					}
+					noOptionsText={"No muscle work  with this name"}
+					renderOption={(props, muscleWorkBank) => (
+						<Box component="li" {...props} key={muscleWorkBank.id}>
+							{muscleWorkBank.muscle_work_name}{" "}
+							{muscleWorkBank.muscle_work_type}
+						</Box>
+					)}
+					renderInput={(params) => (
+						<TextField
+							{...params}
+							label="Search for Muscle Work"
+							placeholder="Search"
+						/>
+					)}
+				/>
+				<Button variant="contained" onClick={handleSubmitMuscleWork}>
+					Submit
+				</Button>
+			</Paper>
+		</Stack>
 	);
 }
