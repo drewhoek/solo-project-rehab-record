@@ -64,8 +64,6 @@ export default function ViewPlanPage() {
 		}
 	}, [lastVisitInformation]);
 
-	// ^^^^ This is the problem I think ^^^^^^^
-
 	function startVisit() {
 		const arrayOfMuscleWorkIds = [];
 		for (let i = 0; i < muscleWorkToBeDoneInformation.length; i++) {
@@ -95,7 +93,7 @@ export default function ViewPlanPage() {
 			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre>  */}
 			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
 			{/* <pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre> */}
-			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre>
+			{/* <pre>{JSON.stringify(exercisesDoneLastVisit)}</pre> */}
 			<Typography variant="h3" component="h3" align="center">
 				Viewing Treatment Plan for {treatmentPlanInformation.first_name}{" "}
 				{treatmentPlanInformation.last_name}
@@ -131,6 +129,14 @@ export default function ViewPlanPage() {
 					Secondary Exercise Focus:{" "}
 					{treatmentPlanInformation.secondary_exercise_focus}
 				</Typography>
+				{treatmentPlanInformation.notes_for_rehab ? (
+					<Typography variant="subtitle1" component="h3">
+						Notes from Doctor: {treatmentPlanInformation.notes_for_rehab}
+					</Typography>
+				) : (
+					""
+				)}
+
 				<br />
 			</Paper>
 			<Paper
@@ -154,7 +160,7 @@ export default function ViewPlanPage() {
 						>
 							From Previous Visit
 						</Typography>
-						<Typography>Last Visit Date: {newDate}</Typography>
+						<Typography>Date: {newDate}</Typography>
 						<Typography>
 							{lastVisitInformation.units_completed
 								? lastVisitInformation.units_completed

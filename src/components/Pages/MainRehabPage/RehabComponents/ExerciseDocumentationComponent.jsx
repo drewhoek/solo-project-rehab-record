@@ -19,6 +19,10 @@ import { useDispatch } from "react-redux";
 export default function ExerciseDocumentationComponent() {
 	const dispatch = useDispatch();
 
+	const treatmentPlanInformation = useSelector(
+		(store) => store.currentTreatmentPlanReducer
+	);
+
 	const exercisesDone = useSelector(
 		(store) => store.allExercisesDoneDuringVisitReducer
 	);
@@ -81,6 +85,7 @@ export default function ExerciseDocumentationComponent() {
 			{/* <pre>{JSON.stringify(exercisesDone)}</pre>
 			<pre>{JSON.stringify(allExercises)}</pre>
 			<pre>{JSON.stringify(variationsForExercises)}</pre> */}
+			<pre>{JSON.stringify(treatmentPlanInformation)}</pre>
 
 			<Paper
 				sx={{

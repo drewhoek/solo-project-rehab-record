@@ -208,9 +208,13 @@ export default function ReviewRehabComponent() {
 						justifyContent: "center",
 					}}
 				>
-					<Button variant="contained" onClick={handleSubmitInformation}>
-						FINISH
-					</Button>
+					{timeInformation.date ? (
+						<Button variant="contained" onClick={handleSubmitInformation}>
+							FINISH
+						</Button>
+					) : (
+						""
+					)}
 				</Box>
 			</Paper>
 		</Stack>

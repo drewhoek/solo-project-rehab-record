@@ -10,6 +10,7 @@ import {
 	FormControlLabel,
 	Typography,
 } from "@mui/material";
+import { Box, Stack } from "@mui/system";
 
 function RegisterForm() {
 	const [username, setUsername] = useState("");
@@ -36,64 +37,75 @@ function RegisterForm() {
 	}; // end registerUser
 
 	return (
-		<form className="formPanel" onSubmit={registerUser}>
-			<Typography component="h2" variant="h5">
-				Register User
-			</Typography>
-			{errors.registrationMessage && (
-				<Typography component="h3" variant="h6" className="alert" role="alert">
-					{errors.registrationMessage}
+		<Stack
+			sx={{
+				display: "flex",
+				alignItems: "center",
+			}}
+		>
+			<form className="formPanel" onSubmit={registerUser}>
+				<Typography component="h2" variant="h5">
+					Register User
 				</Typography>
-			)}
-			<br />
-			<Typography component="p" variant="caption">
-				Please fill out all information below
-			</Typography>
-			<div>
-				<TextField
-					type="text"
-					name="first_name"
-					value={firstName}
-					label="First Name"
-					required
-					onChange={(event) => setFirstName(event.target.value)}
-				/>
-			</div>
-			<br />
-			<div>
-				<TextField
-					type="text"
-					name="last_name"
-					value={lastName}
-					label="Last Name"
-					required
-					onChange={(event) => setLastName(event.target.value)}
-				/>
-			</div>
-			<br />
-			<div>
-				<TextField
-					type="text"
-					name="username"
-					value={username}
-					label="Create Username"
-					required
-					onChange={(event) => setUsername(event.target.value)}
-				/>
-			</div>
-			<br />
-			<div>
-				<TextField
-					type="password"
-					name="password"
-					value={password}
-					label="Create Password"
-					required
-					onChange={(event) => setPassword(event.target.value)}
-				/>
-			</div>
-			<br />
-			{/* <div>
+				{errors.registrationMessage && (
+					<Typography
+						component="h3"
+						variant="h6"
+						className="alert"
+						role="alert"
+					>
+						{errors.registrationMessage}
+					</Typography>
+				)}
+				<br />
+				<Typography component="p" variant="caption">
+					Please fill out all information below
+				</Typography>
+				<div>
+					<TextField
+						type="text"
+						name="first_name"
+						value={firstName}
+						label="First Name"
+						required
+						onChange={(event) => setFirstName(event.target.value)}
+					/>
+				</div>
+				<br />
+				<div>
+					<TextField
+						type="text"
+						name="last_name"
+						value={lastName}
+						label="Last Name"
+						required
+						onChange={(event) => setLastName(event.target.value)}
+					/>
+				</div>
+				<br />
+				<div>
+					<TextField
+						type="text"
+						name="username"
+						value={username}
+						label="Create Username"
+						required
+						onChange={(event) => setUsername(event.target.value)}
+					/>
+				</div>
+				<br />
+				<div>
+					<TextField
+						type="password"
+						name="password"
+						value={password}
+						label="Create Password"
+						required
+						onChange={(event) => setPassword(event.target.value)}
+					/>
+				</div>
+				<br />
+				{/* <div>
 				<FormLabel htmlFor="is_doctor">Are you a Doctor?:</FormLabel>
 				<RadioGroup
 					defaultValue="No"
@@ -106,18 +118,24 @@ function RegisterForm() {
 					<FormControlLabel value={false} control={<Radio />} label="No" />
 				</RadioGroup>
 			</div> */}
-			<br />
-			<div>
-				<Button
-					variant="contained"
-					className="btn"
-					type="submit"
-					value="Register"
+				<br />
+				<Box
+					sx={{
+						display: "flex",
+						alignItems: "center",
+					}}
 				>
-					Submit
-				</Button>
-			</div>
-		</form>
+					<Button
+						variant="contained"
+						className="btn"
+						type="submit"
+						value="Register"
+					>
+						Submit
+					</Button>
+				</Box>
+			</form>
+		</Stack>
 	);
 }
 
