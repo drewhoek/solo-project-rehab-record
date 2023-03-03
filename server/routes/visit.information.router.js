@@ -80,6 +80,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     const { date, time_in, time_out, total_time, units_completed } = req.body;
     console.log('in put route');
     const queryText = `UPDATE "visit_information" SET "date" = $1, "time_in" = $2, "time_out" = $3, "total_time" = $4, "units_completed" = $5 WHERE "id" = $6;`;
+    console.log('this should be total units', units_completed);
     pool
         .query(queryText, [date, time_in, time_out, total_time, units_completed, req.params.id])
         .then(response => {

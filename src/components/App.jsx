@@ -33,7 +33,7 @@ function App() {
 
 	return (
 		<Router>
-			<div>
+			<div className="content">
 				<Nav />
 				<Switch>
 					{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -119,7 +119,9 @@ function App() {
 					</Route>
 				</Switch>
 			</div>
-			{/* <Footer /> */}
+			<div className="footer">
+				<Footer />
+			</div>
 		</Router>
 	);
 }

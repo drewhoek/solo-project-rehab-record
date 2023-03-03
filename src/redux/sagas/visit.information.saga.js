@@ -26,7 +26,7 @@ function* addVisitInformationSaga(action) {
 function* updateVisitInformationSaga(action) {
     try {
         yield axios.put(`/api/visit-information/${action.payload.visit_id}`, action.payload);
-        console.log(action.payload);
+        console.log('payload for update visit info', action.payload);
     } catch (error) {
         console.log('put request failed', error);
     }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import "./Nav.css";
 import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
 
 function Nav() {
 	const user = useSelector((store) => store.user);
@@ -10,14 +11,16 @@ function Nav() {
 	return (
 		<div className="nav">
 			<Link to="/home">
-				<h2 className="nav-title">RehabRecord</h2>
+				<Typography component="h2" variant="h4" className="nav-title">
+					RehabRecord
+				</Typography>
 			</Link>
 			<div>
 				{/* If no user is logged in, show these links */}
 				{!user.id && (
 					// If there's no user, show login/registration links
 					<Link className="navLink" to="/login">
-						Login / Register
+						<Typography variant="overline">Login / Register</Typography>
 					</Link>
 				)}
 
@@ -25,7 +28,7 @@ function Nav() {
 				{user.id && (
 					<>
 						<Link className="navLink" to="/user">
-							Home
+							<Typography variant="overline">Home</Typography>
 						</Link>
 
 						<LogOutButton className="navLink" />
@@ -33,7 +36,7 @@ function Nav() {
 				)}
 
 				<Link className="navLink" to="/about">
-					About
+					<Typography variant="overline">About</Typography>
 				</Link>
 			</div>
 		</div>

@@ -85,7 +85,7 @@ export default function ExerciseDocumentationComponent() {
 			{/* <pre>{JSON.stringify(exercisesDone)}</pre>
 			<pre>{JSON.stringify(allExercises)}</pre>
 			<pre>{JSON.stringify(variationsForExercises)}</pre> */}
-			<pre>{JSON.stringify(treatmentPlanInformation)}</pre>
+			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
 
 			<Paper
 				sx={{

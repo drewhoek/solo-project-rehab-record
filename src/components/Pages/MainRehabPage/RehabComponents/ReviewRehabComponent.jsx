@@ -9,7 +9,7 @@ export default function ReviewRehabComponent() {
 	const params = useParams();
 	const history = useHistory();
 
-	const visitId = params.id;
+	const visitId = Number(params.id);
 
 	const exerciseInformation = useSelector(
 		(store) => store.allExercisesDoneDuringVisitReducer
@@ -44,7 +44,7 @@ export default function ReviewRehabComponent() {
 			time_in: timeInformation.time_in,
 			time_out: timeInformation.time_out,
 			total_time: timeInformation.total_time,
-			unit_completed: determineUnits(timeInformation.total_time),
+			units_completed: determineUnits(timeInformation.total_time),
 		};
 		dispatch({ type: "UPDATE_VISIT_INFORMATION", payload: visitInfoObject });
 

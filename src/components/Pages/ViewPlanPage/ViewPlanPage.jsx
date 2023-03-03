@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/system";
+import { Stack } from "@mui/system";
 import {
 	Paper,
 	Button,

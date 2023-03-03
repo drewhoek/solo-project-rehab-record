@@ -5,6 +5,10 @@ import { Box } from "@mui/system";
 import {
 	Autocomplete,
 	Button,
+	Card,
+	CardActions,
+	CardContent,
+	CardMedia,
 	Paper,
 	Stack,
 	TextField,
@@ -51,25 +55,33 @@ function UserPage() {
 					width: 1 / 2,
 				}}
 			>
-				<Typography
-					component="h2"
-					variant="h4"
+				<Paper
+					elevation={3}
 					sx={{
-						fontWeight: "medium",
+						minWidth: 500,
+						padding: 3,
 					}}
 				>
-					Welcome, {user.first_name}!
-				</Typography>
-				<br />
-				<Typography component="p" variant="body1">
-					Your are a logged in as a{" "}
-					{user.is_doctor ? "Doctor" : "Rehab Therapist"}
-				</Typography>
+					<Typography
+						component="h2"
+						variant="h4"
+						sx={{
+							fontWeight: "medium",
+						}}
+					>
+						Welcome, {user.first_name}!
+					</Typography>
+					<br />
+					<Typography component="p" variant="body1">
+						Your are a logged in as a{" "}
+						{user.is_doctor ? "Doctor" : "Rehab Therapist"}
+					</Typography>
+				</Paper>
 			</Box>
 			<Paper
 				elevation={3}
 				sx={{
-					width: 400,
+					minWidth: 500,
 					padding: 3,
 				}}
 			>
@@ -77,9 +89,6 @@ function UserPage() {
 					View Treatment Plan for Patient
 				</Typography>
 				<hr />
-				<Typography component="h4" variant="h6">
-					Lookup name
-				</Typography>
 				<br />
 				<Autocomplete
 					sx={{
@@ -129,48 +138,56 @@ function UserPage() {
 				sx={{
 					display: "flex",
 					flexDirection: "row",
-					justifyContent: "space-around",
-					alignItems: "flex-start",
+					justifyContent: "space-between",
+					minWidth: 550,
 				}}
 			>
-				<Paper
-					elevation={3}
-					sx={{
-						padding: 3,
-						margin: 5,
-					}}
-				>
-					<Typography component="h3" variant="h5">
-						Add New Treatment Plan
-					</Typography>
-					<br />
-					<Button
-						variant="contained"
-						color="secondary"
-						onClick={() => history.push("/make-treatment-plan")}
+				<Card sx={{ maxWidth: 345, minWidth: 300 }} elevation={3}>
+					<CardMedia
+						sx={{ height: 140 }}
+						image="https://res.cloudinary.com/highereducation/image/upload/v1533591754/TheBestColleges.org/chiropractor-1.jpg"
+						title="chiropractic consult"
+					/>
+					<CardContent sx={{ paddingLeft: 3, paddingRight: 3 }}>
+						<Typography component="h3" variant="h5">
+							Add New Treatment Plan
+						</Typography>
+					</CardContent>
+					<CardActions
+						sx={{ paddingLeft: 3, paddingBottom: 3, paddingRight: 3 }}
 					>
-						Go
-					</Button>
-				</Paper>
-				<Paper
-					elevation={3}
-					sx={{
-						padding: 3,
-						margin: 5,
-					}}
-				>
-					<Typography component="h3" variant="h5">
-						Add New Patient
-					</Typography>
-					<br />
-					<Button
-						variant="contained"
-						color="secondary"
-						onClick={() => history.push(`/add-patient`)}
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={() => history.push("/make-treatment-plan")}
+						>
+							Go
+						</Button>
+					</CardActions>
+				</Card>
+				<Card sx={{ maxWidth: 345 }} elevation={3}>
+					<CardMedia
+						sx={{ height: 140 }}
+						image="https://www.yestoperfecthealth.com/wp-content/uploads/2020/09/Chiropractic-Irving-TX-New-Patients-Welcome.jpg"
+						title="chiropractic new patient visit"
+					/>
+					<CardContent sx={{ paddingLeft: 3, paddingRight: 3 }}>
+						<Typography component="h3" variant="h5">
+							Add New Patient
+						</Typography>
+					</CardContent>
+					<CardActions
+						sx={{ paddingLeft: 3, paddingBottom: 3, paddingRight: 3 }}
 					>
-						Go
-					</Button>
-				</Paper>
+						<Button
+							variant="contained"
+							color="info"
+							onClick={() => history.push(`/add-patient`)}
+						>
+							Go
+						</Button>
+					</CardActions>
+				</Card>
 			</Box>
 		</Stack>
 	);
