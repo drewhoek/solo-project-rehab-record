@@ -20,6 +20,7 @@ import CreateNewPatientPage from "./Pages/CreateNewPatientPage/CreateNewPatientP
 import ViewPlanPage from "./Pages/ViewPlanPage/ViewPlanPage";
 import AddMuscleWorkToPlan from "./Pages/AddMuscleWorkToPlan/AddMuscleWorkToPlan";
 import Footer from "./Shared/Footer/Footer";
+import RehabTimer from "./Pages/MainRehabPage/RehabComponents/RehabTimer";
 import "./App.css";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
 		<Router>
 			<div className="content">
 				<Nav />
+
 				<Switch>
 					{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
 					<Redirect exact from="/" to="/home" />
@@ -65,6 +67,7 @@ function App() {
 					</ProtectedRoute>
 
 					<ProtectedRoute exact path="/rehab/:id">
+						<RehabTimer />
 						<MainRehabPage />
 					</ProtectedRoute>
 
@@ -119,9 +122,9 @@ function App() {
 					</Route>
 				</Switch>
 			</div>
-			<div className="footer">
+			{/* <div className="footer">
 				<Footer />
-			</div>
+			</div> */}
 		</Router>
 	);
 }

@@ -2,6 +2,10 @@ import { AppBar, Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import moment from "moment";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import StopIcon from "@mui/icons-material/Stop";
+import PauseIcon from "@mui/icons-material/Pause";
 
 function RehabTimer() {
 	const dispatch = useDispatch();
@@ -126,131 +130,157 @@ function RehabTimer() {
 
 	return (
 		<AppBar
-			position="static"
+			position="sticky"
 			sx={{
-				padding: 1,
+				padding: 3,
 				display: "flex",
-				alignItems: "baseline",
-				justifyContent: "space-between",
+				justifyContent: "space-around",
+				marginBottom: 3,
 			}}
 		>
 			<Box
 				sx={{
 					display: "flex",
-					justifyContent: "space-evenly",
+					justifyContent: "space-between",
+					alignItems: "center",
 				}}
 			>
-				<Typography component="h3" variant="h5">
-					Begin Session
-				</Typography>
-				{!startTime && (
-					<Button variant="contained" color="secondary" onClick={startTimer}>
-						Start
-					</Button>
-				)}
-				{startTime && !endTime && !isPaused && (
-					<Box
-						sx={{
-							display: "flex",
-						}}
-					>
-						{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
-						<Typography
+				<Box>
+					<Typography component="h3" variant="h5">
+						TIMER
+					</Typography>
+				</Box>
+				<Box>
+					{startTime && !endTime && !isPaused && (
+						<Box
 							sx={{
-								marginRight: 1,
+								display: "flex",
+								justifyContent: "space-evenly",
+								minWidth: "460px",
 							}}
 						>
-							Start: {formatTimeOfDay(startTime)}
-						</Typography>
-						<Typography
-							sx={{
-								marginRight: 1,
-							}}
-						>
-							Elapsed: {formatTime(currentTime)}
-						</Typography>
-						<Button
-							sx={{
-								marginRight: 1,
-							}}
-							variant="contained"
-							color="secondary"
-							onClick={pauseTimer}
-						>
-							Pause
-						</Button>
-						<Button variant="contained" color="secondary" onClick={stopTimer}>
-							Stop
-						</Button>
-					</Box>
-				)}
-				{startTime && !endTime && isPaused && (
-					<Box
-						sx={{
-							display: "flex",
-						}}
-					>
-						{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
-						<Typography
-							sx={{
-								marginRight: 1,
-							}}
-						>
-							Start: {formatTimeOfDay(startTime)}
-						</Typography>
-						<Typography
-							sx={{
-								marginRight: 1,
-							}}
-						>
-							Paused at: {formatTime(currentTime)}
-						</Typography>
-						<Button
-							sx={{
-								marginRight: 1,
-							}}
-							variant="contained"
-							color="secondary"
-							onClick={resumeTimer}
-						>
-							Resume
-						</Button>
-						<Button variant="contained" color="secondary" onClick={stopTimer}>
-							Stop
-						</Button>
-					</Box>
-				)}
-				{startTime && endTime && (
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-						}}
-					>
-						{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
-						<Box>
-							<Typography
-								sx={{
-									marginRight: 1,
-								}}
-							>
-								Start: {formatTimeOfDay(startTime)}
+							{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
+							<Typography component="h5" variant="h6">
+								Start: {moment(startTime).format("hh:mm A")}
+							</Typography>
+							<Typography component="h5" variant="h6">
+								Elapsed: {formatTime(currentTime)}
 							</Typography>
 						</Box>
-						<Box>
-							<Typography
-								sx={{
-									marginRight: 1,
-								}}
-							>
-								End: {formatTimeOfDay(endTime)}
+					)}
+					{startTime && !endTime && isPaused && (
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-evenly",
+								minWidth: "375px",
+							}}
+						>
+							{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
+							<Typography component="h5" variant="h6">
+								Start: {moment(startTime).format("hh:mm A")}
+							</Typography>
+							<Typography component="h5" variant="h6">
+								Paused at: {moment(currentTime).format("hh:mm A")}
 							</Typography>
 						</Box>
-						<Box>
-							<Typography>Total: {formatTime(endTime)}</Typography>
+					)}
+					{startTime && endTime && (
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-evenly",
+								minWidth: "450px",
+							}}
+						>
+							{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
+							<Box>
+								<Typography component="h5" variant="h6">
+									Start: {moment(startTime).format("hh:mm A")}
+								</Typography>
+							</Box>
+							<Box>
+								<Typography component="h5" variant="h6">
+									End: {moment(endTime).format("hh:mm A")}
+								</Typography>
+							</Box>
+							<Box>
+								<Typography component="h5" variant="h6">
+									Total: {formatTime(endTime)}
+								</Typography>
+							</Box>
 						</Box>
-					</Box>
-				)}
+					)}
+				</Box>
+				<Box>
+					{!startTime && (
+						<Button
+							variant="contained"
+							color="success"
+							onClick={startTimer}
+							endIcon={<PlayArrowIcon />}
+							sx={{ display: "flex", alignItems: "center" }}
+						>
+							Start
+						</Button>
+					)}
+					{startTime && !endTime && !isPaused && (
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-evenly",
+								minWidth: "225px",
+							}}
+						>
+							<Button
+								variant="contained"
+								color="secondary"
+								onClick={pauseTimer}
+								endIcon={<PauseIcon />}
+								sx={{ display: "flex", alignItems: "center" }}
+							>
+								Pause
+							</Button>
+							<Button
+								variant="contained"
+								color="error"
+								onClick={stopTimer}
+								endIcon={<StopIcon />}
+								sx={{ display: "flex", alignItems: "center" }}
+							>
+								Stop
+							</Button>
+						</Box>
+					)}
+					{startTime && !endTime && isPaused && (
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-evenly",
+								minWidth: "236px",
+							}}
+						>
+							<Button
+								variant="contained"
+								color="secondary"
+								onClick={resumeTimer}
+								endIcon={<PlayArrowIcon />}
+								sx={{ display: "flex", alignItems: "center" }}
+							>
+								Resume
+							</Button>
+							<Button
+								variant="contained"
+								color="error"
+								onClick={stopTimer}
+								endIcon={<StopIcon />}
+								sx={{ display: "flex", alignItems: "center" }}
+							>
+								Stop
+							</Button>
+						</Box>
+					)}
+				</Box>
 			</Box>
 		</AppBar>
 	);

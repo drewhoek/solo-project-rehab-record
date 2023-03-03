@@ -7,7 +7,7 @@ import { Stack } from "@mui/system";
 export default function MainRehabPage() {
 	return (
 		<Stack spacing={2}>
-			<RehabTimer />
+			{/* <RehabTimer /> */}
 			<ExerciseDocumentationComponent />
 			<MuscleWorkDocumentation />
 			<ReviewRehabComponent />
