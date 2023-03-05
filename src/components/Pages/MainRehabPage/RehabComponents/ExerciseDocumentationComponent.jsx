@@ -202,7 +202,9 @@ export default function ExerciseDocumentationComponent() {
 									sx={{
 										marginRight: 1,
 										marginBottom: 1,
+										width: 200,
 									}}
+									variant="filled"
 								/>
 								<TextField
 									required
@@ -212,7 +214,9 @@ export default function ExerciseDocumentationComponent() {
 									onChange={(event) => setReps(event.target.value)}
 									sx={{
 										marginBottom: 1,
+										width: 200,
 									}}
+									variant="filled"
 								/>
 							</Box>
 							<Box>
@@ -222,7 +226,9 @@ export default function ExerciseDocumentationComponent() {
 									onChange={(event) => setNotes(event.target.value)}
 									sx={{
 										marginBottom: 1,
+										width: 200,
 									}}
+									variant="filled"
 								/>
 							</Box>
 						</Box>

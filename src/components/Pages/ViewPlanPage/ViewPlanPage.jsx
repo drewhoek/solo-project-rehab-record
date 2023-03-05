@@ -158,6 +158,13 @@ export default function ViewPlanPage() {
 				>
 					<ListItem sx={{ display: "flex", justifyContent: "center" }}>
 						<Typography variant="subtitle1" component="h3">
+							Units to be Completed: {treatmentPlanInformation.units}
+						</Typography>
+					</ListItem>
+					<Divider />
+
+					<ListItem sx={{ display: "flex", justifyContent: "center" }}>
+						<Typography variant="subtitle1" component="h3">
 							Complaint Area: {treatmentPlanInformation.primary_complaint_area}
 						</Typography>
 					</ListItem>

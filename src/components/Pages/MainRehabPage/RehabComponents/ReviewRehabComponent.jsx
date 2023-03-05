@@ -37,6 +37,15 @@ export default function ReviewRehabComponent() {
 		return units_completed;
 	}
 
+	function isAllMuscleWorkDone() {
+		for (const muscleWork of muscleWorkInformation) {
+			if (!muscleWork.is_done) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	function handleSubmitInformation() {
 		const visitInfoObject = {
 			visit_id: visitId,
@@ -97,106 +106,86 @@ export default function ReviewRehabComponent() {
 						display: "flex",
 						flexDirection: "row",
 						justifyContent: "space-evenly",
+						width: 600,
 					}}
 				>
-					<Paper
-						elevation={3}
-						sx={{
-							width: 175,
-							marginRight: 1,
-							padding: 3,
-						}}
-					>
+					<Box>
 						<Typography
 							component="h5"
-							variant="h5"
+							variant="h6"
 							sx={{
 								textDecoration: "underline",
 							}}
 						>
 							Time/Units
 						</Typography>
-						<br />
-						<Typography component="h4" variant="h6">
+						<Typography component="h4" variant="body1">
 							Date: {timeInformation.date}
 						</Typography>
-						<Typography component="h4" variant="h6">
+						<Typography component="h4" variant="body1">
 							Time In: {timeInformation.time_in}
 						</Typography>
-						<Typography component="h4" variant="h6">
+						<Typography component="h4" variant="body1">
 							Time Out: {timeInformation.time_out}
 						</Typography>
-						<Typography component="h4" variant="h6">
+						<Typography component="h4" variant="body1">
 							Total Time: {timeInformation.total_time}
 						</Typography>
-					</Paper>
-					<Paper
-						elevation={3}
-						sx={{
-							width: 175,
-							marginRight: 1,
-							padding: 3,
-						}}
-					>
+					</Box>
+					<Box>
 						<Typography
 							component="h5"
-							variant="h5"
+							variant="h6"
 							sx={{
 								textDecoration: "underline",
 							}}
 						>
-							Exercises
+							Exercises Done
 						</Typography>
-						{exerciseInformation.map((exercise) => (
-							<Stack key={exercise.exercise_id} spacing={1}>
-								<List>
-									<Typography component="h4" variant="h6">
-										Name: {exercise.exercise}
-									</Typography>
-									<ListItem>Variation: {exercise.variation}</ListItem>
-									<ListItem>Sets: {exercise.sets_done}</ListItem>
-									<ListItem>Reps: {exercise.reps_done}</ListItem>
-
-									{exercise.notes_for_exercise ? (
-										<ListItem>Notes: {exercise.notes_for_exercise}</ListItem>
-									) : (
-										""
-									)}
-									<hr />
-								</List>
-								<br />
-							</Stack>
-						))}
-					</Paper>
-					<Paper
-						elevation={3}
-						sx={{
-							width: 175,
-							padding: 3,
-						}}
-					>
-						<Typography
-							component="h5"
-							variant="h5"
+						<Stack
 							sx={{
-								textDecoration: "underline",
+								display: "flex",
+								alignItems: "center",
 							}}
 						>
-							Muscle Work
-						</Typography>
-						{muscleWorkInformation.map((muscleWork) => (
-							<Stack key={muscleWork.exercise_id} spacing={1}>
-								<List>
-									<ListItem>Name: {muscleWork.muscle_work_name} </ListItem>
-									<ListItem>Type: {muscleWork.muscle_work_type}</ListItem>
-									<ListItem>
-										Completed?: {muscleWork.is_done ? "Yes" : "No"}
-									</ListItem>
-								</List>
-								<hr />
-							</Stack>
-						))}
-					</Paper>
+							<Box>
+								<Typography component="h4" variant="h6">
+									{exerciseInformation.length}
+								</Typography>
+							</Box>
+						</Stack>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+						}}
+					>
+						<Box>
+							<Typography
+								component="h5"
+								variant="h6"
+								sx={{
+									textDecoration: "underline",
+								}}
+							>
+								Is All Muscle Work Done?
+							</Typography>
+						</Box>
+						<Stack
+							sx={{
+								display: "flex",
+								alignItems: "center",
+							}}
+						>
+							<Box>
+								<Typography component="h6" variant="h6">
+									{isAllMuscleWorkDone(muscleWorkInformation) ? "Yes!" : "No"}
+								</Typography>
+							</Box>
+						</Stack>
+					</Box>
 				</Box>
 				<br />
 				<Box

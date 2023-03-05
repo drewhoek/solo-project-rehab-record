@@ -6,6 +6,7 @@ import moment from "moment";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import StopIcon from "@mui/icons-material/Stop";
 import PauseIcon from "@mui/icons-material/Pause";
+import TimerIcon from "@mui/icons-material/Timer";
 
 function RehabTimer() {
 	const dispatch = useDispatch();
@@ -145,7 +146,8 @@ function RehabTimer() {
 					alignItems: "center",
 				}}
 			>
-				<Box>
+				<Box sx={{ display: "flex", alignItems: "center" }}>
+					<TimerIcon fontSize="large" />
 					<Typography component="h3" variant="h5">
 						TIMER
 					</Typography>

@@ -84,116 +84,140 @@ export default function MakeTreatmentPlanPage() {
 						Create a New Treatment Plan
 					</Typography>
 					<Typography component="h5" variant="h6">
-						Get Corresponding Information from PCP
+						Get Corresponding Information from Doctor
 					</Typography>
 				</Box>
 				<br />
-				<Stack
+				<Box
 					sx={{
 						display: "flex",
-						flexWrap: "wrap",
-						justifyContent: "space-between",
-						alignItems: "flex-start",
+						alignItems: "center",
 					}}
 				>
-					<Autocomplete
-						sx={{
-							width: 300,
-							marginBottom: 2,
-						}}
-						value={patient}
-						onChange={(event, newValue) => setPatient(newValue)}
-						inputValue={patientInput}
-						onInputChange={(event, newInputValue) =>
-							setPatientInput(newInputValue)
-						}
-						id="patient-without-plan-lookup"
-						getOptionLabel={(patientsWithoutPlans) =>
-							`${patientsWithoutPlans.first_name} ${patientsWithoutPlans.last_name}`
-						}
-						options={patientsWithoutPlans}
-						isOptionEqualToValue={(option, value) =>
-							option.first_name === value.first_name
-						}
-						noOptionsText={"No patients with this name"}
-						renderOption={(props, patientsWithoutPlans) => (
-							<Box component="li" {...props} key={patientsWithoutPlans.id}>
-								{patientsWithoutPlans.first_name}{" "}
-								{patientsWithoutPlans.last_name}
-							</Box>
-						)}
-						renderInput={(params) => (
-							<TextField {...params} label="Search for Patient" />
-						)}
-					/>
-					<TextField
-						required
-						type="number"
-						label="Units of Therapy"
-						value={unitsOfTherapy}
-						sx={{
-							marginBottom: 1,
-						}}
-						onChange={(event) => setUnitsOfTherapy(event.target.value)}
-						variant="filled"
-					/>
-					<TextField
-						required
-						label="Primary Area of Complaint"
-						value={primaryComplaintArea}
-						sx={{
-							marginBottom: 1,
-							width: 250,
-						}}
-						onChange={(event) => setPrimaryComplaintArea(event.target.value)}
-						variant="filled"
-					/>
-					<TextField
-						required
-						label="Primary Exercise Focus"
-						value={primaryExerciseFocus}
-						sx={{
-							marginBottom: 1,
-							width: 250,
-						}}
-						onChange={(event) => setPrimaryExerciseFocus(event.target.value)}
-						variant="filled"
-					/>
-					<TextField
-						required
-						label="Secondary Exercise Focus"
-						value={secondaryExerciseFocus}
-						sx={{
-							marginBottom: 1,
-							width: 250,
-						}}
-						onChange={(event) => setSecondaryExerciseFocus(event.target.value)}
-						variant="filled"
-					/>
-					<TextField
-						required
-						type="number"
-						label="Visit Count"
-						value={visitCount}
-						sx={{
-							marginBottom: 1,
-						}}
-						onChange={(event) => setVisitCount(event.target.value)}
-						variant="filled"
-					/>
-					<TextField
-						multiline
-						rows={4}
-						label="Notes for Rehab"
-						value={notes}
-						sx={{
-							marginBottom: 1,
-							width: 300,
-						}}
-						onChange={(event) => setNotes(event.target.value)}
-						variant="filled"
-					/>
-				</Stack>
+					<Box>
+						<Stack
+							sx={{
+								display: "flex",
+								flexWrap: "wrap",
+								justifyContent: "space-between",
+								alignItems: "flex-start",
+							}}
+						>
+							<Autocomplete
+								sx={{
+									width: 300,
+									marginBottom: 2,
+								}}
+								value={patient}
+								onChange={(event, newValue) => setPatient(newValue)}
+								inputValue={patientInput}
+								onInputChange={(event, newInputValue) =>
+									setPatientInput(newInputValue)
+								}
+								id="patient-without-plan-lookup"
+								getOptionLabel={(patientsWithoutPlans) =>
+									`${patientsWithoutPlans.first_name} ${patientsWithoutPlans.last_name}`
+								}
+								options={patientsWithoutPlans}
+								isOptionEqualToValue={(option, value) =>
+									option.first_name === value.first_name
+								}
+								noOptionsText={"No patients with this name"}
+								renderOption={(props, patientsWithoutPlans) => (
+									<Box component="li" {...props} key={patientsWithoutPlans.id}>
+										{patientsWithoutPlans.first_name}{" "}
+										{patientsWithoutPlans.last_name}
+									</Box>
+								)}
+								renderInput={(params) => (
+									<TextField {...params} label="Search for Patient" />
+								)}
+							/>
+							<TextField
+								required
+								type="number"
+								label="Visit Count"
+								value={visitCount}
+								sx={{
+									marginBottom: 1,
+									width: 300,
+								}}
+								onChange={(event) => setVisitCount(event.target.value)}
+								variant="filled"
+							/>
+							<TextField
+								required
+								type="number"
+								label="Units of Therapy"
+								value={unitsOfTherapy}
+								sx={{
+									marginBottom: 1,
+									width: 300,
+								}}
+								onChange={(event) => setUnitsOfTherapy(event.target.value)}
+								variant="filled"
+							/>
+							<TextField
+								required
+								label="Primary Area of Complaint"
+								value={primaryComplaintArea}
+								sx={{
+									marginBottom: 1,
+									width: 300,
+								}}
+								onChange={(event) =>
+									setPrimaryComplaintArea(event.target.value)
+								}
+								variant="filled"
+							/>
+							<TextField
+								required
+								label="Primary Exercise Focus"
+								value={primaryExerciseFocus}
+								sx={{
+									marginBottom: 1,
+									width: 300,
+								}}
+								onChange={(event) =>
+									setPrimaryExerciseFocus(event.target.value)
+								}
+								variant="filled"
+							/>
+							<TextField
+								required
+								label="Secondary Exercise Focus"
+								value={secondaryExerciseFocus}
+								sx={{
+									marginBottom: 1,
+									width: 300,
+								}}
+								onChange={(event) =>
+									setSecondaryExerciseFocus(event.target.value)
+								}
+								variant="filled"
+							/>
+
+							<TextField
+								multiline
+								rows={4}
+								label="Notes for Rehab"
+								value={notes}
+								sx={{
+									marginBottom: 1,
+									width: 300,
+								}}
+								onChange={(event) => setNotes(event.target.value)}
+								variant="filled"
+							/>
+						</Stack>
+					</Box>
+					<Box>
+						<img
+							width="300px"
+							src="https://res.cloudinary.com/im2015/image/upload/c_thumb,g_center,h_500,w_500/blog/spine_anatomy.jpg"
+						/>
+					</Box>
+				</Box>
 				<br />
 				<Box>
 					<Button

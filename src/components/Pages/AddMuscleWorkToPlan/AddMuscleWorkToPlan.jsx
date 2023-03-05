@@ -62,8 +62,8 @@ export default function AddMuscleWorkToPlan() {
 					flexDirection: "column",
 				}}
 			>
-				<Typography component="h2" variant="h4">
-					Add Muscle Work Areas
+				<Typography component="h2" variant="h4" fontWeight="bold">
+					Add Muscle Work Areas to Plan
 				</Typography>
 				<Typography component="h4" variant="h6">
 					You may add more than one area
