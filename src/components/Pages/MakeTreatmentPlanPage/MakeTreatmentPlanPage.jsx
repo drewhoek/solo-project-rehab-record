@@ -80,7 +80,7 @@ export default function MakeTreatmentPlanPage() {
 				}}
 			>
 				<Box>
-					<Typography component="h3" variant="h5">
+					<Typography component="h3" variant="h4" fontWeight="bold">
 						Create a New Treatment Plan
 					</Typography>
 					<Typography component="h5" variant="h6">
@@ -135,6 +135,7 @@ export default function MakeTreatmentPlanPage() {
 							marginBottom: 1,
 						}}
 						onChange={(event) => setUnitsOfTherapy(event.target.value)}
+						variant="filled"
 					/>
 					<TextField
 						required
@@ -145,6 +146,7 @@ export default function MakeTreatmentPlanPage() {
 							width: 250,
 						}}
 						onChange={(event) => setPrimaryComplaintArea(event.target.value)}
+						variant="filled"
 					/>
 					<TextField
 						required
@@ -155,6 +157,7 @@ export default function MakeTreatmentPlanPage() {
 							width: 250,
 						}}
 						onChange={(event) => setPrimaryExerciseFocus(event.target.value)}
+						variant="filled"
 					/>
 					<TextField
 						required
@@ -165,6 +168,7 @@ export default function MakeTreatmentPlanPage() {
 							width: 250,
 						}}
 						onChange={(event) => setSecondaryExerciseFocus(event.target.value)}
+						variant="filled"
 					/>
 					<TextField
 						required
@@ -175,6 +179,7 @@ export default function MakeTreatmentPlanPage() {
 							marginBottom: 1,
 						}}
 						onChange={(event) => setVisitCount(event.target.value)}
+						variant="filled"
 					/>
 					<TextField
 						multiline
@@ -183,11 +188,12 @@ export default function MakeTreatmentPlanPage() {
 						value={notes}
 						sx={{
 							marginBottom: 1,
+							width: 300,
 						}}
 						onChange={(event) => setNotes(event.target.value)}
+						variant="filled"
 					/>
 				</Stack>
-				<br />
 				<br />
 				<Box>
 					<Button

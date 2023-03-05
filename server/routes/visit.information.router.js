@@ -35,7 +35,10 @@ router.get('/patient', rejectUnauthenticated, (req, res) => {
 router.get('/patient-recent-visit/:treatmentId', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /visit-information for specific patients last visit in visit information router');
     const treatmentId = req.params.treatmentId;
-    const queryText = `SELECT * FROM "visit_information" WHERE "treatment_plan_id" = $1 ORDER BY "date" ASC LIMIT 1;
+    const queryText = `SELECT * FROM "visit_information" 
+    JOIN "user" ON "visit_information"."therapist" = "user"."id"
+    WHERE "treatment_plan_id" = $1 
+    ORDER BY "date" ASC LIMIT 1;
     `;
     pool
         .query(queryText, [treatmentId])

@@ -85,12 +85,9 @@ export default function ReviewRehabComponent() {
 					width: 600,
 				}}
 			>
-				<Typography component="h4" variant="h4">
+				<Typography component="h4" variant="h4" fontWeight="bold">
 					Review
 				</Typography>
-				{/* <pre>{JSON.stringify(exerciseInformation)}</pre> */}
-
-				<br />
 				<Typography component="h5" variant="h6">
 					Review all info and finish when ready
 				</Typography>

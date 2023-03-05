@@ -1,4 +1,4 @@
-import { Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 
@@ -10,6 +10,7 @@ function RegisterPage() {
 
 	return (
 		<Stack
+			className="container"
 			sx={{
 				display: "flex",
 				alignItems: "center",
@@ -19,10 +20,19 @@ function RegisterPage() {
 				elevation={3}
 				sx={{
 					padding: 3,
-					width: 400,
+					maxWidth: 600,
+					minWidth: 599,
+					display: "flex",
+					justifyContent: "space-between",
 				}}
 			>
 				<RegisterForm />
+				<Box>
+					<img
+						width="300"
+						src="https://res.cloudinary.com/im2015/image/upload/c_scale,w_400/web/diagnoses/broken_leg.jpg"
+					/>
+				</Box>
 			</Paper>
 			<br />
 			<center>

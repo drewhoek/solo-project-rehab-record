@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "./LoginForm";
 import { useHistory } from "react-router-dom";
-import { Link, Paper, Typography } from "@mui/material";
+import { Link, Paper, Typography, Box } from "@mui/material";
 import { Stack } from "@mui/system";
 
 function LoginPage() {
@@ -9,20 +9,28 @@ function LoginPage() {
 
 	return (
 		<Stack
+			className="container"
 			sx={{
 				display: "flex",
 				alignItems: "center",
 			}}
 		>
 			<Paper
+				elevation={3}
 				sx={{
-					width: 300,
+					width: 600,
 					display: "flex",
-					flexDirection: "column",
+					justifyContent: "space-between",
 					padding: 3,
 				}}
 			>
 				<LoginForm />
+				<Box>
+					<img
+						width="300px"
+						src="https://res.cloudinary.com/im2015/image/upload/c_scale,w_400/v1585895087/Blog/v2/Trapezius_Pain_v1-09.jpg"
+					/>
+				</Box>
 			</Paper>
 			<br />
 			<center>

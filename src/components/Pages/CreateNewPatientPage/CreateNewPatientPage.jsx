@@ -1,5 +1,6 @@
 import {
 	Button,
+	IconButton,
 	Paper,
 	Stack,
 	Table,
@@ -53,7 +54,7 @@ export default function CreateNewPatientPage() {
 					padding: 3,
 				}}
 			>
-				<Typography component="h3" variant="h5">
+				<Typography component="h3" variant="h5" fontWeight="bold">
 					Enter Patient Name
 				</Typography>
 				<br />
@@ -64,11 +65,13 @@ export default function CreateNewPatientPage() {
 					sx={{
 						marginRight: 3,
 					}}
+					variant="filled"
 				/>
 				<TextField
 					label="Enter Last Name "
 					value={lastName}
 					onChange={(event) => setLastName(event.target.value)}
+					variant="filled"
 				/>
 				<br />
 				<br />
@@ -83,7 +86,7 @@ export default function CreateNewPatientPage() {
 					padding: 3,
 				}}
 			>
-				<Typography component="h3" variant="h5">
+				<Typography component="h3" variant="h5" fontWeight="bold">
 					Current Patients
 				</Typography>
 				<TableContainer
@@ -110,7 +113,7 @@ export default function CreateNewPatientPage() {
 										{patient.has_treatment_plan ? "Yes" : "No"}
 									</TableCell>
 									<TableCell align="center">
-										<Button
+										<IconButton
 											onClick={() =>
 												dispatch({
 													type: "DELETE_PATIENT",
@@ -118,8 +121,8 @@ export default function CreateNewPatientPage() {
 												})
 											}
 										>
-											<DeleteForeverIcon />
-										</Button>
+											<DeleteForeverIcon color="error" />
+										</IconButton>
 									</TableCell>
 								</TableRow>
 							))}

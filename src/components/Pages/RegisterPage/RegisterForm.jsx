@@ -40,12 +40,11 @@ function RegisterForm() {
 		<Stack
 			sx={{
 				display: "flex",
-				alignItems: "center",
 			}}
 		>
 			<form className="formPanel" onSubmit={registerUser}>
-				<Typography component="h2" variant="h5">
-					Register User
+				<Typography component="h2" variant="h5" fontWeight="bold">
+					Register as a Therapist
 				</Typography>
 				{errors.registrationMessage && (
 					<Typography
@@ -104,21 +103,7 @@ function RegisterForm() {
 						onChange={(event) => setPassword(event.target.value)}
 					/>
 				</div>
-				<br />
-				{/* <div>
-				<FormLabel htmlFor="is_doctor">Are you a Doctor?:</FormLabel>
-				<RadioGroup
-					defaultValue="No"
-					name="radio-buttons-group"
-					onChange={() => {
-						setIsDoctor(event.target.value);
-					}}
-				>
-					<FormControlLabel value={true} control={<Radio />} label="Yes" />
-					<FormControlLabel value={false} control={<Radio />} label="No" />
-				</RadioGroup>
-			</div> */}
-				<br />
+				<br />{" "}
 				<Box
 					sx={{
 						display: "flex",

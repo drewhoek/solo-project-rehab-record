@@ -11,7 +11,7 @@ function Nav() {
 	return (
 		<div className="nav">
 			<Link to="/home">
-				<Typography component="h2" variant="h4" className="nav-title">
+				<Typography component="h2" variant="h3" className="nav-title">
 					RehabRecord
 				</Typography>
 			</Link>
@@ -34,10 +34,6 @@ function Nav() {
 						<LogOutButton className="navLink" />
 					</>
 				)}
-
-				<Link className="navLink" to="/about">
-					<Typography variant="overline">About</Typography>
-				</Link>
 			</div>
 		</div>
 	);

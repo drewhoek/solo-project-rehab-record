@@ -156,15 +156,34 @@ function RehabTimer() {
 							sx={{
 								display: "flex",
 								justifyContent: "space-evenly",
-								minWidth: "460px",
+								minWidth: "500px",
 							}}
 						>
-							{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
-							<Typography component="h5" variant="h6">
-								Start: {moment(startTime).format("hh:mm A")}
+							<Typography
+								component="h5"
+								variant="h6"
+								fontWeight="bold"
+								sx={{
+									textDecoration: "underline",
+								}}
+							>
+								Start:
 							</Typography>
-							<Typography component="h5" variant="h6">
-								Elapsed: {formatTime(currentTime)}
+							<Typography component="h5" variant="h6" fontWeight="bold">
+								{moment(startTime).format("hh:mm A")}
+							</Typography>
+							<Typography
+								component="h5"
+								variant="h6"
+								fontWeight="bold"
+								sx={{
+									textDecoration: "underline",
+								}}
+							>
+								Elapsed:
+							</Typography>
+							<Typography component="h5" variant="h6" fontWeight="bold">
+								{formatTime(currentTime)}
 							</Typography>
 						</Box>
 					)}
@@ -173,15 +192,35 @@ function RehabTimer() {
 							sx={{
 								display: "flex",
 								justifyContent: "space-evenly",
-								minWidth: "375px",
+								minWidth: "400px",
 							}}
 						>
 							{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
-							<Typography component="h5" variant="h6">
-								Start: {moment(startTime).format("hh:mm A")}
+							<Typography
+								component="h5"
+								variant="h6"
+								fontWeight="bold"
+								sx={{
+									textDecoration: "underline",
+								}}
+							>
+								Start:
 							</Typography>
-							<Typography component="h5" variant="h6">
-								Paused at: {moment(currentTime).format("hh:mm A")}
+							<Typography component="h5" variant="h6" fontWeight="bold">
+								{moment(startTime).format("hh:mm A")}
+							</Typography>
+							<Typography
+								component="h5"
+								variant="h6"
+								fontWeight="bold"
+								sx={{
+									textDecoration: "underline",
+								}}
+							>
+								Paused at:
+							</Typography>
+							<Typography component="h5" variant="h6" fontWeight="bold">
+								{moment(currentTime).format("hh:mm A")}
 							</Typography>
 						</Box>
 					)}
@@ -190,23 +229,71 @@ function RehabTimer() {
 							sx={{
 								display: "flex",
 								justifyContent: "space-evenly",
-								minWidth: "450px",
+								minWidth: "600px",
 							}}
 						>
 							{/* <Typography>Date: {formatDate(startTime)}</Typography> */}
-							<Box>
-								<Typography component="h5" variant="h6">
-									Start: {moment(startTime).format("hh:mm A")}
+							<Box
+								sx={{
+									display: "flex",
+								}}
+							>
+								<Typography
+									component="h5"
+									variant="h6"
+									fontWeight="bold"
+									sx={{
+										textDecoration: "underline",
+										justifyContent: "space-around",
+										width: 60,
+									}}
+								>
+									Start:
+								</Typography>
+								<Typography component="h5" variant="h6" fontWeight="bold">
+									{moment(startTime).format("hh:mm A")}
 								</Typography>
 							</Box>
-							<Box>
-								<Typography component="h5" variant="h6">
-									End: {moment(endTime).format("hh:mm A")}
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-around",
+									minWidth: 150,
+								}}
+							>
+								<Typography
+									component="h5"
+									variant="h6"
+									fontWeight="bold"
+									sx={{
+										textDecoration: "underline",
+									}}
+								>
+									End:
+								</Typography>
+								<Typography component="h5" variant="h6" fontWeight="bold">
+									{moment(endTime).format("hh:mm A")}
 								</Typography>
 							</Box>
-							<Box>
-								<Typography component="h5" variant="h6">
-									Total: {formatTime(endTime)}
+							<Box
+								sx={{
+									display: "flex",
+								}}
+							>
+								<Typography
+									component="h5"
+									variant="h6"
+									fontWeight="bold"
+									sx={{
+										textDecoration: "underline",
+										justifyContent: "space-around",
+										width: 65,
+									}}
+								>
+									Total:
+								</Typography>
+								<Typography component="h5" variant="h6" fontWeight="bold">
+									{formatTime(endTime)}
 								</Typography>
 							</Box>
 						</Box>

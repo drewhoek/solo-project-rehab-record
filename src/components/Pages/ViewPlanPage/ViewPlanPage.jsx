@@ -10,6 +10,7 @@ import {
 	Typography,
 	List,
 	ListItem,
+	Divider,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -82,6 +83,24 @@ export default function ViewPlanPage() {
 		});
 	}
 
+	function determineDisplayedPicture(string) {
+		let picLink;
+		if (string === "Neck") {
+			picLink =
+				"https://res.cloudinary.com/im2015/image/upload/c_scale,w_400/v1591872128/Blog/v2/Neck_Spams_v1-15.jpg";
+		} else if (string == "Lower Back") {
+			picLink =
+				"https://res.cloudinary.com/im2015/image/upload/c_scale,w_400/web/diagnoses/2.jpg";
+		} else if (string == "Mid Back") {
+			picLink =
+				"https://res.cloudinary.com/im2015/image/upload/c_scale,w_400/blog/upper_back_pain_original.jpg";
+		} else {
+			picLink =
+				"http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg";
+		}
+		return picLink;
+	}
+
 	return (
 		<Stack
 			className="container"
@@ -106,40 +125,69 @@ export default function ViewPlanPage() {
 					padding: 3,
 				}}
 			>
-				<Typography variant="h5" component="h4" align="center">
+				<Typography
+					variant="h5"
+					component="h4"
+					align="center"
+					fontWeight="bold"
+				>
 					Viewing Treatment Plan for {treatmentPlanInformation.first_name}{" "}
 					{treatmentPlanInformation.last_name}
 				</Typography>
-				<Typography
-					component="h3"
-					variant="h5"
-					sx={{
-						textDecoration: "underline",
-					}}
-				>
+			</Paper>
+			<Paper
+				elevation={3}
+				sx={{
+					width: 600,
+					display: "flex",
+					alignItems: "center",
+					flexDirection: "column",
+					padding: 3,
+				}}
+			>
+				<Typography component="h3" variant="h5" fontWeight="bold">
 					Overview
 				</Typography>
+				<List
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						flexDirection: "column",
+						textAlign: "center",
+					}}
+				>
+					<ListItem sx={{ display: "flex", justifyContent: "center" }}>
+						<Typography variant="subtitle1" component="h3">
+							Complaint Area: {treatmentPlanInformation.primary_complaint_area}
+						</Typography>
+					</ListItem>
+					<Divider />
+					<ListItem sx={{ display: "flex", justifyContent: "center" }}>
+						<Typography variant="subtitle1" component="h3">
+							Primary Exercise Focus:{" "}
+							{treatmentPlanInformation.primary_exercise_focus}
+						</Typography>
+					</ListItem>
+					<Divider />
 
-				<Typography variant="subtitle1" component="h3">
-					Complaint Area: {treatmentPlanInformation.primary_complaint_area}
-				</Typography>
-				<Typography variant="subtitle1" component="h3">
-					Primary Exercise Focus:{" "}
-					{treatmentPlanInformation.primary_exercise_focus}
-				</Typography>
-				<Typography variant="subtitle1" component="h3">
-					Secondary Exercise Focus:{" "}
-					{treatmentPlanInformation.secondary_exercise_focus}
-				</Typography>
-				{treatmentPlanInformation.notes_for_rehab ? (
-					<Typography variant="subtitle1" component="h3">
-						Notes from Doctor: {treatmentPlanInformation.notes_for_rehab}
-					</Typography>
-				) : (
-					""
-				)}
+					<ListItem sx={{ display: "flex", justifyContent: "center" }}>
+						<Typography variant="subtitle1" component="h3">
+							Secondary Exercise Focus:{" "}
+							{treatmentPlanInformation.secondary_exercise_focus}
+						</Typography>
+					</ListItem>
+					<Divider />
 
-				<br />
+					<ListItem sx={{ display: "flex", justifyContent: "center" }}>
+						{treatmentPlanInformation.notes_for_rehab ? (
+							<Typography variant="subtitle1" component="h3">
+								Notes from Doctor: {treatmentPlanInformation.notes_for_rehab}
+							</Typography>
+						) : (
+							""
+						)}
+					</ListItem>
+				</List>
 			</Paper>
 			<Paper
 				elevation={3}
@@ -155,11 +203,7 @@ export default function ViewPlanPage() {
 					<Typography>No previous visit information</Typography>
 				) : (
 					<>
-						<Typography
-							sx={{ textDecoration: "underline" }}
-							component="h3"
-							variant="h5"
-						>
+						<Typography component="h3" variant="h5" fontWeight="bold">
 							From Previous Visit
 						</Typography>
 						<Typography>Date: {newDate}</Typography>
@@ -168,6 +212,10 @@ export default function ViewPlanPage() {
 								? lastVisitInformation.units_completed
 								: 0}{" "}
 							units completed
+						</Typography>
+						<Typography>
+							Therapist: {lastVisitInformation.first_name}{" "}
+							{lastVisitInformation.last_name}
 						</Typography>
 						<br />
 						<Typography sx={{ textDecoration: "underline" }}>
@@ -212,24 +260,31 @@ export default function ViewPlanPage() {
 					padding: 3,
 				}}
 			>
-				<Typography component="h4" variant="h5">
-					Affected Muscle Group
+				<Typography component="h4" variant="h5" fontWeight="bold">
+					Affected Area
 				</Typography>
-				<br />
 				<img
-					src="http://www.learnmuscles.com/wp-content/uploads/2017/08/figure_1-16B.jpg"
-					width={200}
+					src={determineDisplayedPicture(
+						treatmentPlanInformation.primary_complaint_area
+					)}
+					width={250}
 					height={350}
 				/>
-				<br />
-				<Typography component="h4" variant="h6">
+				<Typography
+					component="h4"
+					variant="h6"
+					sx={{ textDecoration: "underline" }}
+				>
 					Muscle work areas to be completed during rehab visit
 				</Typography>
 				<List>
 					{muscleWorkToBeDoneInformation.map((muscleWork) => (
-						<ListItem key={muscleWork.id}>
-							{muscleWork.muscle_work_name} {muscleWork.muscle_work_type}
-						</ListItem>
+						<>
+							<ListItem key={muscleWork.id}>
+								{muscleWork.muscle_work_name} {muscleWork.muscle_work_type}
+							</ListItem>
+							<Divider />
+						</>
 					))}
 				</List>
 			</Paper>
@@ -243,7 +298,7 @@ export default function ViewPlanPage() {
 					padding: 3,
 				}}
 			>
-				<Typography component="h4" variant="h6">
+				<Typography component="h4" variant="h6" fontWeight="bold">
 					Start a Rehab Visit for this Treatment Plan
 				</Typography>
 				<br />

@@ -27,7 +27,7 @@ function LoginForm() {
 
 	return (
 		<form className="formPanel" onSubmit={login}>
-			<Typography component="h2" variant="h4">
+			<Typography component="h2" variant="h4" fontWeight="bold">
 				Login
 			</Typography>
 			<br />
@@ -68,7 +68,7 @@ function LoginForm() {
 			<br />
 			<div>
 				<Button variant="contained" type="submit" name="submit" value="Log In">
-					Log In
+					Let's Go!
 				</Button>
 			</div>
 		</form>

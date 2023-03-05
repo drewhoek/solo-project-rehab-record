@@ -61,10 +61,9 @@ export default function MuscleWorkDocumentation() {
 					padding: 3,
 				}}
 			>
-				<Typography component="h1" variant="h4">
+				<Typography component="h1" variant="h4" fontWeight="bold">
 					Muscle Work that needs to be done
 				</Typography>
-				<br />
 				<Typography component="h3" variant="h6">
 					Please Mark Off Muscle Work When Complete
 				</Typography>
@@ -88,7 +87,7 @@ export default function MuscleWorkDocumentation() {
 										}
 									>
 										{muscleWork.is_done ? (
-											<CheckBoxSharpIcon fontSize="large" />
+											<CheckBoxSharpIcon fontSize="large" color="success" />
 										) : (
 											<CheckBoxOutlineBlankSharpIcon fontSize="large" />
 										)}

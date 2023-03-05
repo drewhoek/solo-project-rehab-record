@@ -66,14 +66,15 @@ function UserPage() {
 						component="h2"
 						variant="h4"
 						sx={{
-							fontWeight: "medium",
+							fontWeight: "bold",
 						}}
 					>
 						Welcome, {user.first_name}!
 					</Typography>
+					<hr />
 					<br />
 					<Typography component="p" variant="body1">
-						Your are a logged in as a{" "}
+						Currently logged in as a{" "}
 						{user.is_doctor ? "Doctor" : "Rehab Therapist"}
 					</Typography>
 				</Paper>
@@ -140,7 +141,7 @@ function UserPage() {
 					padding: 3,
 				}}
 			>
-				<Typography component="h3" variant="h5">
+				<Typography component="h3" variant="h5" fontWeight="bold">
 					View Treatment Plan for Patient
 				</Typography>
 				<hr />

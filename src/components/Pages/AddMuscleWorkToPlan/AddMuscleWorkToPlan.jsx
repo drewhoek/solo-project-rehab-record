@@ -46,6 +46,7 @@ export default function AddMuscleWorkToPlan() {
 
 	return (
 		<Stack
+			className="container"
 			sx={{
 				display: "flex",
 				alignItems: "center",

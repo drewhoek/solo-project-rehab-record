@@ -99,10 +99,9 @@ export default function ExerciseDocumentationComponent() {
 						alignItems: "center",
 					}}
 				>
-					<Typography component="h4" variant="h4">
+					<Typography component="h4" variant="h4" fontWeight="bold">
 						Add Exercise
 					</Typography>
-					<br />
 					<Typography component="h5" variant="subtitle1">
 						A Record of Exercises Will Show Once an Exercise is Added
 					</Typography>
@@ -245,7 +244,7 @@ export default function ExerciseDocumentationComponent() {
 							alignItems: "center",
 						}}
 					>
-						<Typography component="h4" variant="h4">
+						<Typography component="h4" variant="h4" fontWeight="bold">
 							Current Exercises Done
 						</Typography>
 
