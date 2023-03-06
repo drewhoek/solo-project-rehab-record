@@ -98,7 +98,7 @@ export default function ReviewRehabComponent() {
 					Review
 				</Typography>
 				<Typography component="h5" variant="h6">
-					Review all info and finish when ready
+					Review Info and Finish When Ready
 				</Typography>
 				<br />
 				<Box

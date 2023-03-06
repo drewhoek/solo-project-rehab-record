@@ -224,7 +224,8 @@ export default function ViewPlanPage() {
 							{lastVisitInformation.units_completed
 								? lastVisitInformation.units_completed
 								: 0}{" "}
-							units completed
+							unit{lastVisitInformation.units_completed === 1 ? "" : "s"}{" "}
+							completed
 						</Typography>
 						<Typography>
 							Therapist: {lastVisitInformation.first_name}{" "}

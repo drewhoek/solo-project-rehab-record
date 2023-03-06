@@ -62,7 +62,7 @@ export default function MuscleWorkDocumentation() {
 				}}
 			>
 				<Typography component="h1" variant="h4" fontWeight="bold">
-					Muscle Work that needs to be done
+					Muscle Work That Needs to be Done
 				</Typography>
 				<Typography component="h3" variant="h6">
 					Please Mark Off Muscle Work When Complete
