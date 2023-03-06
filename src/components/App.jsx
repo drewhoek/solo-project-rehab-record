@@ -112,9 +112,6 @@ function App() {
 					</Route>
 				</Switch>
 			</div>
-			{/* <div className="footer">
-				<Footer />
-			</div> */}
 		</Router>
 	);
 }

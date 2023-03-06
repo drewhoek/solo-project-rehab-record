@@ -60,6 +60,7 @@ function RegisterForm() {
 				<Typography component="p" variant="caption">
 					Please fill out all information below
 				</Typography>
+				<br />
 				<div>
 					<TextField
 						type="text"

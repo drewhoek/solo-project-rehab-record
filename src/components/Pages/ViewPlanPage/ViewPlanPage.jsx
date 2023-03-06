@@ -185,9 +185,15 @@ export default function ViewPlanPage() {
 					</ListItem>
 					<Divider />
 
-					<ListItem sx={{ display: "flex", justifyContent: "center" }}>
+					<ListItem
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+						}}
+					>
 						{treatmentPlanInformation.notes_for_rehab ? (
-							<Typography variant="subtitle1" component="h3">
+							<Typography variant="subtitle1" component="h3" textAlign="center">
 								Notes from Doctor: {treatmentPlanInformation.notes_for_rehab}
 							</Typography>
 						) : (

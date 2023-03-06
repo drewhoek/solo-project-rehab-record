@@ -147,9 +147,9 @@ function RehabTimer() {
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					<TimerIcon fontSize="large" />
-					<Typography component="h3" variant="h5">
-						TIMER
+					<TimerIcon fontSize="medium" />
+					<Typography component="h3" variant="h6">
+						Timer
 					</Typography>
 				</Box>
 				<Box>
@@ -158,7 +158,7 @@ function RehabTimer() {
 							sx={{
 								display: "flex",
 								justifyContent: "space-evenly",
-								minWidth: "500px",
+								minWidth: "475px",
 							}}
 						>
 							<Typography
