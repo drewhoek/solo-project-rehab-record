@@ -111,10 +111,10 @@ export default function ViewPlanPage() {
 				alignItems: "center",
 			}}
 		>
-			<pre>{JSON.stringify(lastVisitInformation)}</pre>
+			{/* <pre>{JSON.stringify(lastVisitInformation)}</pre> */}
 			{/* <pre>{JSON.stringify(treatmentPlanInformation)}</pre> */}
 			{/* <pre>{JSON.stringify(muscleWorkToBeDoneInformation)}</pre> */}
-			<pre>{JSON.stringify(exercisesDoneLastVisit)}</pre>
+			{/* <pre>{JSON.stringify(exercisesDoneLastVisit)}</pre> */}
 
 			<Paper
 				elevation={3}

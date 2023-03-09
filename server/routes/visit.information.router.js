@@ -35,7 +35,7 @@ router.get('/patient', rejectUnauthenticated, (req, res) => {
 router.get('/patient-recent-visit/:treatmentId', rejectUnauthenticated, (req, res) => {
     console.log('GET request on /visit-information for specific patients last visit in visit information router');
     const treatmentId = req.params.treatmentId;
-    const queryText = `SELECT * FROM "visit_information" 
+    const queryText = `SELECT "visit_information"."id" as "id", "date", "time_in", "time_out", "total_time", "therapist", "units_completed", "treatment_plan_id", "first_name", "last_name" FROM "visit_information" 
     JOIN "user" ON "visit_information"."therapist" = "user"."id"
     WHERE "treatment_plan_id" = $1 
     ORDER BY "date" DESC LIMIT 1;
