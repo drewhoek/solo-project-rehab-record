@@ -38,7 +38,7 @@ router.get('/patient-recent-visit/:treatmentId', rejectUnauthenticated, (req, re
     const queryText = `SELECT * FROM "visit_information" 
     JOIN "user" ON "visit_information"."therapist" = "user"."id"
     WHERE "treatment_plan_id" = $1 
-    ORDER BY "date" ASC LIMIT 1;
+    ORDER BY "date" DESC LIMIT 1;
     `;
     pool
         .query(queryText, [treatmentId])
