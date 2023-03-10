@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 export default function Footer() {
@@ -6,16 +6,20 @@ export default function Footer() {
 		<Box
 			textAlign="center"
 			sx={{
-				display: "flex",
-				justifyContent: "center",
-				position: "absolute",
-				left: 0,
-				bottom: 0,
-				right: 0,
+				paddingBottom: 2,
 			}}
 		>
 			<Typography component="h5" variant="caption">
-				2023 Rehab Record
+				2023 RehabRecord
+			</Typography>
+			<Typography component="h5" variant="caption">
+				All images provided by{" "}
+				<Link
+					href="https://www.injurymap.com/free-human-anatomy-illustrations"
+					variant="caption"
+				>
+					InjuryMap
+				</Link>
 			</Typography>
 		</Box>
 	);

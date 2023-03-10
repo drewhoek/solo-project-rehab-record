@@ -1,7 +1,7 @@
 html,
 body,
 #react-root {
-  height: 100%;
+  min-height: 100vh;
 }
 
 body {
@@ -108,5 +108,12 @@ Alert
 }
 
 /* --------------------------------------------------------------------------------
-Enable/Disable variation autcomplete
+footer
 -------------------------------------------------------------------------------- */
+
+.footer {
+  right: relative;
+  bottom: relative;
+  left: relative;
+  margin-bottom: 2;
+}

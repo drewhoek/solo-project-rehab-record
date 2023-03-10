@@ -32,87 +32,90 @@ function App() {
 	}, [dispatch]);
 
 	return (
-		<Router>
-			<div className="content">
-				<Nav />
+		<>
+			<Router>
+				<div className="content">
+					<Nav />
 
-				<Switch>
-					{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-					<Redirect exact from="/" to="/home" />
+					<Switch>
+						{/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+						<Redirect exact from="/" to="/home" />
 
-					{/* For protected routes, the view could show one of several things on the same route.
+						{/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-					<ProtectedRoute
-						// logged in shows UserPage else shows LoginPage
-						exact
-						path="/user"
-					>
-						<UserPage />
-					</ProtectedRoute>
+						<ProtectedRoute
+							// logged in shows UserPage else shows LoginPage
+							exact
+							path="/user"
+						>
+							<UserPage />
+						</ProtectedRoute>
 
-					<ProtectedRoute exact path="/add-patient">
-						<CreateNewPatientPage />
-					</ProtectedRoute>
+						<ProtectedRoute exact path="/add-patient">
+							<CreateNewPatientPage />
+						</ProtectedRoute>
 
-					<ProtectedRoute exact path="/rehab/:id">
-						<RehabTimer />
-						<MainRehabPage />
-					</ProtectedRoute>
+						<ProtectedRoute exact path="/rehab/:id">
+							<RehabTimer />
+							<MainRehabPage />
+						</ProtectedRoute>
 
-					<ProtectedRoute exact path="/make-treatment-plan">
-						<MakeTreatmentPlanPage />
-					</ProtectedRoute>
+						<ProtectedRoute exact path="/make-treatment-plan">
+							<MakeTreatmentPlanPage />
+						</ProtectedRoute>
 
-					<ProtectedRoute exact path="/add-muscle-work-to-plan/:id">
-						<AddMuscleWorkToPlan />
-					</ProtectedRoute>
+						<ProtectedRoute exact path="/add-muscle-work-to-plan/:id">
+							<AddMuscleWorkToPlan />
+						</ProtectedRoute>
 
-					<ProtectedRoute exact path="/view-treatment-plan/:id">
-						<ViewPlanPage />
-					</ProtectedRoute>
+						<ProtectedRoute exact path="/view-treatment-plan/:id">
+							<ViewPlanPage />
+						</ProtectedRoute>
 
-					<Route exact path="/login">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the login page
-							<LoginPage />
-						)}
-					</Route>
+						<Route exact path="/login">
+							{user.id ? (
+								// If the user is already logged in,
+								// redirect to the /user page
+								<Redirect to="/user" />
+							) : (
+								// Otherwise, show the login page
+								<LoginPage />
+							)}
+						</Route>
 
-					<Route exact path="/registration">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect them to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the registration page
-							<RegisterPage />
-						)}
-					</Route>
+						<Route exact path="/registration">
+							{user.id ? (
+								// If the user is already logged in,
+								// redirect them to the /user page
+								<Redirect to="/user" />
+							) : (
+								// Otherwise, show the registration page
+								<RegisterPage />
+							)}
+						</Route>
 
-					<Route exact path="/home">
-						{user.id ? (
-							// If the user is already logged in,
-							// redirect them to the /user page
-							<Redirect to="/user" />
-						) : (
-							// Otherwise, show the Landing page
-							<LandingPage />
-						)}
-					</Route>
+						<Route exact path="/home">
+							{user.id ? (
+								// If the user is already logged in,
+								// redirect them to the /user page
+								<Redirect to="/user" />
+							) : (
+								// Otherwise, show the Landing page
+								<LandingPage />
+							)}
+						</Route>
 
-					{/* If none of the other routes matched, we will show a 404. */}
-					<Route>
-						<h1>404</h1>
-					</Route>
-				</Switch>
-			</div>
-		</Router>
+						{/* If none of the other routes matched, we will show a 404. */}
+						<Route>
+							<h1>404</h1>
+						</Route>
+					</Switch>
+					<Footer className="footer" />
+				</div>
+			</Router>
+		</>
 	);
 }
 
